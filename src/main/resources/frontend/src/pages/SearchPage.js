@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import ResidenceList from "../components/ResidenceList";
-import { SearchResultContext } from "../contexts/SearchResultContext";
+import {ResidenceContext} from '../contexts/ResidenceContextProvider'
 import SearchFilter from "../components/SearchFilter"
 import {
   Dropdown,
@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 
 const SearchPage = () => {
-  const { searchResults } = useContext(SearchResultContext);
+  const { residences } = useContext(ResidenceContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen(prevState => !prevState);
@@ -26,8 +26,8 @@ const SearchPage = () => {
       </Dropdown>
 
       <h1 className="text-center">Search</h1>
-      {searchResults.map(result => (
-        <ResidenceList key={result.id} result={result} />
+      {residences.map(residence => (
+        <ResidenceList key={residence.residence_id} residence={residence} />
       ))}
     </div>
   );
