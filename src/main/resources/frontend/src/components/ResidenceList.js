@@ -5,22 +5,17 @@ import {ResidenceContext} from '../contexts/ResidenceContextProvider'
 const ResidenceList = ({ result }) => {
   const {residences} = useContext(ResidenceContext)
 
-  return residences.map((residence, i) => {
     return(
-    <h2>{residence.beds} {residence.rooms}</h2>
-    )
-  }) (
-
-    // <div style={{ borderRadius: "15px"}} className="Card bg-warning my-3">
-    //   <img src={result.image} alt="" className="card-img-top p-3" />
-    //     <div className="card-body row px-2">
-    //       <h5 className="card-title col-6 text-left">
-    //         {result.streetName}
-    //       </h5>
-    //       <h5 className="card-text col-6 text-right">{result.pris}</h5>
-    //       <p className="card-text col-12 mt-2">{result.text}</p>
-    //     </div>
-    //   </div>
+    <div style={{ borderRadius: "15px"}} className="Card bg-warning my-3">
+      <img src={result.image} alt="" className="card-img-top p-3" />
+       <div className="card-body row px-2">
+          <h5 className="card-title col-6 text-left">
+            {result.streetName}
+         </h5>
+        <h5 className="card-text col-6 text-right">{result.pris}</h5>
+          <p className="card-text col-12 mt-2">{result.text}</p>
+        </div>
+      </div>
   );
 };
 
