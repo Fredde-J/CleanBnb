@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 
 import {ResidenceContext} from '../contexts/ResidenceContextProvider'
 
+
+//Cards for residences
 const ResidenceList = ({ result }) => {
   const {residences} = useContext(ResidenceContext)
 
