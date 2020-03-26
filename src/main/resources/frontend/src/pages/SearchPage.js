@@ -26,9 +26,7 @@ const SearchPage = () => {
       </Dropdown>
 
       <h1 className="text-center">Search</h1>
-      {residences.map(residence => (
-        <ResidenceList key={residence.residence_id} residence={residence} />
-      ))}
+        <ResidenceList key={residences.residence_id} residence={residences.residence} />
     </div>
   );
 };

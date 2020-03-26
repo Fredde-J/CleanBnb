@@ -29,8 +29,18 @@ public class Residence {
     private Boolean washing_machine;
     private Boolean fridge;
     private Boolean freezer;
+    private String address;
 
     public Residence() {}
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public int getResidenceId() {
         return residenceId;
