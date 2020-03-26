@@ -9,7 +9,7 @@ const ResidenceList = ({ result }) => {
 
   return residences.map((residence, i) => {
     return(
-    <div style={{ borderRadius: "15px"}} className="Card bg-warning my-3">
+    <div key={residence.residenceId + i} style={{ borderRadius: "15px"}} className="Card bg-warning my-3">
       {/* <img src={result.image} alt="" className="card-img-top p-3" /> */}
        <div className="card-body row px-2">
           <h5 className="card-title col-6 text-left">
