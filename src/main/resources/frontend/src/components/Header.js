@@ -18,7 +18,7 @@ const Header = () => {
     <>
       
       <Navbar color="warning" light expand="md">
-        <NavbarBrand href="/#" className="center header-navbarTitle">
+        <NavbarBrand href="/" className="center header-navbarTitle">
           ClearBnB
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />

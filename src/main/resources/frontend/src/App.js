@@ -21,7 +21,7 @@ function App() {
               <Route exact path="/" component={StartPage} />
               <Route exact path="/search" component={SearchPage} />
               <Route exact path="/info" component={InfoPage}/> 
-              <Route exact path="/Companyinfo" component={CompanyInfoPage}/> 
+              <Route exact path="/companyinfo" component={CompanyInfoPage}/> 
             </Switch>
           </main>
         </ResidenceContextProvider>
