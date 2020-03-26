@@ -14,19 +14,22 @@ const SearchPage = () => {
 
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
+  const dropDownButton = {
+    width: "100%"
+  }
 
   return (
-    <div className="container row">
+    <div className="container">
 
       <Dropdown  className="warning my-3 col-12" isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle color="warning" caret>Sökfilter</DropdownToggle>
+        <DropdownToggle style={dropDownButton} color="warning" caret>Sökfilter</DropdownToggle>
         <DropdownMenu>
             <SearchFilter/>
         </DropdownMenu>
       </Dropdown>
 
       {searchResults.map(result => (
-        <ResidenceList key={result.id} result={result} />
+        <ResidenceList style={dropDownButton}key={result.id} result={result} />
       ))}
 
     </div>
