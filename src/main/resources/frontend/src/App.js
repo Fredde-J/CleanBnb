@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import StartPage from "./pages/StartPage";
 import SearchPage from "./pages/SearchPage";
 import SearchResultContextProvider from "./contexts/SearchResultContext";
+import ResidenceContextProvider from "./contexts/ResidenceContextProvider";
 
 import "./css/style.css";
 
@@ -13,6 +14,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
+        <ResidenceContextProvider>
         <SearchResultContextProvider>
           <main>
             <Switch>
@@ -21,6 +23,7 @@ function App() {
             </Switch>
           </main>
         </SearchResultContextProvider>
+        </ResidenceContextProvider>
         {/* <Footer /> */}
       </div>
     </BrowserRouter>
