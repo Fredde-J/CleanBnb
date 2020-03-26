@@ -11,6 +11,4 @@ public interface ResidenceRepo extends CrudRepository<Residence, Integer> {
 
     public Residence findById(int id);
 
-    public List<Residence> findAllBySize(int size);
-    public List<Residence> findAllByBeds(int beds);
 }

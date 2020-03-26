@@ -3,12 +3,13 @@ package com.example.demo.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Residence")
+@Table(name = "residences")
 public class Residence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int residenceId;
+
     private  int size;
     private int rooms;
     private int beds;

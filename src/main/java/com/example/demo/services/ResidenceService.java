@@ -13,9 +13,7 @@ public class ResidenceService {
     @Autowired
     private ResidenceRepo residenceRepo;
 
-    public List<Residence> getAllResidences() {
-        return ( (List<Residence>) residenceRepo.findAll());
-    }
+    public List<Residence> getAllResidences() { return  (List<Residence>) residenceRepo.findAll(); }
 
     public Residence getResidence(int id) {
         return residenceRepo.findById(id);
