@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import StartPage from "./pages/StartPage";
 import SearchPage from "./pages/SearchPage";
+import SearchResultContextProvider from "./contexts/SearchResultContext";
 import ResidenceContextProvider from "./contexts/ResidenceContextProvider";
 import InfoPage from "./pages/InfoPage";
 import CompanyInfoPage from "./pages/CompanyInfoPage"
@@ -16,6 +17,7 @@ function App() {
       <div className="App">
         <Header />
         <ResidenceContextProvider>
+        <SearchResultContextProvider>
           <main>
             <Switch>
               <Route exact path="/" component={StartPage} />
@@ -24,6 +26,7 @@ function App() {
               <Route exact path="/Companyinfo" component={CompanyInfoPage}/> 
             </Switch>
           </main>
+        </SearchResultContextProvider>
         </ResidenceContextProvider>
         {/* <Footer /> */}
       </div>

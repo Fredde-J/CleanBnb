@@ -3,32 +3,20 @@ package com.example.demo.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "proto_residences")
+@Table(name = "residences")
 public class Residence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int residenceId;
 
-    private  Integer size;
-    private Integer rooms;
-    private Integer beds;
+    private  int size;
+    private int rooms;
+    private int beds;
     private String images;
-    @JoinColumn
-    private Integer amenityProfileId;
-    @JoinColumn
-    private Integer addressId;
-    @JoinColumn
-    private Integer userId;
-
-    private Boolean balcony;
-    private Boolean wifi;
-    private Boolean tv;
-    private Boolean bathtub;
-    private Boolean dishwasher;
-    private Boolean washing_machine;
-    private Boolean fridge;
-    private Boolean freezer;
+    private int amenityProfileId;
+    private int addressId;
+    private int userId;
 
     public Residence() {}
 
@@ -40,27 +28,27 @@ public class Residence {
         this.residenceId = residenceId;
     }
 
-    public Integer getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
-    public Integer getRooms() {
+    public int getRooms() {
         return rooms;
     }
 
-    public void setRooms(Integer rooms) {
+    public void setRooms(int rooms) {
         this.rooms = rooms;
     }
 
-    public Integer getBeds() {
+    public int getBeds() {
         return beds;
     }
 
-    public void setBeds(Integer beds) {
+    public void setBeds(int beds) {
         this.beds = beds;
     }
 
@@ -72,91 +60,27 @@ public class Residence {
         this.images = images;
     }
 
-    public Integer getAmenityProfileId() {
+    public int getAmenityProfileId() {
         return amenityProfileId;
     }
 
-    public void setAmenityProfileId(Integer amenityProfileId) {
+    public void setAmenityProfileId(int amenityProfileId) {
         this.amenityProfileId = amenityProfileId;
     }
 
-    public Integer getAddressId() {
+    public int getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(Integer addressId) {
+    public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public Boolean getBalcony() {
-        return balcony;
-    }
-
-    public void setBalcony(Boolean balcony) {
-        this.balcony = balcony;
-    }
-
-    public Boolean getWifi() {
-        return wifi;
-    }
-
-    public void setWifi(Boolean wifi) {
-        this.wifi = wifi;
-    }
-
-    public Boolean getTv() {
-        return tv;
-    }
-
-    public void setTv(Boolean tv) {
-        this.tv = tv;
-    }
-
-    public Boolean getBathtub() {
-        return bathtub;
-    }
-
-    public void setBathtub(Boolean bathtub) {
-        this.bathtub = bathtub;
-    }
-
-    public Boolean getDishwasher() {
-        return dishwasher;
-    }
-
-    public void setDishwasher(Boolean dishwasher) {
-        this.dishwasher = dishwasher;
-    }
-
-    public Boolean getWashing_machine() {
-        return washing_machine;
-    }
-
-    public void setWashing_machine(Boolean washing_machine) {
-        this.washing_machine = washing_machine;
-    }
-
-    public Boolean getFridge() {
-        return fridge;
-    }
-
-    public void setFridge(Boolean fridge) {
-        this.fridge = fridge;
-    }
-
-    public Boolean getFreezer() {
-        return freezer;
-    }
-
-    public void setFreezer(Boolean freezer) {
-        this.freezer = freezer;
     }
 }
