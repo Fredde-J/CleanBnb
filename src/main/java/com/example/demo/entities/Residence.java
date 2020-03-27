@@ -22,8 +22,9 @@ public class Residence {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Address address;
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
-    private Integer userId;
+    private User user;
 
     public Residence() {}
 
@@ -83,11 +84,11 @@ public class Residence {
         this.address = address;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
