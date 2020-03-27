@@ -1,33 +1,29 @@
-import React,{createContext, useState, useEffect} from 'react';
+import React, { createContext, useState, useEffect } from "react";
 
-export const ResidenceContext = createContext()
+export const ResidenceContext = createContext();
 
 export default function ResidenceContextProvider(props) {
+  const [residences, setResidences] = useState([]);
 
-    const [residences, setResidences] = useState([])
+  const fetchResidences = async () => {
+    let res = await fetch("/rest/residences");
+    res = await res.json();
+    console.log(res);
+    setResidences(res);
+  };
 
-    const fetchResidences = async () => {
-        let res = await fetch('/rest/residences')
-        res = await res.json()
-        console.log(res)
-        setResidences(res)
-    }
+  useEffect(() => {
+    fetchResidences();
+  }, []);
 
-    useEffect(() => {
-        fetchResidences()
-    }, [])
+  const values = {
+    residences,
+    setResidences
+  };
 
-    const values = {
-        residences,
-        setResidences
-    }
-
-
-
-    return(
-        <ResidenceContext.Provider value={values}>
-            {props.children}
-        </ResidenceContext.Provider>
-    )
+  return (
+    <ResidenceContext.Provider value={values}>
+      {props.children}
+    </ResidenceContext.Provider>
+  );
 }
-
