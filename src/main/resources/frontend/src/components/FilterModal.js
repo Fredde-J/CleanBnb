@@ -8,6 +8,7 @@ import "react-calendar/dist/Calendar.css";
 import CheckIn from "./CheckIn";
 import CheckOut from "./CheckOut";
 import PriceRange from "./PriceRange";
+import CheckBoxes from "./CheckBoxes"
 
 const ModalExample = props => {
   const [modal, setModal] = useState(false);
@@ -29,6 +30,9 @@ const ModalExample = props => {
             <CheckIn />
             <CheckOut />
           </div>
+          
+            <CheckBoxes/>
+          
         </ModalBody>
         <ModalFooter>
           <Button color="warning" onClick={toggle}>
