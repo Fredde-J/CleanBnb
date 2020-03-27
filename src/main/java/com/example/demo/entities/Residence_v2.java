@@ -1,8 +1,11 @@
 package com.example.demo.entities;
+import jdk.jfr.BooleanFlag;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "residences")
+@Table(name = "proto_residences")
 public class Residence_v2 {
 
     @Id
@@ -21,13 +24,29 @@ public class Residence_v2 {
     @JoinColumn
     private Integer userId;
 
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean balcony;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean wifi;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean tv;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean bathtub;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean dishwasher;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean washing_machine;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean fridge;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean freezer;
     private String address;
 

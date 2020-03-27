@@ -1,9 +1,11 @@
 package com.example.demo.entities;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "proto_residences")
+@Table(name = "residences")
 public class Residence {
 
     @Id
@@ -16,31 +18,38 @@ public class Residence {
     private String images;
     @JoinColumn
     private Integer amenityProfileId;
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
-    private Integer addressId;
+    private Address address;
     @JoinColumn
     private Integer userId;
 
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean balcony;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean wifi;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean tv;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean bathtub;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean dishwasher;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean washing_machine;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean fridge;
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean freezer;
-    private String address;
 
     public Residence() {}
-
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public int getResidenceId() {
         return residenceId;
@@ -90,12 +99,12 @@ public class Residence {
         this.amenityProfileId = amenityProfileId;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Integer getUserId() {
