@@ -13,7 +13,7 @@ const ResidenceList = ({ result }) => {
       {/* <img src={result.image} alt="" className="card-img-top p-3" /> */}
        <div className="card-body row px-2">
           <h5 className="card-title col-6 text-left">
-            {residence.address}
+            {residence.address.streetName} {residence.address.streetNumber}
           </h5>
           <h5 className="card-text col-6 text-right">{residence.size}</h5>
           <p className="card-text col-12 mt-2">{residence.rooms}</p>
