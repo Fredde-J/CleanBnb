@@ -1,28 +1,16 @@
 package com.example.demo.entities;
-import jdk.jfr.BooleanFlag;
+
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "proto_residences")
-public class Residence_v2 {
+@Table(name = "amenity")
+public class Amenity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int residenceId;
-
-    private  Integer size;
-    private Integer rooms;
-    private Integer beds;
-    private String images;
-    @JoinColumn
-    private Integer amenityProfileId;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private Address addressId;
-    @JoinColumn
-    private Integer userId;
+    private int amenityId;
 
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
@@ -48,81 +36,15 @@ public class Residence_v2 {
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean freezer;
-    private String address;
 
-    public Residence_v2() {}
+    public Amenity() {}
 
-
-    public String getAddress() {
-        return address;
+    public int getAmenityId() {
+        return amenityId;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getResidenceId() {
-        return residenceId;
-    }
-
-    public void setResidenceId(int residenceId) {
-        this.residenceId = residenceId;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public Integer getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(Integer rooms) {
-        this.rooms = rooms;
-    }
-
-    public Integer getBeds() {
-        return beds;
-    }
-
-    public void setBeds(Integer beds) {
-        this.beds = beds;
-    }
-
-    public String getImages() {
-        return images;
-    }
-
-    public void setImages(String images) {
-        this.images = images;
-    }
-
-    public Integer getAmenityProfileId() {
-        return amenityProfileId;
-    }
-
-    public void setAmenityProfileId(Integer amenityProfileId) {
-        this.amenityProfileId = amenityProfileId;
-    }
-
-    public Address getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Address addressId) {
-        this.addressId = addressId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setAmenityId(int amenityId) {
+        this.amenityId = amenityId;
     }
 
     public Boolean getBalcony() {
