@@ -19,7 +19,7 @@ function App() {
         <ResidenceContextProvider>
           <main className="container">
             <Switch>
-              <Route exact path="/residence" component={ResidentPage} />  
+              <Route exact path="/residences/:residenceId" component={ResidentPage} />  
               <Route exact path="/" component={StartPage} />
               <Route exact path="/search" component={SearchPage} />
               <Route exact path="/info" component={InfoPage}/> 

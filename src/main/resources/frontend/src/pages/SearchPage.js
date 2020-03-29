@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import FilterModal from "../components/FilterModal";
-import { ResidenceContext } from "../contexts/ResidenceContextProvider";
-import ResidenceCard from "../components/ResidenceCard";
 import { Row } from "reactstrap";
 
-const SearchPage = () => {
+import FilterModal from "../components/FilterModal";
+import ResidenceCard from "../components/ResidenceCard";
+import { ResidenceContext } from "../contexts/ResidenceContextProvider";
+
+const SearchPage = props => {
   const { residences } = useContext(ResidenceContext);
 
   return (

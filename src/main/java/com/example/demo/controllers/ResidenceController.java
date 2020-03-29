@@ -16,7 +16,7 @@ public class ResidenceController {
     private ResidenceService residenceService;
 
     @GetMapping("/rest/residences")
-    public List<Residence> GetAllResidences() {
+    public List<Residence> getAllResidences() {
         return residenceService.getAllResidences();
     }
 

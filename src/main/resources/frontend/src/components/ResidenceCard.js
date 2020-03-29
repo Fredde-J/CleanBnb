@@ -6,11 +6,20 @@ import {
   topPStyle,
   bottomPStyle
 } from "../css/ResidenceCardStyle";
+import { withRouter } from "react-router-dom";
 
-const ResidenceCard = ({ residence }) => {
+const ResidenceCard = ({ residence, history }) => {
+  const goToResidencePage = id => {
+    history.push(`/residences/${id}`)
+  };
+
   return (
     <Col xs="12" md="6">
-      <div style={divStyle} className="card my-3 p-2">
+      <div
+        style={divStyle}
+        className="card my-3 p-3"
+        onClick={() => goToResidencePage(residence.residenceId)}
+      >
         <img
           style={imgStyle}
           src={residence.images}
@@ -33,4 +42,4 @@ const ResidenceCard = ({ residence }) => {
   );
 };
 
-export default ResidenceCard;
+export default withRouter(ResidenceCard);

@@ -10,5 +10,4 @@ import java.util.List;
 public interface ResidenceRepo extends CrudRepository<Residence, Integer> {
 
     public Residence findById(int id);
-
 }
