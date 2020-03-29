@@ -7,7 +7,6 @@ import {
   signin,
   createAccount
 } from "../css/startPageStyle.js";
-import "../css/startPageStyle.css"
 
 const StartPage = props => {
   const goToSearch = () => {
