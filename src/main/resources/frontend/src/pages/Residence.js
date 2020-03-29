@@ -8,29 +8,29 @@ const cardStyle = {
 
   
 }
-
 const pStyle1 = {
-  fontSize: "1em"
+  fontSize: "1.4em"
 }
 
 const pStyle2 = {
-  fontSize: "1.4em"
+  fontSize: "1em"
 }
+
 
 const Residence = () => {
   return ( 
     <div style={cardStyle}className="Card row col-11 col-md-10 bg-warning mx-auto mt-3">
-      <img className="card-img-top p-3" src="/images/lägenhet1.jpg"></img>
+      <img className="card-img-top m-3" src="/images/lägenhet1.jpg" alt=""></img>
 
       <div className="card-body">
 
         <div className="row">
-          <p style={pStyle2}className="col m-0">Malmö</p>
-          <p style={pStyle2}className="text-right col m-0">2000 - 4000</p>
+          <p style={pStyle1}className="col m-0">Malmö</p>
+          <p style={pStyle1}className="text-right col m-0">2000 - 4000</p>
         </div>
         <div className="row">
-          <p style={pStyle1} className="col-5 m-0 ">Storgatan 12</p>
-          <p style={pStyle1} className="text-right col-7 m-0">23 Mars - 22 Mars</p>
+          <p style={pStyle2} className="col-5 m-0 ">Storgatan 12</p>
+          <p style={pStyle2} className="text-right col-7 m-0">23 Mars - 22 Mars</p>
         </div>
 
         

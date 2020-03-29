@@ -1,5 +1,5 @@
 import React , {useState} from 'react'
-import {inputSize} from '../css/checkBoxStyle'
+import {inputSize} from '../../css/checkBoxStyle'
 
 
 const CheckBoxes = () => {

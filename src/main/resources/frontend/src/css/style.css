@@ -1,21 +1,14 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 .App {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background-size: cover;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/10/Empire_State_Building_%28aerial_view%29.jpg');
-    background-position: fixed;
 }
 
 main {
-    background-image: url("/images/empireStateBuilding.jpg");
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/10/Empire_State_Building_%28aerial_view%29.jpg');
     background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
     flex: 1;
 }
 

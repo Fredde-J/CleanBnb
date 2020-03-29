@@ -17,7 +17,7 @@ function App() {
       <div className="App">
         <Header />
         <ResidenceContextProvider>
-          <main>
+          <main className="container">
             <Switch>
               <Route exact path="/residence" component={ResidentPage} />  
               <Route exact path="/" component={StartPage} />

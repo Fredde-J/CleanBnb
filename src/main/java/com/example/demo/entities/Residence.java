@@ -12,10 +12,11 @@ public class Residence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int residenceId;
 
-    private  Integer size;
+    private Integer size;
     private Integer rooms;
     private Integer beds;
     private String images;
+    private Integer price;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Amenity amenity;
@@ -67,6 +68,10 @@ public class Residence {
     public void setImages(String images) {
         this.images = images;
     }
+
+    public Integer getPrice() { return price; }
+
+    public void setPrice(Integer price) { this.price = price; }
 
     public Amenity getAmenity() {
         return amenity;

@@ -2,23 +2,27 @@
 
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-import CheckIn from "./CheckIn";
-import CheckOut from "./CheckOut";
-import PriceRange from "./PriceRange";
-import CheckBoxes from "./CheckBoxes";
-import Beds from "./Beds"
+import CheckIn from "./filterComponents/CheckIn";
+import CheckOut from "./filterComponents/CheckOut";
+import PriceRange from "./filterComponents/PriceRange";
+import CheckBoxes from "./filterComponents/CheckBoxes";
+import Beds from "./filterComponents/Beds"
 
 const ModalExample = props => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
 
+  const buttonStyle = {
+    borderRadius: "15px",
+    fontSize: "3em"
+  }
+
   return (
-    <div>
-      <Button color="warning" onClick={toggle}>
+    <div className="col-12 my-3">
+      <Button style={buttonStyle} color="warning" onClick={toggle} className="col-12">
         Sökfilter
       </Button>
       <Modal isOpen={modal} toggle={toggle} className="">
