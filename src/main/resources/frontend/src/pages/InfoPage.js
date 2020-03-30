@@ -1,12 +1,9 @@
 import React from "react";
 import {
   Card,
-  CardBody,
   Container,
   CardTitle,
   CardText,
-  CardSubtitle,
-  CardHeader
 } from "reactstrap";
 
 const InfoPage = () => {
