@@ -5,9 +5,8 @@ import {
   beginSearchText,
   buttons,
   signin,
-  createAccount,
+  createAccount
 } from "../css/startPageStyle.js";
-import "../css/startPageStyle.css"
 
 const StartPage = props => {
   const goToSearch = () => {
@@ -15,9 +14,9 @@ const StartPage = props => {
   };
 
   return (
-    <div className="container">
+    <>
       <div
-        className="begin-search card row col-12 col-md-6 mx-auto mt-5 mb-5"
+        className="begin-search card row col-12 col-md-6 mx-auto mt-5 mb-5 bg-warning"
         style={beginSearch}
         onClick={goToSearch}
       >
@@ -62,7 +61,7 @@ const StartPage = props => {
 
       <div
         className="create-account card m-4 bg-transparent row"
-        syle={createAccount}
+        style={createAccount}
       >
         <p className="text-center text-white col-12 m-0 font-weight-bold">
           Inte registrerad?
@@ -74,7 +73,7 @@ const StartPage = props => {
           Skapa Konto
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
