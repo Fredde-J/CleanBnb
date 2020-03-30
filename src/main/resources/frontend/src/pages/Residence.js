@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 
-import { imgStyle, divStyle } from "../css/ResidenceCardStyle";
+import {
+  imgStyle,
+  divStyle,
+  pTagStyle1,
+  pTagStyle2,
+  pTagStyle3
+} from "../css/ResidenceCardStyle";
 
 const Residence = props => {
   const [residence, setResidence] = useState(null);
@@ -15,7 +21,7 @@ const Residence = props => {
 
   useEffect(() => {
     fetchOneResidence(props.match.params.residenceId);
-  }, []);
+  }, [props.match.params.residenceId]);
 
   return (
     <>
@@ -30,17 +36,30 @@ const Residence = props => {
                 alt=""
               ></img>
               <div className="card-body row">
-                <p className="col m-0">Malmö</p>
-                <p className="text-right col m-0">2000 - 4000</p>
-                <p className="col-5 m-0 ">Storgatan 12</p>
-                <p className="text-right col-7 m-0">23 Mars - 22 Mars</p>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam alias dolorum, doloribus facilis provident vitae
-                  consectetur repellendus quam placeat, cupiditate nostrum unde
-                  voluptate saepe harum temporibus quasi mollitia ratione
-                  praesentium.
+                <p style={pTagStyle1} className="col-6 m-0 p-0">
+                  {residence.address.city}
                 </p>
+                <p style={pTagStyle1} className="text-right col-6 m-0 p-0">
+                  {residence.price} / natt
+                </p>
+                <p className="col-5 m-0 p-0">
+                  {residence.address.streetName}{" "}
+                  {residence.address.streetNumber}
+                </p>
+                <p className="text-right col-7 m-0 p-0">(Datum tillgänglig)</p>
+                <p style={pTagStyle2} className="my-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
+                  ab praesentium facilis rerum doloremque. Quidem aspernatur,
+                  beatae, omnis suscipit veniam modi doloribus eius assumenda
+                  placeat neque nam, magni ipsam sit?
+                </p>
+                <Row>
+                  <Col xs="12">
+                    <p style={pTagStyle3} className="col-12 m-0 p-0">
+                      Bekvämligheter
+                    </p>
+                  </Col>
+                </Row>
               </div>
             </div>
           </Col>
