@@ -1,7 +1,7 @@
 import React from "react";
 import { Col } from "reactstrap";
 import {
-  divStyle,
+  divStyle1,
   imgStyle,
   topPStyle,
   bottomPStyle
@@ -10,13 +10,13 @@ import { withRouter } from "react-router-dom";
 
 const ResidenceCard = ({ residence, history }) => {
   const goToResidencePage = id => {
-    history.push(`/residences/${id}`)
+    history.push(`/residences/${id}`);
   };
 
   return (
     <Col xs="12" md="6">
       <div
-        style={divStyle}
+        style={divStyle1}
         className="card my-3 p-3"
         onClick={() => goToResidencePage(residence.residenceId)}
       >
@@ -27,14 +27,17 @@ const ResidenceCard = ({ residence, history }) => {
           className="card-img-top"
         />
         <div className="card-body row">
-          <p style={topPStyle} className="col-6 text-left m-0 p-0">
+          <p style={topPStyle} className="col-6 text-left">
             {residence.address.city}
           </p>
-          <p style={topPStyle} className="col-6 text-right m-0 p-0">
+          <p style={topPStyle} className="col-6 text-right">
             {residence.price}kr / Natt
           </p>
-          <p style={bottomPStyle} className="col-12 m-0 p-0">
+          <p style={bottomPStyle} className="col-6">
             {residence.beds} {residence.beds > 1 ? "st sängar" : "st säng"}
+          </p>
+          <p style={bottomPStyle} className="col-6 text-right">
+            (datum)
           </p>
         </div>
       </div>
