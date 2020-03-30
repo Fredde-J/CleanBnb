@@ -1,12 +1,12 @@
-import React, { useState} from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem
+  NavItem,
+  NavLink
 } from "reactstrap";
 
 const Header = () => {
@@ -16,28 +16,32 @@ const Header = () => {
 
   return (
     <>
+      
       <Navbar color="warning" light expand="md">
-        <Link to="/" className="center header-navbarTitle mr-3">
+        <NavbarBrand href="/" className="center header-navbarTitle">
           ClearBnB
-        </Link>
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link to="/search" className="nav-link">Leta Bostad</Link>
-            </NavItem>
-            {/* <NavItem>
-              <Link to="/#">Våra Avtal</Link>
+              <NavLink href="/">Startsida</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/#">Logga In</Link>
+              <NavLink href="/#">Leta Bostad</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/#">Om ClearBnb</Link>
+              <NavLink href="/#">Våra Avtal</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/#">Mina Sidor (!)</Link>
-            </NavItem> */}
+              <NavLink href="/#">Logga In</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/#">Om ClearBnb</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/#">Mina Sidor (!)</NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
