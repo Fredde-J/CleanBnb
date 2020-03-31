@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Form } from "reactstrap";
+import { Row } from "reactstrap";
 import { Link } from "react-router-dom";
 
 import { linkStyle, divStyle, spanStyle } from "../css/footerStyle";

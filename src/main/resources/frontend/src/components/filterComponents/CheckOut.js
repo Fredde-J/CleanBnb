@@ -5,6 +5,7 @@ import "react-calendar/dist/Calendar.css";
 
 const CheckOut = () => {
   const [checkOutDate, setCheckOutDate] = useState(new Date());
+  const [dateString, setDateString] = useState("");
   const [nestedModalOut, setNestedModalOut] = useState(false);
 
   const toggleNestedOut = () => {
@@ -15,14 +16,15 @@ const CheckOut = () => {
     setCheckOutDate(e);
   };
 
-  useEffect(() => {
-    console.log("CheckOut: ", checkOutDate);
-  }, [checkOutDate]);
+    useEffect(() => {
+      let date = checkOutDate.toLocaleDateString();
+      setDateString(date);
+    }, [checkOutDate]);
 
   return (
     <div className="col-6">
       <Button color="warning" onClick={toggleNestedOut} className="col-12">
-        Utcheckning
+        {dateString}
       </Button>
       <Modal isOpen={nestedModalOut} toggle={toggleNestedOut}>
         <ModalHeader>Välj Datum för Utcheckning</ModalHeader>
