@@ -14,24 +14,19 @@ import java.util.List;
 
 @Service
 public class UserService {
-
   @Autowired
   private UserRepo userRepo;
   @Autowired
   private MyUserDetailsService myUserDetailsService;
 
   public User findCurrentUser() {
-    String email = SecurityContextHolder.getContext().getAuthentication().getName();
-
-    System.err.println(email);
-
-    return userRepo.findByEmail(email);
+    // the login session is stored between page reloads,
+    // and we can access the current authenticated user with this
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    return userRepo.findByUsername(username);
   }
-
-  public List<User> getAllUsers() { return  (List<User>) userRepo.findAll(); }
 
   public User registerUser(User user) {
-    return myUserDetailsService.addUser(user.getFirstName(),user.getLastName(),user.getEmail(), user.getPassword(),user.getAddress());
+    return myUserDetailsService.addUser(user.getFirstName(),user.getLastName(),user.getUsername(), user.getPassword(),user.getAddress());
   }
-
 }

@@ -11,20 +11,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+
     private String firstName;
     private String lastName;
-    private String email;
+    private String username;
     private String password;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Address address;
 
     public User() {}
 
-    public User(String firstName, String lastName, String email, String password, Address address) {
+    public User(String firstName, String lastName, String username, String password, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.username = username;
         this.password = password;
         this.address = address;
     }
@@ -53,14 +55,13 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
-
 
     @JsonIgnore
     public String getPassword() {

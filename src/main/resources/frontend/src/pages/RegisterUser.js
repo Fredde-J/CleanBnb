@@ -5,7 +5,7 @@ import { buttons, signin, createAccount } from "../css/startPageStyle.js";
 const RegisterUser = props => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setUser } = useContext(UserContext);
 
@@ -14,7 +14,7 @@ const RegisterUser = props => {
     const credentials = {
       firstName,
       lastName,
-      email,
+      username,
       password
     };
     fetchUser(credentials);
@@ -74,14 +74,14 @@ const RegisterUser = props => {
 
             <div className="form-group col-12 col-md-7 mx-auto">
               <label className="text-white font-weight-bold" htmlFor="email">
-                Email
+                Username/Email
               </label>
               <input
                 type="email"
                 className="form-control"
                 id="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                value={username}
+                onChange={e => setUsername(e.target.value)}
               />
             </div>
 

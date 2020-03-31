@@ -21,9 +21,6 @@ public class UserController {
     return userService.registerUser(user);
   }
 
-  @GetMapping("/auth/users")
-  public List<User> getUsers() {return userService.getAllUsers();}
-
   @GetMapping("/auth/whoami")
   public User whoAmI() {
     return userService.findCurrentUser();

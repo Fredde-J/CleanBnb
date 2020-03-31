@@ -9,15 +9,15 @@ import {
 
 const Login = (props) => {
     console.log(props)
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { fetchUser } = useContext(UserContext);
 
   const logIn = e => {
     e.preventDefault();
     const credentials =
-      "email=" +
-      encodeURIComponent(email) +
+      "username=" +
+      encodeURIComponent(username) +
       "&password=" +
       encodeURIComponent(password);
 
@@ -55,14 +55,14 @@ const Login = (props) => {
           <div className="row">
             <div className="form-group col-12 col-md-7 mx-auto">
               <label className="text-white font-weight-bold" htmlFor="user">
-                Användarnamn
+                Användarnamn/Email
               </label>
               <input
                 type="email"
                 className="form-control"
                 id="user"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                value={username}
+                onChange={e => setUsername(e.target.value)}
               />
             </div>
             <div className="form-group col-12 col-md-7 mx-auto">

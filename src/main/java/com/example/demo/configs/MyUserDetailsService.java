@@ -11,31 +11,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
-
 @Configuration
 public class MyUserDetailsService implements UserDetailsService {
 
-  // bCrypt is the most secure hashing library today
   private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
   public BCryptPasswordEncoder getEncoder() { return encoder; }
 
   @Autowired
   private UserRepo userRepo;
 
-  // Vue - created() {}
-  // React - useEffect(() => {}, [])
-
   @Override
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    User user = userRepo.findByEmail(email);
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepo.findByUsername(username);
     if (user == null) {
-      throw new UsernameNotFoundException("User not found by name: " + email);
+      throw new UsernameNotFoundException("User not found by name: " + username);
     }
     return toUserDetails(user);
   }
 
-  public User addUser(String firstName, String lastName, String email, String password, Address address){
-    User user = new User(firstName,lastName,email, encoder.encode(password),address);
+
+  public User addUser(String firstName, String lastName, String username, String password, Address address){
+    User user = new User(firstName,lastName,username, encoder.encode(password),address);
     try {
       return userRepo.save(user);
     } catch (Exception ex) {
@@ -46,9 +42,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
   private UserDetails toUserDetails(User user) {
     return org.springframework.security.core.userdetails.User
-            .withUsername(user.getEmail())
+            .withUsername(user.getUsername())
             .password(user.getPassword())
             .roles("USER").build();
   }
-
 }
