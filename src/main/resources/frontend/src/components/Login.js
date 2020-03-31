@@ -1,5 +1,9 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContextProvider";
+import {
+  Link,
+  withRouter
+} from "react-router-dom";
 
 import {
   buttons,
@@ -8,7 +12,6 @@ import {
 } from "../css/startPageStyle.js";
 
 const Login = (props) => {
-    console.log(props)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { fetchUser } = useContext(UserContext);
@@ -20,7 +23,6 @@ const Login = (props) => {
       encodeURIComponent(username) +
       "&password=" +
       encodeURIComponent(password);
-
     fetchAccount(credentials);
   };
   
@@ -39,7 +41,7 @@ const Login = (props) => {
     } else {
       console.log("Successfully logged in");
       fetchUser();
-      // props.history.push("/auth/whoami");
+      props.history.push("/search");
     }
   };
 
@@ -98,17 +100,16 @@ const Login = (props) => {
         <p className="text-center text-white col-12 m-0 font-weight-bold">
           Inte registrerad?
         </p>
+        <Link className="btn btn-warning mt-2 col-8 col-md-3 mx-auto" to="/register_user">
         <button
-          className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
-          style={buttons}
-          onClick={() => {
-            props.history.push("/register_user");
-          }} >
+          className="btn"
+          style={buttons} >
           Skapa Konto
         </button>
+        </Link>
       </div>
     </>
   );
 };
 
-export default Login;
+export default withRouter(Login);

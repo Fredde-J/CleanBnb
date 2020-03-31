@@ -1,49 +1,20 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "../contexts/UserContextProvider";
+import React from "react";
 import Login from "../components/Login"
 
 import {
   beginSearch,
   beginSearchText,
-  buttons,
-  signin,
-  createAccount
+  // buttons,
+  // signin,
+  // createAccount
 } from "../css/startPageStyle.js";
 
 const StartPage = props => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { fetchUser } = useContext(UserContext);
 
-  const logIn = e => {
-    e.preventDefault();
-    const credentials =
-      "email=" +
-      encodeURIComponent(email) +
-      "&password=" +
-      encodeURIComponent(password);
-
-    fetchAccount(credentials);
-  };
-
-  const fetchAccount = async (credentials) => {
-    let response = await fetch("/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: credentials
-    });
-
-    if (response.url.includes("error")) {
-      console.log("Wrong username/password");
-    } else {
-      console.log("Successfully logged in");
-      fetchUser();
-     // props.history.push("/auth/whoami");
-    }
-  };
+  const { history } = props;
 
   const goToSearch = () => {
-    props.history.push("/search");
+    history.push("/search");
   };
 
   return (
