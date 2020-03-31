@@ -69,6 +69,7 @@ const StartPage = props => {
         <button
           className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
           style={buttons}
+          onClick={()=>{props.history.push("/register_user")}}
         >
           Skapa Konto
         </button>
