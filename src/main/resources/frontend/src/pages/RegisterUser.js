@@ -1,26 +1,26 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContextProvider";
-import {
-  buttons,
-  signin,
-  createAccount
-} from "../css/startPageStyle.js";
+import { buttons, signin, createAccount } from "../css/startPageStyle.js";
 
 const RegisterUser = props => {
-    
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser } = useContext(UserContext);
 
-  const createUser = async () => {
+  const createUser = e => {
+      e.preventDefault()
     const credentials = {
       firstName,
       lastName,
       email,
       password
     };
+    fetchUser(credentials);
+  };
+
+  const fetchUser = async credentials => {
     let response = await fetch("/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -30,7 +30,7 @@ const RegisterUser = props => {
     try {
       response = await response.json();
       setUser(response);
-      props.history.push("/");
+      props.history.push("/")
     } catch {
       console.log("Fel inmatning av uppgifter");
     }
@@ -41,7 +41,7 @@ const RegisterUser = props => {
         <p className="text-white text-center m-0 font-weight-bold">
           Skapa konto
         </p>
-        <form className="p-2">
+        <form className="p-2" onSubmit={createUser}>
           <div className="row">
             <div className="form-group col-12 col-md-7 mx-auto">
               <label
@@ -104,7 +104,6 @@ const RegisterUser = props => {
               type="submit"
               className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
               style={buttons}
-              onClick={createUser}
             >
               Registrera konto
             </button>
