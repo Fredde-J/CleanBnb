@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./components/Header";
-//import Footer from "./components/Footer";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import StartPage from "./pages/StartPage";
 import SearchPage from "./pages/SearchPage";
@@ -8,6 +7,7 @@ import ResidenceContextProvider from "./contexts/ResidenceContextProvider";
 import InfoPage from "./pages/InfoPage";
 import CompanyInfoPage from "./pages/CompanyInfoPage"
 import ResidentPage from "./pages/Residence.js"
+import Footer from './components/Footer'
 
 import "./css/style.css";
 
@@ -27,7 +27,7 @@ function App() {
             </Switch>
           </main>
         </ResidenceContextProvider>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </BrowserRouter>
   );
