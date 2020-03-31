@@ -39,6 +39,7 @@ const Header = () => {
               <Link to="/#">Mina Sidor (!)</Link>
             </NavItem> */}
           </Nav>
+          <p></p>
         </Collapse>
       </Navbar>
     </>
