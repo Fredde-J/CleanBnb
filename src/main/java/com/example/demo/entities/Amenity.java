@@ -14,28 +14,28 @@ public class Amenity {
 
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean balcony;
+    private Boolean Balkong;
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean wifi;
+    private Boolean Wifi;
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean tv;
+    private Boolean TV;
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean bathtub;
+    private Boolean Badkar;
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean dishwasher;
+    private Boolean Diskmaskin;
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean washing_machine;
+    private Boolean Tvättmaskin;
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean fridge;
+    private Boolean Kyl;
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean freezer;
+    private Boolean Frys;
 
     public Amenity() {}
 
@@ -47,67 +47,67 @@ public class Amenity {
         this.amenityId = amenityId;
     }
 
-    public Boolean getBalcony() {
-        return balcony;
+    public Boolean getBalkong() {
+        return Balkong;
     }
 
-    public void setBalcony(Boolean balcony) {
-        this.balcony = balcony;
+    public void setBalkong(Boolean balkong) {
+        Balkong = balkong;
     }
 
     public Boolean getWifi() {
-        return wifi;
+        return Wifi;
     }
 
     public void setWifi(Boolean wifi) {
-        this.wifi = wifi;
+        Wifi = wifi;
     }
 
-    public Boolean getTv() {
-        return tv;
+    public Boolean getTV() {
+        return TV;
     }
 
-    public void setTv(Boolean tv) {
-        this.tv = tv;
+    public void setTV(Boolean TV) {
+        this.TV = TV;
     }
 
-    public Boolean getBathtub() {
-        return bathtub;
+    public Boolean getBadkar() {
+        return Badkar;
     }
 
-    public void setBathtub(Boolean bathtub) {
-        this.bathtub = bathtub;
+    public void setBadkar(Boolean badkar) {
+        Badkar = badkar;
     }
 
-    public Boolean getDishwasher() {
-        return dishwasher;
+    public Boolean getDiskmaskin() {
+        return Diskmaskin;
     }
 
-    public void setDishwasher(Boolean dishwasher) {
-        this.dishwasher = dishwasher;
+    public void setDiskmaskin(Boolean diskmaskin) {
+        Diskmaskin = diskmaskin;
     }
 
-    public Boolean getWashing_machine() {
-        return washing_machine;
+    public Boolean getTvättmaskin() {
+        return Tvättmaskin;
     }
 
-    public void setWashing_machine(Boolean washing_machine) {
-        this.washing_machine = washing_machine;
+    public void setTvättmaskin(Boolean tvättmaskin) {
+        Tvättmaskin = tvättmaskin;
     }
 
-    public Boolean getFridge() {
-        return fridge;
+    public Boolean getKyl() {
+        return Kyl;
     }
 
-    public void setFridge(Boolean fridge) {
-        this.fridge = fridge;
+    public void setKyl(Boolean kyl) {
+        Kyl = kyl;
     }
 
-    public Boolean getFreezer() {
-        return freezer;
+    public Boolean getFrys() {
+        return Frys;
     }
 
-    public void setFreezer(Boolean freezer) {
-        this.freezer = freezer;
+    public void setFrys(Boolean frys) {
+        Frys = frys;
     }
 }
