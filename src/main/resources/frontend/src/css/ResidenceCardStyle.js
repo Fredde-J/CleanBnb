@@ -12,21 +12,35 @@ export const imgStyle = {
 
 export const topPStyle = {
   fontSize: "1.3em",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  margin: "0",
+  padding: "0"
 };
 export const bottomPStyle = {
-  fontWeight: "bold"
+  fontWeight: "bold",
+  margin: "0",
+  padding: "0"
 };
 
 export const pTagStyle1 = {
   fontSize: "1.4em",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  margin: "0",
+  padding: "0"
 };
 export const pTagStyle2 = {
   fontSize: "0.8em",
-  color: "#3e424b"
+  color: "#3e424b",
+  margin: "0",
+  padding: "0"
 };
 export const pTagStyle3 = {
   fontSize: "1.2em",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  margin: "0",
+  padding: "0"
+};
+export const pTagStyle4 = {
+  margin: "0",
+  padding: "0"
 };

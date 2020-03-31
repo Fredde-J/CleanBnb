@@ -6,7 +6,8 @@ import {
   divStyle,
   pTagStyle1,
   pTagStyle2,
-  pTagStyle3
+  pTagStyle3,
+  pTagStyle4
 } from "../css/ResidenceCardStyle";
 
 const Residence = props => {
@@ -50,17 +51,17 @@ const Residence = props => {
                 alt=""
               ></img>
               <div className="card-body row">
-                <p style={pTagStyle1} className="col-6 m-0 p-0">
+                <p style={pTagStyle1} className="col-6">
                   {residence.address.city}
                 </p>
-                <p style={pTagStyle1} className="text-right col-6 m-0 p-0">
+                <p style={pTagStyle1} className="text-right col-6">
                   {residence.price} / natt
                 </p>
-                <p className="col-5 m-0 p-0">
+                <p style={pTagStyle4} className="col-5">
                   {residence.address.streetName}{" "}
                   {residence.address.streetNumber}
                 </p>
-                <p className="text-right col-7 m-0 p-0">(Datum tillgänglig)</p>
+                <p style={pTagStyle4} className="text-right col-7">(Datum)</p>
                 <p style={pTagStyle2} className="my-4">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
                   ab praesentium facilis rerum doloremque. Quidem aspernatur,
@@ -72,6 +73,7 @@ const Residence = props => {
                     <p style={pTagStyle3} className="col-12">
                       Bekvämligheter
                     </p>
+                    <p>{ amenityArray.join(", ") }</p>
                   </Col>
                 </Row>
               </div>
