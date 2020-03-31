@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContextProvider";
 import Login from "../components/Login"
 
 import {
@@ -13,6 +14,8 @@ const StartPage = props => {
 
   const { history } = props;
 
+  const { user, setUser } = useContext(UserContext);
+
   const goToSearch = () => {
     history.push("/search");
   };
@@ -26,7 +29,13 @@ const StartPage = props => {
       >
         <div className="begin-search-wrapper p-3">
           <h3 className="begin-search-text text-center" style={beginSearchText}>
-            Börja leta bostad!
+            {!user ? (
+              <h3>Börja leta bostäder</h3>
+            ) : (
+              <h3>
+                Börja leta bostäder {user.firstName} {user.lastName}
+              </h3>
+            )}
           </h3>
         </div>
       </div>
