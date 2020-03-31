@@ -74,7 +74,7 @@ const RegisterUser = props => {
 
             <div className="form-group col-12 col-md-7 mx-auto">
               <label className="text-white font-weight-bold" htmlFor="email">
-                Username/Email
+                Användarnamn/Email
               </label>
               <input
                 type="email"

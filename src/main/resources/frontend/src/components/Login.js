@@ -47,8 +47,6 @@ const Login = (props) => {
 
   return (
     <>
-     
-
       <div className="signin-form card m-4 bg-transparent" style={signin}>
         <p className="text-white text-center m-0 font-weight-bold">
           Har du ett konto?
