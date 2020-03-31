@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
     "react": "^16.13.0",
+    "react-amazing-proxy": "^1.0.63",
     "react-calendar": "^3.0.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
@@ -15,7 +16,7 @@
     "reactstrap": "^8.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node node_modules/react-amazing-proxy/start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
