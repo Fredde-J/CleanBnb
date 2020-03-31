@@ -2,22 +2,22 @@ import React from "react";
 import { Row, Col, Form } from "reactstrap";
 import { Link } from "react-router-dom";
 
-import { linkStyle } from "../css/footerStyle";
+import { linkStyle, divStyle, spanStyle } from "../css/footerStyle";
 
 const Footer = () => {
   return (
-    <div className="container-fluid bg-warning">
+    <div style={divStyle} className="container-fluid bg-warning py-2">
       <Row>
-        <div className="col-6 text-center m-0">
+        <span style={spanStyle} className="col-6 text-right">
           <Link style={linkStyle} className="" to="/info">
-            Info
+            Våra Avtal
           </Link>
-        </div>
-        <div className="col-6 text-center m-0">
+        </span>
+        <span style={spanStyle} className="col-6">
           <Link style={linkStyle} className="" to="/companyinfo">
             Om Oss
           </Link>
-        </div>
+        </span>
       </Row>
     </div>
   );
