@@ -30,7 +30,7 @@ public class UserService {
   public List<User> getAllUsers() { return  (List<User>) userRepo.findAll(); }
 
   public User registerUser(User user) {
-    return myUserDetailsService.addUser(user.getEmail(), user.getPassword(),user.getFirstName(),user.getLastName(),user.getAddress());
+    return myUserDetailsService.addUser(user.getFirstName(),user.getLastName(),user.getEmail(), user.getPassword(),user.getAddress());
   }
 
 }

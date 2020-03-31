@@ -7,6 +7,7 @@ import {
 } from "../css/startPageStyle.js";
 
 const RegisterUser = props => {
+    
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");

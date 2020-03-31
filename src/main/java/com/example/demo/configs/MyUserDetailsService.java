@@ -35,7 +35,7 @@ public class MyUserDetailsService implements UserDetailsService {
   }
 
   public User addUser(String firstName, String lastName, String email, String password, Address address){
-    User user = new User(email, encoder.encode(password),firstName,lastName,address);
+    User user = new User(firstName,lastName,email, encoder.encode(password),address);
     try {
       return userRepo.save(user);
     } catch (Exception ex) {
