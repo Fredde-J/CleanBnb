@@ -23,6 +23,20 @@ const Residence = props => {
     fetchOneResidence(props.match.params.residenceId);
   }, [props.match.params.residenceId]);
 
+  let amenityArray = [];
+
+  if (residence) {
+    Object.entries(residence.amenity).forEach((arrayItem, i) => {
+      if (i !== 0) {
+        if (arrayItem[1]) {
+          amenityArray.push(
+            arrayItem[0].charAt(0).toUpperCase() + arrayItem[0].slice(1)
+          );
+        }
+      }
+    });
+  }
+
   return (
     <>
       {residence ? (
@@ -54,8 +68,8 @@ const Residence = props => {
                   placeat neque nam, magni ipsam sit?
                 </p>
                 <Row>
-                  <Col xs="12">
-                    <p style={pTagStyle3} className="col-12 m-0 p-0">
+                  <Col xs="12" md="12">
+                    <p style={pTagStyle3} className="col-12">
                       Bekvämligheter
                     </p>
                   </Col>
