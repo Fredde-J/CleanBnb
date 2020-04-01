@@ -19,7 +19,6 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
-          </main>
         <UserContextProvider>
           <ResidenceContextProvider>
             <main className="container">
