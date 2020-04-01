@@ -41,7 +41,7 @@ const Login = (props) => {
     } else {
       console.log("Successfully logged in");
       fetchUser();
-      props.history.push("/search");
+      props.history.push("/account");
     }
   };
 

@@ -11,6 +11,7 @@ import RegisterUser from "./pages/RegisterUser.js"
 import UserContextProvider from "./contexts/UserContextProvider"
 import Login from "./components/Login"
 import Footer from './components/Footer'
+import AccountPage from './pages/AccountPage.js'
 
 import "./css/style.css";
 
@@ -34,6 +35,7 @@ function App() {
                 <Route exact path="/companyinfo" component={CompanyInfoPage} />
                 <Route exact path="/register_user" component={RegisterUser} />
                 <Route exact path="/preform-login" component={Login}/>
+                <Route exact path="/account" component={AccountPage}/>
               </Switch>
             </main>
           </ResidenceContextProvider>
