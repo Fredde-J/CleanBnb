@@ -20,10 +20,11 @@ const LeaseResidence = () => {
     fontStyle: "oblique",
   }
 
-  const checkBoxesStyle = {
-   
-    fontSize: "0.5em"
-  } 
+  const btnStyle = {
+
+  }
+
+ 
 
   return ( 
       <div className="row">
@@ -89,7 +90,9 @@ const LeaseResidence = () => {
 
             <CardHeader style={semiHeadStyle} className="mb-4 mt-4">Bekvämligheter</CardHeader>
             
-            <CheckBoxes style={checkBoxesStyle}></CheckBoxes>
+            <CheckBoxes></CheckBoxes>
+
+            <Button className="col-12" color="warning">Lista bostad!</Button>
             </CardBody>
           
           </Card>
