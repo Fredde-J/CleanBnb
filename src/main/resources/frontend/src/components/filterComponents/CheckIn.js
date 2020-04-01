@@ -5,6 +5,7 @@ import "react-calendar/dist/Calendar.css";
 
 const CheckIn = () => {
   const [checkInDate, setCheckInDate] = useState(new Date());
+  const [dateString, setDateString] = useState("");
   const [nestedModalIn, setNestedModalIn] = useState(false);
 
   const toggleNestedIn = () => {
@@ -16,16 +17,14 @@ const CheckIn = () => {
   };
 
   useEffect(() => {
-    console.log("CheckIn: ", checkInDate);
-    
+    let date = checkInDate.toLocaleDateString();
+    setDateString(date);
   }, [checkInDate])
   
-
-
   return (
     <div className="col-6">
       <Button color="warning" onClick={toggleNestedIn} className="col-12">
-        Incheckning
+        {dateString}
       </Button>
       <Modal isOpen={nestedModalIn} toggle={toggleNestedIn}>
         <ModalHeader>Välj Datum för Incheckning</ModalHeader>

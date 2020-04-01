@@ -19,6 +19,4 @@ public class ResidenceService {
         return residenceRepo.findById(id);
     }
 
-
-
 }

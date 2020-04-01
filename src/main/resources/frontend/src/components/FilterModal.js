@@ -1,14 +1,22 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
 import React, { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Row
+} from "reactstrap";
 import "react-calendar/dist/Calendar.css";
 
 import CheckIn from "./filterComponents/CheckIn";
 import CheckOut from "./filterComponents/CheckOut";
 import PriceRange from "./filterComponents/PriceRange";
 import CheckBoxes from "./filterComponents/CheckBoxes";
-import Beds from "./filterComponents/Beds"
+import Beds from "./filterComponents/Beds";
+import Citys from "./filterComponents/Citys";
 
 const ModalExample = props => {
   const [modal, setModal] = useState(false);
@@ -18,11 +26,16 @@ const ModalExample = props => {
   const buttonStyle = {
     borderRadius: "15px",
     fontSize: "3em"
-  }
+  };
 
   return (
     <div className="col-12 my-3">
-      <Button style={buttonStyle} color="warning" onClick={toggle} className="col-12">
+      <Button
+        style={buttonStyle}
+        color="warning"
+        onClick={toggle}
+        className="col-12"
+      >
         Sökfilter
       </Button>
       <Modal isOpen={modal} toggle={toggle} className="">
@@ -31,15 +44,19 @@ const ModalExample = props => {
         </ModalHeader>
         <ModalBody>
           <PriceRange />
-          <div className="row">
+          <Row>
+            <p className="col-6 text-center m-0">Incheckning</p>
+            <p className="col-6 text-center m-0">Utcheckning</p>
             <CheckIn />
             <CheckOut />
-          </div>
-          
-          <Beds/>
+          </Row>
 
-          <CheckBoxes/>
-          
+          <Row>
+            <Beds />
+            <Citys />
+          </Row>
+
+          <CheckBoxes />
         </ModalBody>
         <ModalFooter>
           <Button color="warning" onClick={toggle}>
