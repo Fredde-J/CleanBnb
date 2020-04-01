@@ -28,7 +28,7 @@ const StartPage = props => {
         onClick={goToSearch}
       >
         <div className="begin-search-wrapper p-3">
-          <h3 className="begin-search-text text-center" style={beginSearchText}>
+          <div className="begin-search-text text-center" style={beginSearchText}>
             {!user ? (
               <h3>Börja leta bostäder</h3>
             ) : (
@@ -36,7 +36,7 @@ const StartPage = props => {
                 Börja leta bostäder {user.firstName} {user.lastName}
               </h3>
             )}
-          </h3>
+          </div>
         </div>
       </div>
       <Login></Login>
