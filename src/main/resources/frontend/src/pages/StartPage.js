@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContextProvider";
+import Login from "../components/Login"
 
 import {
   beginSearch,
   beginSearchText,
-  buttons,
-  signin,
-  createAccount
+  // buttons,
+  // signin,
+  // createAccount
 } from "../css/startPageStyle.js";
 
 const StartPage = props => {
+
+  const { history } = props;
+
+  const { user, setUser } = useContext(UserContext);
+
   const goToSearch = () => {
-    props.history.push("/search");
+    history.push("/search");
   };
 
   return (
@@ -22,57 +29,17 @@ const StartPage = props => {
       >
         <div className="begin-search-wrapper p-3">
           <h3 className="begin-search-text text-center" style={beginSearchText}>
-            Börja leta bostad!
+            {!user ? (
+              <h3>Börja leta bostäder</h3>
+            ) : (
+              <h3>
+                Börja leta bostäder {user.firstName} {user.lastName}
+              </h3>
+            )}
           </h3>
         </div>
       </div>
-
-      <div className="signin-form card m-4 bg-transparent" style={signin}>
-        <p className="text-white text-center m-0 font-weight-bold">
-          Har du ett konto?
-        </p>
-        <form className="p-2">
-          <div className="row">
-            <div className="form-group col-12 col-md-7 mx-auto">
-              <label className="text-white font-weight-bold" htmlFor="user">
-                Användarnamn
-              </label>
-              <input type="email" className="form-control" id="user" />
-            </div>
-            <div className="form-group col-12 col-md-7 mx-auto">
-              <label className="text-white font-weight-bold" htmlFor="password">
-                Lösenord
-              </label>
-              <input type="password" className="form-control" id="password" />
-            </div>
-          </div>
-
-          <div className="row">
-            <button
-              type="submit"
-              className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
-              style={buttons}
-            >
-              Logga in
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div
-        className="create-account card m-4 bg-transparent row"
-        style={createAccount}
-      >
-        <p className="text-center text-white col-12 m-0 font-weight-bold">
-          Inte registrerad?
-        </p>
-        <button
-          className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
-          style={buttons}
-        >
-          Skapa Konto
-        </button>
-      </div>
+      <Login></Login>
     </>
   );
 };

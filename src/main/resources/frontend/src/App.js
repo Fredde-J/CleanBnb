@@ -7,6 +7,9 @@ import ResidenceContextProvider from "./contexts/ResidenceContextProvider";
 import InfoPage from "./pages/InfoPage";
 import CompanyInfoPage from "./pages/CompanyInfoPage"
 import ResidentPage from "./pages/Residence.js"
+import RegisterUser from "./pages/RegisterUser.js"
+import UserContextProvider from "./contexts/UserContextProvider"
+import Login from "./components/Login"
 import Footer from './components/Footer'
 
 import "./css/style.css";
@@ -16,17 +19,26 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
-        <ResidenceContextProvider>
-          <main className="container">
-            <Switch>
-              <Route exact path="/residences/:residenceId" component={ResidentPage} />  
-              <Route exact path="/" component={StartPage} />
-              <Route exact path="/search" component={SearchPage} />
-              <Route exact path="/info" component={InfoPage}/> 
-              <Route exact path="/companyinfo" component={CompanyInfoPage}/> 
-            </Switch>
           </main>
-        </ResidenceContextProvider>
+        <UserContextProvider>
+          <ResidenceContextProvider>
+            <main className="container">
+              <Switch>
+                <Route
+                  exact
+                  path="/residences/:residenceId"
+                  component={ResidentPage}
+                />
+                <Route exact path="/" component={StartPage} />
+                <Route exact path="/search" component={SearchPage} />
+                <Route exact path="/info" component={InfoPage} />
+                <Route exact path="/companyinfo" component={CompanyInfoPage} />
+                <Route exact path="/register_user" component={RegisterUser} />
+                <Route exact path="/preform-login" component={Login}/>
+              </Switch>
+            </main>
+          </ResidenceContextProvider>
+        </UserContextProvider>
         <Footer />
       </div>
     </BrowserRouter>

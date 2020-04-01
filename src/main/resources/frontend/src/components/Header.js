@@ -11,6 +11,7 @@ import {
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+
   const toggle = () => setIsOpen(!isOpen);
 
   return (
@@ -38,6 +39,7 @@ const Header = () => {
               <Link to="/#">Mina Sidor (!)</Link>
             </NavItem> */}
           </Nav>
+          <p></p>
         </Collapse>
       </Navbar>
     </>
