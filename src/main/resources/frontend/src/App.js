@@ -11,6 +11,7 @@ import RegisterUser from "./pages/RegisterUser.js"
 import UserContextProvider from "./contexts/UserContextProvider"
 import Login from "./components/Login"
 import Footer from './components/Footer'
+import LeaseResidence from './pages/LeaseResidence'
 
 import "./css/style.css";
 
@@ -29,6 +30,7 @@ function App() {
                   component={ResidentPage}
                 />
                 <Route exact path="/" component={StartPage} />
+                <Route exact path="/leaseResidence" component={LeaseResidence} />
                 <Route exact path="/search" component={SearchPage} />
                 <Route exact path="/info" component={InfoPage} />
                 <Route exact path="/companyinfo" component={CompanyInfoPage} />
