@@ -18,7 +18,7 @@ const Header = () => {
     <>
       <Navbar color="warning" light expand="md">
         <Link to="/" className="center header-navbarTitle mr-3">
-          ClearBnB
+          <img src="/images/logo.png"/>
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
