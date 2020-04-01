@@ -29,7 +29,7 @@ const InfoPage = () => {
 
             <CardText className="infopage-infoText">
               Skador på en värds egendom (boende, enhet, rum, ägodelar) Varje
-              Airbnb-boende i alla länder Betalningar som görs genom vår
+              Cleanbnb-boende i alla länder Betalningar som görs genom vår
               värdgaranti lyder under våra villkor för värdgarantin. Om skador
               uppstår måste dokumentation (foton, kvitton, osv.) tillhandahållas
               som en del av lösningsprocessen. Vänligen läs villkoren för
