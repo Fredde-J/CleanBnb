@@ -18,11 +18,12 @@ import "./css/style.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <UserContextProvider>
-          <Header />
-          <ResidenceContextProvider>
+    <div className="App">
+      <UserContextProvider>
+        <ResidenceContextProvider>
+          <BrowserRouter>
+            <Header />
+
             <main className="container">
               <Switch>
                 <Route
@@ -40,11 +41,11 @@ function App() {
                 <Route exact path="/account/bookings" component={Bookings} />
               </Switch>
             </main>
-          </ResidenceContextProvider>
-        </UserContextProvider>
-        <Footer />
-      </div>
-    </BrowserRouter>
+            <Footer />
+          </BrowserRouter>
+        </ResidenceContextProvider>
+      </UserContextProvider>
+    </div>
   );
 }
 

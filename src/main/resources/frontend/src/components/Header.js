@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContextProvider";
 import {
@@ -6,17 +6,20 @@ import {
   Navbar,
   NavbarToggler,
   Nav,
-  NavItem
+  NavItem,
+  Button
 } from "reactstrap";
-
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const toggle = () => setIsOpen(!isOpen);
   const { user, setUser } = useContext(UserContext);
-
- 
+  const logout = () => {
+    fetch("/logout");
+    setUser(null);
+    console.log("Log out");
+  };
 
   return (
     <>
@@ -33,15 +36,25 @@ const Header = () => {
               </Link>
             </NavItem>
 
-            {/* <NavItem>
-              {!user ? (<h3></h3>) : (
-                <Link>mina sidor</Link>
-
-                )}
-              
-               
+            <NavItem>
+              {!user ? (
+                <p></p>
+              ) : (
+                <Link to="/account" className="nav-link">
+                  Mina Sidor
+                </Link>
+              )}
             </NavItem>
-            */}
+
+            <NavItem>
+              {!user ? (
+                <Link to="/" className="nav-link">
+                  logga in
+                </Link>
+              ) : (
+                <p onClick={logout} className="nav-link">Logga ut</p>
+              )}
+            </NavItem>
 
             {/* <NavItem>
               <Link to="/#">Våra Avtal</Link>
@@ -55,8 +68,8 @@ const Header = () => {
             <NavItem>
               <Link to="/#">Mina Sidor (!)</Link>
             </NavItem> */}
+         
           </Nav>
-          <p></p>
         </Collapse>
       </Navbar>
     </>
