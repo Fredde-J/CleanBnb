@@ -3,21 +3,18 @@ import { Row, Col, Card, CardBody, CardTitle, Button } from "reactstrap";
 import { accountCard } from "../css/accountPageStyle";
 import { UserContext } from "../contexts/UserContextProvider";
 
-const AccountPage = () => {
+const AccountPage = (props) => {
 
 
   const { user, setUser } = useContext(UserContext);
 
- try{
-     console.log(user.firstName)
- }catch{
-     console.log("error!!!!");
-     
- }
+  const goToSearch=()=>{
+    props.history.push("/search");
+  }
 
-  
-  
-  
+  const goToBookings = () => {
+    props.history.push("/account/bookings");
+  };
 
   return (
     <Row>
@@ -38,11 +35,11 @@ const AccountPage = () => {
               Hyr ut bostad
             </Button>
 
-            <Button className="col 12 mt-3" color="warning" size="lg">
+            <Button onClick={goToBookings} className="col 12 mt-3" color="warning" size="lg">
               Bokningar
             </Button>
 
-            <Button className="col 12 mt-3" color="warning" size="lg">
+            <Button onClick={goToSearch} className="col 12 mt-3" color="warning" size="lg">
               Börja leta!
             </Button>
           </CardBody>
