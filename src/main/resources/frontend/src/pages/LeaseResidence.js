@@ -13,20 +13,20 @@ import { headStyle, semiHeadStyle} from '../css/addResidenceFormStyle.js'
 const LeaseResidence = () => {
 
   // Setting all the residence object values from form 
-  // to be able to be able to create a Residence in the DB
+  // to be able to POST and create a Residence in the DB
   const [rooms, setRooms] = useState(null)
   const [size, setSize] = useState(null)
-  const [address_address_id, setAddres_addres_id] = useState(null)
+  const [address, setAddress] = useState(null)
   const [beds, setBeds] = useState(null)
-  const [amenity_amenity_id, setAmenity_amenity_id] = useState(null)
-  const [user_user_id, setUser_user_id] = useState(null)
+  const [amenity, setAmenity] = useState(null)
+ // const [user, setUser] = useState(null)
   const [price, setPrice] = useState(null)
 
   // Setting all the address object values from form
-  // to be able to create an Address in the DB
-  const [street_name, setStreetName] = useState(null)
-  const [street_number, setStreetNumber] = useState(null)
-  const [zip_code, setZipCode] = useState(null)
+  // to be able to POST and create an Address in the DB
+  const [streetName, setStreetName] = useState(null)
+  const [streetNumber, setStreetNumber] = useState(null)
+  const [zipCode, setZipCode] = useState(null)
   const [city, setCity] = useState(null)
   const [country, setCountry] = useState(null)
 
@@ -37,31 +37,49 @@ const LeaseResidence = () => {
     
     e.preventDefault()
 
-      // adding the userid to residence object
-
-      const address = {
-        street_name,
-        street_number,
-        zip_code,
-        city,
-        country
-      }
+    const address = {
+      city,
+      country,
+      streetName,
+      streetNumber,
+      zipCode,
+    }
 
     const residence = {
       //images,
       rooms,
       size,
-      address_address_id,
+      address,
       beds,
-      amenity_amenity_id,
-      user_user_id: user.userId,
+      amenity,
+      user: user.userId,
       price
     }
 
-    console.log('Address:', address)
-    console.log('Residence:', residence)
-    console.log('User:', user, 'userID:', user.userId)
+    // TODO: fix addressContextProvider and update so I can get a hold of the id
 
+    let addressId = newAddress(address);
+    console.log('efter newaddress', addressId)
+    setAddress(addressId)    
+    console.log('efter newaddress residence', residence)
+    
+
+    async function newAddress (address){
+
+      let res = await fetch('/rest/addresses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(address)
+      })
+      res = await res.json()
+      
+      console.log('Address object', res)
+      console.log('Adress id', res.addressId)
+      //MIGHT NOT NEED TO RETURN ID SEEMS BAD
+      return res.addressId;
+    }
+
+   
     // let res = await fetch('/rest/residences', {
     //   method: "POST",
     //   headers: {'Content-Type': 'application/json'},
