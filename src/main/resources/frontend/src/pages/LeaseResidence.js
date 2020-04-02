@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Col, Row, Button, Form, FormGroup, Label, Input, Card, CardBody, CardHeader } from 'reactstrap';
 import CheckIn from "../components/filterComponents/CheckIn";
 import CheckOut from "../components/filterComponents/CheckOut";
 import CheckBoxes from "../components/filterComponents/CheckBoxes";
+import { UserContext } from "../contexts/UserContextProvider"
 
 
 import "react-calendar/dist/Calendar.css";
@@ -11,6 +12,8 @@ import { headStyle, semiHeadStyle} from '../css/addResidenceFormStyle.js'
 
 const LeaseResidence = () => {
 
+  // Setting all the residence object values from form 
+  // to be able to be able to create a Residence in the DB
   const [rooms, setRooms] = useState(null)
   const [size, setSize] = useState(null)
   const [address_address_id, setAddres_addres_id] = useState(null)
@@ -19,17 +22,22 @@ const LeaseResidence = () => {
   const [user_user_id, setUser_user_id] = useState(null)
   const [price, setPrice] = useState(null)
 
+  // Setting all the address object values from form
+  // to be able to create an Address in the DB
   const [street_name, setStreetName] = useState(null)
   const [street_number, setStreetNumber] = useState(null)
   const [zip_code, setZipCode] = useState(null)
   const [city, setCity] = useState(null)
   const [country, setCountry] = useState(null)
+
+  // importing user from usercontext to see which user that is logged in
+  const {user} = useContext(UserContext)
   
   const newResidence = async (e) => {
     
     e.preventDefault()
 
-    
+      // adding the userid to residence object
 
       const address = {
         street_name,
@@ -46,12 +54,13 @@ const LeaseResidence = () => {
       address_address_id,
       beds,
       amenity_amenity_id,
-      user_user_id,
+      user_user_id: user.userId,
       price
     }
 
     console.log('Address:', address)
     console.log('Residence:', residence)
+    console.log('User:', user, 'userID:', user.userId)
 
     // let res = await fetch('/rest/residences', {
     //   method: "POST",
