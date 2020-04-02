@@ -19,4 +19,6 @@ public class ResidenceService {
         return residenceRepo.findById(id);
     }
 
+    public Residence createResidence(Residence residence) { return residenceRepo.save(residence);}
+
 }
