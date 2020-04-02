@@ -7,8 +7,8 @@ import {
   NavbarToggler,
   Nav,
   NavItem,
-  Button
 } from "reactstrap";
+import{imgStyle, pStyle} from "../css/headerStyle"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +25,7 @@ const Header = () => {
     <>
       <Navbar color="warning" light expand="md">
         <Link to="/" className="center header-navbarTitle mr-3">
-          <img style={{ width: "50%" }} src="/images/logo.png" />
+          <img style={imgStyle} src="/images/logo.png" alt="dirty logo" />
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -40,7 +40,7 @@ const Header = () => {
               {!user ? (
                 <p></p>
               ) : (
-                <Link to="/account" className="nav-link">
+                <Link to="/" className="nav-link">
                   Mina Sidor
                 </Link>
               )}
@@ -49,10 +49,12 @@ const Header = () => {
             <NavItem>
               {!user ? (
                 <Link to="/" className="nav-link">
-                  logga in
+                  Logga in
                 </Link>
               ) : (
-                <p onClick={logout} className="nav-link">Logga ut</p>
+                <p onClick={logout} className="nav-link" style={pStyle}>
+                  Logga ut
+                </p>
               )}
             </NavItem>
 
@@ -68,9 +70,9 @@ const Header = () => {
             <NavItem>
               <Link to="/#">Mina Sidor (!)</Link>
             </NavItem> */}
-         
           </Nav>
         </Collapse>
+          {!user ?(<p></p>):(<h5>{user.firstName} {user.lastName}</h5>)}
       </Navbar>
     </>
   );

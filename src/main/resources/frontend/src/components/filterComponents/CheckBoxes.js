@@ -1,6 +1,6 @@
 import React from "react";
 import { inputSize } from "../../css/checkBoxStyle";
-import { Row, Col } from "reactstrap";
+import { Row,  } from "reactstrap";
 
 const CheckBoxes = () => {
   const amenities = [

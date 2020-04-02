@@ -11,6 +11,8 @@ import {
   createAccount
 } from "../css/startPageStyle.js";
 
+ 
+
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +30,7 @@ const Login = (props) => {
   
   
   //TODO: fix login, only error even with correct email and password
-
+  let isLoggedin = true;
   const fetchAccount = async credentials => {
     let response = await fetch("/login", {
       method: "POST",
@@ -36,12 +38,18 @@ const Login = (props) => {
       body: credentials
     });
 
+   
+
     if (response.url.includes("error")) {
       console.log("Wrong username/password");
+      isLoggedin=false;
+      console.log(isLoggedin);
+      
     } else {
       console.log("Successfully logged in");
+      isLoggedin=true
       fetchUser();
-      props.history.push("/account");
+      props.history.push("/");
     }
   };
 
@@ -77,6 +85,14 @@ const Login = (props) => {
                 onChange={e => setPassword(e.target.value)}
               />
             </div>
+            {!isLoggedin ? (
+              <h5 className="text-warning bg-dark mt-5 col-12 col-md-7 mx-auto">
+                Fel Email eller Lösenord! Vänligen kontrollera dina
+                uppgifter
+              </h5>
+            ) : (
+              <p></p>
+            )}
           </div>
 
           <div className="row">
@@ -98,12 +114,13 @@ const Login = (props) => {
         <p className="text-center text-white col-12 m-0 font-weight-bold">
           Inte registrerad?
         </p>
-        <Link className="btn btn-warning mt-2 col-8 col-md-3 mx-auto" to="/register_user">
-        <button
-          className="btn"
-          style={buttons} >
-          Skapa Konto
-        </button>
+        <Link
+          className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
+          to="/register_user"
+        >
+          <button className="btn" style={buttons}>
+            Skapa Konto
+          </button>
         </Link>
       </div>
     </>

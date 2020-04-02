@@ -6,27 +6,27 @@ import { UserContext } from "../contexts/UserContextProvider";
 const AccountPage = (props) => {
 
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const goToSearch=()=>{
     props.history.push("/search");
   }
 
   const goToBookings = () => {
-    props.history.push("/account/bookings");
+    props.history.push("/account/bookings")
   };
 
   return (
     <Row>
       <Col>
-        <Card className="my-3 mt-5" style={accountCard}>
+        <Card className="my-3 mt-5" >
           <CardBody>
             <CardTitle>
               {!user ? (
                 <h3></h3>
               ) : (
                 <h3>
-                  Välkommen! {user.firstName} {user.lastName}
+                  Välkommen! <br></br> {user.firstName} {user.lastName}
                 </h3>
               )}
             </CardTitle>

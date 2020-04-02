@@ -1,5 +1,15 @@
-export const accountCard = {
-  backgroundColor: "rgba(255, 187, 51, 0.9)",
-  borderRadius: "15px",
-  boxShadow: "10px 10px 10px black"
+
+  export const beginSearch = {
+  border: "none",
+  borderRadius: "10px",
+  color: "rgb(117, 81, 81)",
+  cursor: "pointer"
 };
+  export const beginSearchText = {
+    fontSize: "2em",
+    fontWeight: "normal"
+  };
+
+  export const buttons = {
+    color: "rgb(117, 81, 81)"
+  };
