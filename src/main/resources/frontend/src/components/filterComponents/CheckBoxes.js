@@ -1,14 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { FilteringContext } from "../../contexts/FilteringContext";
 import { inputSize } from "../../css/checkBoxStyle";
 import { Row } from "reactstrap";
-import { useContext } from "react";
-import { useEffect } from "react";
 
 const CheckBoxes = () => {
   const [amenity, setAmenity] = useState(null);
-  const { updateFiltering } = useContext(FilteringContext);
 
   const amenities = [
     "Balkong",
@@ -34,13 +30,6 @@ const CheckBoxes = () => {
        });
     }
   };
-
-  useEffect(() => {
-                    if (amenity) {
-                      updateFiltering({ amenity });
-                    }
-                    // eslint-disable-next-line react-hooks/exhaustive-deps
-                  }, [amenity]);
 
   return (
     <Row className="p-3">

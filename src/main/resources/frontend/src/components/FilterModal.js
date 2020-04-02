@@ -10,7 +10,7 @@ import {
   ModalFooter,
   Row
 } from "reactstrap";
-import { FilteringContext } from "../contexts/FilteringContext";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 
 import "react-calendar/dist/Calendar.css";
 
@@ -24,12 +24,19 @@ import { useContext } from "react";
 
 const FilterModal = () => {
   const [modal, setModal] = useState(false);
-  const { resetFiltering } = useContext(FilteringContext);
+  const { resetResidences } = useContext(ResidenceContext);
 
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    resetResidences();
+    setModal(!modal);
+  };
+
+  const handleOnFilter = () => {
+    // filterResidences(filtering);
+    setModal(!modal);
+  };
 
   const handleGoBack = () => {
-    resetFiltering();
     setModal(!modal);
   };
 
@@ -69,7 +76,7 @@ const FilterModal = () => {
           <CheckBoxes />
         </ModalBody>
         <ModalFooter>
-          <Button color="warning" onClick={toggle}>
+          <Button color="warning" onClick={handleOnFilter}>
             Filtrera
           </Button>{" "}
           <Button color="warning" onClick={handleGoBack}>

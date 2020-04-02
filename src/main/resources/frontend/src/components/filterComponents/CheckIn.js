@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { FilteringContext } from "../../contexts/FilteringContext";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
@@ -8,7 +7,6 @@ const CheckIn = () => {
   const [checkInDate, setCheckInDate] = useState(null);
   const [dateString, setDateString] = useState(null);
   const [nestedModalIn, setNestedModalIn] = useState(false);
-  const { updateFiltering } = useContext(FilteringContext);
 
   const toggleNestedIn = () => {
     setNestedModalIn(!nestedModalIn);
@@ -23,13 +21,6 @@ const CheckIn = () => {
       setDateString(checkInDate.toLocaleDateString());
     }
   }, [checkInDate]);
-
-  useEffect(() => {
-    if (dateString) {
-      updateFiltering({ checkInDate: dateString });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dateString]);
 
   return (
     <div className="col-6">

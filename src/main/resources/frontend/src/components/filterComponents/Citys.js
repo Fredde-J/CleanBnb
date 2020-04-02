@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Col } from "reactstrap";
 import { ResidenceContext } from "../../contexts/ResidenceContext";
-import { FilteringContext } from "../../contexts/FilteringContext";
 
 const Citys = () => {
   const [citiesArray, setCitiesArray] = useState([]);
   const [city, setCity] = useState(null);
   const { residences } = useContext(ResidenceContext);
-  const { updateFiltering } = useContext(FilteringContext)
 
   const cityStyle = {
     backgroundColor: "#ffc107",
@@ -29,13 +27,6 @@ const Citys = () => {
     tempArray = [...new Set(tempArray)];
     setCitiesArray(tempArray);
   }, [residences]);
-
-  useEffect(() => {
-                    if (city) {
-                      updateFiltering({ city });
-                    }
-                    // eslint-disable-next-line react-hooks/exhaustive-deps
-                  }, [city])
 
   return (
     <Col className="mx-auto mt-3">

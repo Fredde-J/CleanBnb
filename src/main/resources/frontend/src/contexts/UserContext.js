@@ -12,7 +12,7 @@ export default function UserContextProvider(props) {
       setUser(res)
       console.log(res);
     } catch {
-      console.log('Not logged in');
+      // console.log('Not logged in');
     }
   }
 
