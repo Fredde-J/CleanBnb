@@ -9,11 +9,13 @@ export default function ResidenceContextProvider(props) {
     let res = await fetch("/rest/residences");
     res = await res.json();
     setResidences(res);
+    console.log(res);
   };
 
   useEffect(() => {
     fetchResidences();
   }, []);
+
 
   const values = {
     residences,

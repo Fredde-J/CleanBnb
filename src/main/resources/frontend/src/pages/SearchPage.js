@@ -3,7 +3,7 @@ import { Row } from "reactstrap";
 
 import FilterModal from "../components/FilterModal";
 import ResidenceCard from "../components/ResidenceCard";
-import { ResidenceContext } from "../contexts/ResidenceContextProvider";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 
 const SearchPage = props => {
   const { residences } = useContext(ResidenceContext);

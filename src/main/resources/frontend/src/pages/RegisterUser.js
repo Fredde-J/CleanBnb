@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { UserContext } from "../contexts/UserContextProvider";
+import { UserContext } from "../contexts/UserContext";
 import { buttons, signin, createAccount } from "../css/startPageStyle.js";
 
 const RegisterUser = props => {
