@@ -6,25 +6,10 @@ import CheckBoxes from "../components/filterComponents/CheckBoxes";
 
 
 import "react-calendar/dist/Calendar.css";
+import { headStyle, semiHeadStyle} from '../css/addResidenceFormStyle.js'
 
 
 const LeaseResidence = () => {
-
-  const headStyle = {
-    fontSize: "2.2em"
-  }
-
-  const semiHeadStyle = {
-    fontSize: "1.1em",
-    color: "warning",
-    fontStyle: "oblique",
-  }
-
-  const btnStyle = {
-
-  }
-
- 
 
   return ( 
       <div className="row">
