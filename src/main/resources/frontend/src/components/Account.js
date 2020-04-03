@@ -1,25 +1,19 @@
 import React, { useContext } from "react";
-import { Row, Col, Card, CardBody, CardTitle, Button } from "reactstrap";
 import { beginSearch, beginSearchText } from "../css/accountPageStyle";
 import { UserContext } from "../contexts/UserContextProvider";
 
-const Account = props => {
+const Account = () => {
   const { user } = useContext(UserContext);
+ 
 
-  const goToSearch = () => {
-    props.history.push("/search");
-  };
 
-  const goToBookings = () => {
-    props.history.push("/account/bookings");
-  };
 
   return (
     <div>
       <div
         className="begin-search card row col-12 col-md-6 mx-auto mt-5 mb-5 bg-warning"
         style={beginSearch}
-        onClick={goToSearch}
+       // onClick={goToSearch}
       >
         <div className="begin-search-wrapper p-3">
           <div
@@ -34,7 +28,7 @@ const Account = props => {
       <div
         className="begin-search card row col-12 col-md-6 mx-auto mt-5 mb-5 bg-warning"
         style={beginSearch}
-        onClick={goToBookings}
+       // onClick={goToBookings}
       >
         <div className="begin-search-wrapper p-3">
           <div

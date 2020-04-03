@@ -1,19 +1,12 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContextProvider";
-import {
-  Link,
-  withRouter
-} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-import {
-  buttons,
-  signin,
-  createAccount
-} from "../css/startPageStyle.js";
+import { buttons, signin, createAccount } from "../css/startPageStyle.js";
 
- 
-
-const Login = (props) => {
+const Login = props => {
+  
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { fetchUser } = useContext(UserContext);
@@ -27,10 +20,10 @@ const Login = (props) => {
       encodeURIComponent(password);
     fetchAccount(credentials);
   };
-  
-  
+
   //TODO: fix login, only error even with correct email and password
   let isLoggedin = true;
+  console.log(isLoggedin);
   const fetchAccount = async credentials => {
     let response = await fetch("/login", {
       method: "POST",
@@ -38,16 +31,12 @@ const Login = (props) => {
       body: credentials
     });
 
-   
-
     if (response.url.includes("error")) {
       console.log("Wrong username/password");
-      isLoggedin=false;
+      window.location.reload(false);
       console.log(isLoggedin);
-      
     } else {
       console.log("Successfully logged in");
-      isLoggedin=true
       fetchUser();
       props.history.push("/");
     }
@@ -87,8 +76,7 @@ const Login = (props) => {
             </div>
             {!isLoggedin ? (
               <h5 className="text-warning bg-dark mt-5 col-12 col-md-7 mx-auto">
-                Fel Email eller Lösenord! Vänligen kontrollera dina
-                uppgifter
+                Fel Email eller Lösenord! Vänligen kontrollera dina uppgifter
               </h5>
             ) : (
               <p></p>

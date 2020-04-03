@@ -72,7 +72,13 @@ const Header = () => {
             </NavItem> */}
           </Nav>
         </Collapse>
-          {!user ?(<p></p>):(<h5>{user.firstName} {user.lastName}</h5>)}
+        {!user ? (
+          <p></p>
+        ) : (
+          <h5>
+            {user.firstName} {user.lastName}
+          </h5>
+        )}
       </Navbar>
     </>
   );
