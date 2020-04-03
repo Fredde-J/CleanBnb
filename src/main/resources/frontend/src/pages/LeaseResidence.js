@@ -16,7 +16,7 @@ const LeaseResidence = () => {
   // to be able to POST and create a Residence in the DB
   const [rooms, setRooms] = useState(null)
   const [size, setSize] = useState(null)
-  const [address, setAddress] = useState(null)
+  //const [address, setAddress] = useState(null)
   const [beds, setBeds] = useState(null)
   const [amenity, setAmenity] = useState(null)
  // const [user, setUser] = useState(null)
@@ -33,7 +33,7 @@ const LeaseResidence = () => {
   // importing user from usercontext to see which user that is logged in
   const {user} = useContext(UserContext)
   
-  const newResidence = async (e) => {
+  const newResidence = (e) => {
     
     e.preventDefault()
 
@@ -57,12 +57,8 @@ const LeaseResidence = () => {
     }
 
     // TODO: fix addressContextProvider and update so I can get a hold of the id
-
-    let addressId = newAddress(address);
-    console.log('efter newaddress', addressId)
-    setAddress(addressId)    
-    console.log('efter newaddress residence', residence)
     
+    newAddress(address);
 
     async function newAddress (address){
 
@@ -73,11 +69,14 @@ const LeaseResidence = () => {
       })
       res = await res.json()
       
-      console.log('Address object', res)
-      console.log('Adress id', res.addressId)
-      //MIGHT NOT NEED TO RETURN ID SEEMS BAD
-      return res.addressId;
+      residence.address = res.addressId;
     }
+
+    console.log(residence)
+
+    
+
+
 
    
     // let res = await fetch('/rest/residences', {
