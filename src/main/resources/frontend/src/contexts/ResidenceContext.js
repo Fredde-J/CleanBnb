@@ -26,13 +26,13 @@ export default function ResidenceContextProvider(props) {
   const fetchResidences = async () => {
     if (localStorage.getItem("residences")) {
       setResidences(JSON.parse(localStorage.getItem("residences")));
-      console.log("Fetched from Local Store");
+      console.log("Fetched residences from Local Store");
     } else {
       let res = await fetch("/rest/residences");
       res = await res.json();
       localStorage.setItem("residences", JSON.stringify(res));
       setResidences(res);
-      console.log("Fetched from database");
+      console.log("Fetched residences from database");
     }
   };
 
@@ -109,13 +109,13 @@ export default function ResidenceContextProvider(props) {
     fetchResidences();
   }, []);
 
-  useEffect(() => {
-    console.log(filter);
-  }, [filter]);
+  // useEffect(() => {
+  //   console.log(filter);
+  // }, [filter]);
 
-  useEffect(() => {
-    console.log(residences);
-  }, [residences]);
+  // useEffect(() => {
+  //   console.log(residences);
+  // }, [residences]);
 
   return (
     <ResidenceContext.Provider value={values}>
