@@ -1,46 +1,25 @@
-export const filterAmenities = (fa, re, fr) => {
-  // fa = filter.amenity, r = residences, fr = filteredResidences.
+// fa = filter.amenity, fr = filteredResidences, r = residence
 
-  if (fa.balkong) {
-    fr = fr
-      ? fr.filter(r => r.amenity.balkong)
-      : re.filter(r => r.amenity.balkong);
-  }
-  if (fa.badkar) {
-    fr = fr
-      ? fr.filter(r => r.amenity.badkar)
-      : re.filter(r => r.amenity.badkar);
-  }
-  if (fa.diskmaskin) {
-    fr = fr
-      ? fr.filter(r => r.amenity.diskmaskin)
-      : re.filter(r => r.amenity.diskmaskin);
-  }
-  if (fa.frys) {
-    fr = fr
-      ? fr.filter(r => r.amenity.frys)
-      : re.filter(r => r.amenity.frys);
-  }
-  if (fa.kyl) {
-    fr = fr
-      ? fr.filter(r => r.amenity.kyl)
-      : re.filter(r => r.amenity.kyl);
-  }
-  if (fa.tv) {
-    fr = fr
-      ? fr.filter(r => r.amenity.tv)
-      : re.filter(r => r.amenity.tv);
-  }
-  if (fa.tvättmaskin) {
-    fr = fr
-      ? fr.filter(r => r.amenity.tvättmaskin)
-      : re.filter(r => r.amenity.tvättmaskin);
-  }
-  if (fa.wifi) {
-    fr = fr
-      ? fr.filter(r => r.amenity.wifi)
-      : re.filter(r => r.amenity.wifi);
-  }
+export const filterPrices = (price, fr) => {
+  return fr.filter(r => r.price <= price);
+};
 
-  return fr ? fr : re;
+export const filterBeds = (beds, fr) => {
+  return fr.filter(r => r.beds === beds);
+};
+
+export const filterCities = (city, fr) => {
+  return fr.filter(r => r.address.city === city);
+};
+
+export const filterAmenities = (fa, fr) => {
+  fr = fa.balkong ? fr.filter(r => r.amenity.balkong) : fr;
+  fr = fa.badkar ? fr.filter(r => r.amenity.badkar) : fr;
+  fr = fa.diskmaskin ? fr.filter(r => r.amenity.diskmaskin) : fr;
+  fr = fa.frys ? fr.filter(r => r.amenity.frys) : fr;
+  fr = fa.kyl ? fr.filter(r => r.amenity.kyl) : fr;
+  fr = fa.tv ? fr.filter(r => r.amenity.tv) : fr;
+  fr = fa.tvättmaskin ? fr.filter(r => r.amenity.tvättmaskin) : fr;
+  fr = fa.wifi ? fr.filter(r => r.amenity.wifi) : fr;
+  return fr;
 };

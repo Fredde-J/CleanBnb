@@ -1,5 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
-import { filterAmenities } from "../components/FilterUtilities";
+import {
+  filterAmenities,
+  filterPrices,
+  filterBeds,
+  filterCities
+} from "../components/FilterUtilities";
 
 export const ResidenceContext = createContext();
 
@@ -37,33 +42,22 @@ export default function ResidenceContextProvider(props) {
   };
 
   const filterResidences = () => {
-    let filteredRes;
-    if (filter.price) {
-      filteredRes = residences.filter(r => r.price <= filter.price);
-    }
-    if (filter.beds) {
-      if (filteredRes) {
-        filteredRes = filteredRes.filter(r => r.beds === filter.beds);
-      } else {
-        filteredRes = residences.filter(r => r.beds === filter.beds);
-      }
-    }
-    if (filter.city) {
-      if (filteredRes) {
-        filteredRes = filteredRes.filter(r => r.address.city === filter.city);
-      } else {
-        filteredRes = residences.filter(r => r.address.city === filter.city);
-      }
-    }
-    filteredRes = filterAmenities(filter.amenity, residences, filteredRes);
+    let filteredRes = residences;
 
-    // if (filter.amenity.balkong) {
-    //   filteredRes = filteredRes
-    //     ? filteredRes.filter(r => r.amenity.balkong)
-    //     : residences.filter(r => r.amenity.balkong);
-    // }
+    filteredRes = filter.price
+      ? filterPrices(filter.price, filteredRes)
+      : filteredRes;
+    filteredRes = filter.beds
+      ? filterBeds(filter.beds, filteredRes)
+      : filteredRes;
+    filteredRes = filter.city
+      ? filterCities(filter.city, filteredRes)
+      : filteredRes;
+    filteredRes = filter.amenity
+      ? filterAmenities(filter.amenity, filteredRes)
+      : filteredRes;
 
-    filteredRes ? setResidences(filteredRes) : setResidences(residences); // If no choices is put in the search filters, then residences are sent back.
+    setResidences(filteredRes);
   };
 
   const updateFilter = updates => {

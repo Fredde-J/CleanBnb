@@ -24,7 +24,9 @@ import { useContext } from "react";
 
 const FilterModal = () => {
   const [modal, setModal] = useState(false);
-  const { resetResidences, filterResidences, resetFilter } = useContext(ResidenceContext);
+  const { resetResidences, filterResidences, resetFilter } = useContext(
+    ResidenceContext
+  );
 
   const toggle = () => {
     resetResidences();
