@@ -3,7 +3,7 @@ export const filterAmenities = (fa, re, fr) => {
 
   if (fa.balkong) {
     fr = fr
-      ? fr.filter(r => r.amenity.balkog)
+      ? fr.filter(r => r.amenity.balkong)
       : re.filter(r => r.amenity.balkong);
   }
   if (fa.badkar) {
