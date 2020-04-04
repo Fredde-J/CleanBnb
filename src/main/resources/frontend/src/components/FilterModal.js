@@ -24,19 +24,21 @@ import { useContext } from "react";
 
 const FilterModal = () => {
   const [modal, setModal] = useState(false);
-  const { resetResidences } = useContext(ResidenceContext);
+  const { resetResidences, filterResidences, resetFilter } = useContext(ResidenceContext);
 
   const toggle = () => {
     resetResidences();
+    resetFilter();
     setModal(!modal);
   };
 
   const handleOnFilter = () => {
-    // filterResidences(filtering);
+    filterResidences();
     setModal(!modal);
   };
 
-  const handleGoBack = () => {
+  const handleReset = () => {
+    resetResidences();
     setModal(!modal);
   };
 
@@ -77,10 +79,10 @@ const FilterModal = () => {
         </ModalBody>
         <ModalFooter>
           <Button color="warning" onClick={handleOnFilter}>
-            Filtrera
+            OK
           </Button>{" "}
-          <Button color="warning" onClick={handleGoBack}>
-            Tillbaks
+          <Button color="warning" onClick={handleReset}>
+            Nollställ
           </Button>
         </ModalFooter>
       </Modal>

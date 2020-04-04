@@ -5,7 +5,7 @@ import { ResidenceContext } from "../../contexts/ResidenceContext";
 const Citys = () => {
   const [citiesArray, setCitiesArray] = useState([]);
   const [city, setCity] = useState(null);
-  const { residences } = useContext(ResidenceContext);
+  const { residences, updateFilter } = useContext(ResidenceContext);
 
   const cityStyle = {
     backgroundColor: "#ffc107",
@@ -14,19 +14,26 @@ const Citys = () => {
     height: "38px"
   };
 
-   const updateCity = e => {
-     setCity(e.target.value);
-   };
+  const updateCity = e => {
+    setCity(e.target.value);
+  };
 
   useEffect(() => {
     let tempArray = [];
     residences.forEach(residence => {
-      tempArray.push(residence.address.city);
+      tempArray.push(residence.address ? residence.address.city : "Address");
     });
     tempArray.sort();
     tempArray = [...new Set(tempArray)];
     setCitiesArray(tempArray);
   }, [residences]);
+
+    useEffect(() => {
+      if (city) {
+        updateFilter({ city });
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [city]);
 
   return (
     <Col className="mx-auto mt-3">

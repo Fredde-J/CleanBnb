@@ -1,20 +1,21 @@
-import React from "react";
-import { useState } from "react";
-import { inputSize } from "../../css/checkBoxStyle";
+import React, { useState, useEffect, useContext } from "react";
 import { Row } from "reactstrap";
+import { ResidenceContext } from "../../contexts/ResidenceContext";
+import { inputSize } from "../../css/checkBoxStyle";
 
 const CheckBoxes = () => {
   const [amenity, setAmenity] = useState(null);
+  const { updateFilter } = useContext(ResidenceContext);
 
   const amenities = [
-    "Balkong",
-    "Badkar",
-    "Diskmaskin",
-    "Frys",
-    "Kyl",
-    "TV",
-    "Tvättmaskin",
-    "Wifi"
+    "balkong",
+    "badkar",
+    "diskmaskin",
+    "frys",
+    "kyl",
+    "tv",
+    "tvättmaskin",
+    "wifi"
   ];
 
   const handleClick = e => {
@@ -24,12 +25,19 @@ const CheckBoxes = () => {
         [e.target.value]: true
       });
     } else {
-       setAmenity({
-         ...amenity,
-         [e.target.value]: false
-       });
+      setAmenity({
+        ...amenity,
+        [e.target.value]: false
+      });
     }
   };
+
+  useEffect(() => {
+    if (amenity) {
+      updateFilter({ amenity });
+    }
+    // eslint-disable-next-line
+  }, [amenity]);
 
   return (
     <Row className="p-3">
@@ -45,7 +53,7 @@ const CheckBoxes = () => {
             onClick={handleClick}
           />
           <label className="col-9" htmlFor={a}>
-            {a}
+            {a.charAt(0).toUpperCase() + a.slice(1)}
           </label>
         </div>
       ))}

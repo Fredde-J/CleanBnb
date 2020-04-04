@@ -4,32 +4,30 @@ import { ResidenceContext } from "../../contexts/ResidenceContext";
 
 const PriceRange = () => {
   const [price, setPrice] = useState(0);
-  const [min, setMin] = useState(0);
+  const [min, setMin] = useState(null);
   const [max, setMax] = useState(null);
-  const { residences, filterResidences, resetResidences } = useContext(
-    ResidenceContext
-  );
+  const { residences, updateFilter } = useContext(ResidenceContext);
 
   const onChangeHandler = e => {
+    // resetResidences();
     setPrice(e.target.value);
   };
 
   useEffect(() => {
-    if (max === null) {
-      let priceArray = [];
-      residences.forEach(residence => {
-        priceArray.push(residence.price);
-      });
-      let maxValue = Math.max(...priceArray);
-      setMax(maxValue);
-    }
+    let priceArray = [];
+    residences.forEach(residence => {
+      priceArray.push(residence.price);
+    });
+    let minValue = Math.min(...priceArray);
+    let maxValue = Math.max(...priceArray);
+    setMin(minValue);
+    setMax(maxValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (price) {
-      console.log(price);
-      filterResidences("price", parseInt(price));
+      updateFilter({ price: parseInt(price) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price]);

@@ -5,7 +5,7 @@ import { Col } from "reactstrap";
 const Beds = () => {
   const [bedsArray, setBedsArray] = useState([]);
   const [beds, setBeds] = useState(null);
-  const { residences } = useContext(ResidenceContext);
+  const { residences, updateFilter } = useContext(ResidenceContext);
 
   const bedsStyle = {
     backgroundColor: "#ffc107",
@@ -26,7 +26,15 @@ const Beds = () => {
     tempArray.sort();
     tempArray = [...new Set(tempArray)];
     setBedsArray(tempArray);
-  }, [residences]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (beds) {
+      updateFilter({ beds: parseInt(beds) });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [beds]);
 
   return (
     <Col className="mx-auto mt-3">

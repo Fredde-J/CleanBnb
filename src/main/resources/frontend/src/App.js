@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import ResidenceContextProvider from "./contexts/ResidenceContext";
@@ -17,6 +17,13 @@ import Footer from "./components/Footer";
 import "./css/style.css";
 
 function App() {
+
+useEffect(() => {
+  return () => {
+    localStorage.clear();
+  }
+}, [])
+
   return (
     <BrowserRouter>
       <div className="App">
