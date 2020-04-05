@@ -3,15 +3,12 @@
 export const filterPrices = (price, fr) => {
   return fr.filter(r => r.price <= price);
 };
-
 export const filterBeds = (beds, fr) => {
   return fr.filter(r => r.beds === beds);
 };
-
 export const filterCities = (city, fr) => {
   return fr.filter(r => r.address.city === city);
 };
-
 export const filterAmenities = (fa, fr) => {
   fr = fa.balkong ? fr.filter(r => r.amenity.balkong) : fr;
   fr = fa.badkar ? fr.filter(r => r.amenity.badkar) : fr;

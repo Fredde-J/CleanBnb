@@ -43,7 +43,6 @@ export default function ResidenceContextProvider(props) {
 
   const filterResidences = () => {
     let filteredRes = residences;
-
     filteredRes = filter.price
       ? filterPrices(filter.price, filteredRes)
       : filteredRes;
@@ -56,7 +55,6 @@ export default function ResidenceContextProvider(props) {
     filteredRes = filter.amenity
       ? filterAmenities(filter.amenity, filteredRes)
       : filteredRes;
-
     setResidences(filteredRes);
   };
 
