@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Col } from "reactstrap";
-
+import { UserContext } from "../contexts/UserContext";
 import {
   imgStyle,
   divStyle2,
@@ -12,7 +12,19 @@ import {
 } from "../css/ResidenceCardStyle";
 
 const Residence = props => {
+  const { history } = props;
+
   const [residence, setResidence] = useState(null);
+
+    const goToLogin = () => {
+      history.push("/");
+    };
+
+    const goToBookingComponent = () => {
+      history.push("/booking-component");
+    }
+
+  const { user } = useContext(UserContext);
 
   const fetchOneResidence = async id => {
     let res = await fetch(`/rest/residences/${id}`);
@@ -88,12 +100,23 @@ const Residence = props => {
                     </p>
                   </Col>
                 </Row>
-                <button
-                  style={buttonStyle}
-                  className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
-                >
-                  Boka
-                </button>
+                {user ? (
+                  <button
+                    style={buttonStyle}
+                    className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
+                    onClick={goToBookingComponent}
+                  >
+                    Boka
+                  </button>
+                ) : (
+                  <button
+                    style={buttonStyle}
+                    className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
+                    onClick={goToLogin}
+                  >
+                    Logga in
+                  </button>
+                )}
               </div>
             </div>
           </Col>

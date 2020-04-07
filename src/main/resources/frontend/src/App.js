@@ -14,6 +14,7 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import CompanyInfoPage from "./pages/CompanyInfoPage";
 import bookingComponent from "./components/bookingComponent";
+import Bookings from "./components/BookingCard"
 
 import "./css/style.css";
 
@@ -49,6 +50,7 @@ function App() {
                   path="/booking-component"
                   component={bookingComponent}
                 />
+                <Route exact path="/account/bookings" component={Bookings} />
               </Switch>
             </main>
             <Footer />
