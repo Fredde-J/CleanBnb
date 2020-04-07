@@ -1,4 +1,5 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
+// eslint-disable-next-line react-hooks/exhaustive-deps
 
 import React, { useState } from "react";
 import {
@@ -9,6 +10,8 @@ import {
   ModalFooter,
   Row
 } from "reactstrap";
+import { ResidenceContext } from "../contexts/ResidenceContext";
+
 import "react-calendar/dist/Calendar.css";
 
 import CheckIn from "./filterComponents/CheckIn";
@@ -17,11 +20,29 @@ import PriceRange from "./filterComponents/PriceRange";
 import CheckBoxes from "./filterComponents/CheckBoxes";
 import Beds from "./filterComponents/Beds";
 import Citys from "./filterComponents/Citys";
+import { useContext } from "react";
 
-const ModalExample = props => {
+const FilterModal = () => {
   const [modal, setModal] = useState(false);
+  const { resetResidences, filterResidences, resetFilter } = useContext(
+    ResidenceContext
+  );
 
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    resetResidences();
+    resetFilter();
+    setModal(!modal);
+  };
+
+  const handleOnFilter = () => {
+    filterResidences();
+    setModal(!modal);
+  };
+
+  const handleReset = () => {
+    resetResidences();
+    setModal(!modal);
+  };
 
   const buttonStyle = {
     borderRadius: "15px",
@@ -59,11 +80,11 @@ const ModalExample = props => {
           <CheckBoxes />
         </ModalBody>
         <ModalFooter>
-          <Button color="warning" onClick={toggle}>
-            Filtrera
+          <Button color="warning" onClick={handleOnFilter}>
+            OK
           </Button>{" "}
-          <Button color="warning" onClick={toggle}>
-            Tillbaks
+          <Button color="warning" onClick={handleReset}>
+            Nollställ
           </Button>
         </ModalFooter>
       </Modal>
@@ -71,4 +92,4 @@ const ModalExample = props => {
   );
 };
 
-export default ModalExample;
+export default FilterModal;

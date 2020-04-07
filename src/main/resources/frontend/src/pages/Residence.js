@@ -17,7 +17,7 @@ const Residence = props => {
   const fetchOneResidence = async id => {
     let res = await fetch(`/rest/residences/${id}`);
     res = await res.json();
-    console.log(res);
+    // console.log(res);
     setResidence(res);
   };
 

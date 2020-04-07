@@ -28,7 +28,7 @@ const ResidenceCard = ({ residence, history }) => {
         />
         <div className="card-body row">
           <p style={topPStyle} className="col-6 text-left">
-            {residence.address.city}
+            {residence.address ? residence.address.city : "Address"}
           </p>
           <p style={topPStyle} className="col-6 text-right">
             {residence.price}kr / Natt

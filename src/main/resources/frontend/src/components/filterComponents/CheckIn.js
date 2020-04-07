@@ -4,27 +4,28 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 const CheckIn = () => {
-  const [checkInDate, setCheckInDate] = useState(new Date());
-  const [dateString, setDateString] = useState("");
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [dateString, setDateString] = useState(null);
   const [nestedModalIn, setNestedModalIn] = useState(false);
 
   const toggleNestedIn = () => {
     setNestedModalIn(!nestedModalIn);
   };
 
-   const logCheckInDate = e => {
-     setCheckInDate(e);
+  const logCheckInDate = e => {
+    setCheckInDate(e);
   };
 
   useEffect(() => {
-    let date = checkInDate.toLocaleDateString();
-    setDateString(date);
-  }, [checkInDate])
-  
+    if (checkInDate) {
+      setDateString(checkInDate.toLocaleDateString());
+    }
+  }, [checkInDate]);
+
   return (
     <div className="col-6">
       <Button color="warning" onClick={toggleNestedIn} className="col-12">
-        {dateString}
+        {dateString ? dateString : "Välj Datum.."}
       </Button>
       <Modal isOpen={nestedModalIn} toggle={toggleNestedIn}>
         <ModalHeader>Välj Datum för Incheckning</ModalHeader>
