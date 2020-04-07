@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { UserContext } from "../contexts/UserContextProvider";
 import Login from "../components/Login";
-import Account from "../components/Account";
+
 
 import {
   beginSearch,

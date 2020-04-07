@@ -1,15 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../contexts/UserContextProvider";
 import { Link, withRouter } from "react-router-dom";
 
 import { buttons, signin, createAccount } from "../css/startPageStyle.js";
 
 const Login = props => {
-  
-  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { fetchUser } = useContext(UserContext);
+  const [isLoggedin, setIsLoggedIn] = useState(true)
 
   const logIn = e => {
     e.preventDefault();
@@ -18,23 +17,32 @@ const Login = props => {
       encodeURIComponent(username) +
       "&password=" +
       encodeURIComponent(password);
-    fetchAccount(credentials);
+    if (username && password) {
+      fetchAccount(credentials);
+    } else {
+      setIsLoggedIn(false)
+      console.log(isLoggedin)
+    }
   };
 
+  useEffect(() => {
+    console.log(isLoggedin);
+  }, [isLoggedin]);
   //TODO: fix login, only error even with correct email and password
-  let isLoggedin = true;
+
   console.log(isLoggedin);
   const fetchAccount = async credentials => {
     let response = await fetch("/login", {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
       body: credentials
     });
 
     if (response.url.includes("error")) {
       console.log("Wrong username/password");
-      window.location.reload(false);
-      console.log(isLoggedin);
+      
     } else {
       console.log("Successfully logged in");
       fetchUser();
