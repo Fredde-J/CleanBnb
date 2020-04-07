@@ -10,6 +10,7 @@ export const ResidenceContext = createContext();
 
 export default function ResidenceContextProvider(props) {
   const [residences, setResidences] = useState([]);
+  const [chosenResidence, setChosenResidence] = useState({})
   const [filter, setFilter] = useState({
     price: null,
     checkInDate: null,
@@ -95,6 +96,8 @@ export default function ResidenceContextProvider(props) {
     updateFilter,
     resetResidences,
     resetFilter,
+    setChosenResidence,
+    chosenResidence
   };
 
   useEffect(() => {

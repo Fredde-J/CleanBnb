@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Row, Col } from "reactstrap";
 import { UserContext } from "../contexts/UserContext";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 import {
   imgStyle,
   divStyle2,
@@ -16,13 +17,16 @@ const Residence = props => {
 
   const [residence, setResidence] = useState(null);
 
-    const goToLogin = () => {
-      history.push("/");
-    };
+  const { setChosenResidence } = useContext(ResidenceContext);
 
-    const goToBookingComponent = () => {
-      history.push("/booking-component");
-    }
+  const goToLogin = () => {
+    history.push("/");
+  };
+
+  const goToBookingComponent = async () => {
+    await setChosenResidence(residence);
+    history.push(`/residences/${residence.residenceId}/booking`);
+  };
 
   const { user } = useContext(UserContext);
 
@@ -113,6 +117,7 @@ const Residence = props => {
                     style={buttonStyle}
                     className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
                     onClick={goToLogin}
+                    residence={residence}
                   >
                     Logga in
                   </button>

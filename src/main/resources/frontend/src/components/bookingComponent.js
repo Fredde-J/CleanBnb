@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 import {
   Form,
   FormGroup,
@@ -7,16 +8,33 @@ import {
   Col,
   Row,
   Button,
-  CardImg,
+  CardImg
 } from "reactstrap";
 import {
   divStyle1,
   imgStyle,
   residence,
-  topPStyle,
+  topPStyle
 } from "../css/bookingComponentStyle";
 
-const bookingComponent = () => {
+const BookingComponent = props => {
+  const { chosenResidence } = useContext(ResidenceContext);
+  console.log(chosenResidence);
+  // const [residence, setResidence] = useState(null);
+
+  // const fetchOneResidence = async id => {
+  //   let res = await fetch(`/rest/residences/${id}`);
+  //   res = await res.json();
+  //   // console.log(res);
+  //   setResidence(res);
+  // };
+
+  // useEffect(() => {
+  //   if (props.match.params.residenceId){
+  //     fetchOneResidence(props.match.params.residenceId);
+  //   };
+  // }, [props.match.params.residenceId]);
+
   //const goToBookingPage = id => {
   //history.push(`/residences/${id}`);
 
@@ -30,7 +48,7 @@ const bookingComponent = () => {
             </p>
             <img
               style={imgStyle}
-              src="/images/lägenhet1.jpg"
+              src={chosenResidence.images}
               alt=""
               className="card-img-top"
             />
@@ -69,7 +87,11 @@ const bookingComponent = () => {
                 </Col>
               </Row>
 
-              <Button color="secondary" block className="col-12 col-md-8 offset-md-2">
+              <Button
+                color="secondary"
+                block
+                className="col-12 col-md-8 offset-md-2"
+              >
                 Fortsätt
               </Button>
             </Form>
@@ -80,4 +102,4 @@ const bookingComponent = () => {
   );
 };
 
-export default bookingComponent;
+export default BookingComponent;

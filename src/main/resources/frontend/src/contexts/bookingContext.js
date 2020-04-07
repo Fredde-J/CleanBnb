@@ -10,7 +10,7 @@ const BookingContextProvider = props => {
         let res = await fetch("/rest/bookings");
         try {
           res = await res.json();
-          setUser(res);
+          setBooking(res);
           console.log(res);
         } catch {
           // console.log('Not logged in');

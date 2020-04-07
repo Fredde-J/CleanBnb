@@ -8,6 +8,7 @@ import {
 } from "../css/ResidenceCardStyle";
 
 const BookingCard = ()=>{
+  
 
     return (
       <Col xs="12" md="6">
