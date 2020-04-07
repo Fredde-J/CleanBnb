@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState} from "react";
 import { UserContext } from "../contexts/UserContext";
 import {
   Link,
@@ -28,10 +28,6 @@ const Login = props => {
     }
   };
 
-  useEffect(() => {
-    console.log(isLoggedin);
-  }, [isLoggedin]);
-  //TODO: fix login, only error even with correct email and password
 
   console.log(isLoggedin);
   const fetchAccount = async credentials => {

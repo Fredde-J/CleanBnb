@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../contexts/UserContextProvider";
+import { UserContext } from "../contexts/UserContext";
 import {
   Collapse,
   Navbar,
@@ -8,7 +8,7 @@ import {
   Nav,
   NavItem,
 } from "reactstrap";
-import{imgStyle, pStyle} from "../css/headerStyle"
+import{imgStyle, pStyle} from "../css/headerstyle"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
