@@ -3,7 +3,7 @@ import {
   filterAmenities,
   filterPrices,
   filterBeds,
-  filterCities
+  filterCities,
 } from "../components/FilterUtilities";
 
 export const ResidenceContext = createContext();
@@ -24,8 +24,8 @@ export default function ResidenceContextProvider(props) {
       kyl: false,
       tv: false,
       tvättmaskin: false,
-      wifi: false
-    }
+      wifi: false,
+    },
   });
 
   const fetchResidences = async () => {
@@ -58,10 +58,10 @@ export default function ResidenceContextProvider(props) {
     setResidences(filteredRes);
   };
 
-  const updateFilter = updates => {
+  const updateFilter = (updates) => {
     setFilter({
       ...filter,
-      ...updates
+      ...updates,
     });
   };
 
@@ -84,8 +84,8 @@ export default function ResidenceContextProvider(props) {
         Kyl: false,
         TV: false,
         Tvättmaskin: false,
-        Wifi: false
-      }
+        Wifi: false,
+      },
     });
 
   const values = {
@@ -94,7 +94,7 @@ export default function ResidenceContextProvider(props) {
     filterResidences,
     updateFilter,
     resetResidences,
-    resetFilter
+    resetFilter,
   };
 
   useEffect(() => {
