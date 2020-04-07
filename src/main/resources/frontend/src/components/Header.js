@@ -18,7 +18,7 @@ const Header = () => {
     <>
       <Navbar color="warning" light expand="md">
         <Link to="/" className="center header-navbarTitle mr-3">
-          <img style={{width: "50%"}} src="/images/logo.png"/>
+          <img style={{width: "50%"}} src="/images/logo.png" alt=""/>
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
