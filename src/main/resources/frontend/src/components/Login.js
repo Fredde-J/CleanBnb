@@ -1,6 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "../contexts/UserContextProvider";
-import { Link, withRouter } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../contexts/UserContext";
+import {
+  Link,
+  withRouter
+} from "react-router-dom";
 
 import { buttons, signin, createAccount } from "../css/startPageStyle.js";
 

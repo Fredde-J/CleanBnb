@@ -1,14 +1,16 @@
-import React from "react";
-import Header from "./components/Header";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import ResidenceContextProvider from "./contexts/ResidenceContext";
+import UserContextProvider from "./contexts/UserContext";
+
+import Header from "./components/Header";
 import StartPage from "./pages/StartPage";
 import SearchPage from "./pages/SearchPage";
-import ResidenceContextProvider from "./contexts/ResidenceContextProvider";
 import InfoPage from "./pages/InfoPage";
 import CompanyInfoPage from "./pages/CompanyInfoPage"
 import ResidentPage from "./pages/Residence.js"
 import RegisterUser from "./pages/RegisterUser.js"
-import UserContextProvider from "./contexts/UserContextProvider"
 import Login from "./components/Login"
 import Footer from './components/Footer'
 import Bookings from './pages/Bookings.js'
@@ -16,6 +18,13 @@ import Bookings from './pages/Bookings.js'
 import "./css/style.css";
 
 function App() {
+
+useEffect(() => {
+  return () => {
+    localStorage.clear();
+  }
+}, [])
+
   return (
     <div className="App">
       <UserContextProvider>
