@@ -14,7 +14,7 @@ import RegisterUser from "./pages/RegisterUser.js";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
 import CompanyInfoPage from "./pages/CompanyInfoPage";
-import bookingComponent from "./components/BookingComponent";
+import BookingComponent from "./components/BookingComponent";
 import Bookings from "./components/BookingCard"
 
 import "./css/style.css";
@@ -54,7 +54,7 @@ function App() {
                   <Route
                     exact
                     path="/residences/:residenceId/booking"
-                    component={bookingComponent}
+                    component={BookingComponent}
                   />
                   <Route exact path="/account/bookings" component={Bookings} />
                 </Switch>
