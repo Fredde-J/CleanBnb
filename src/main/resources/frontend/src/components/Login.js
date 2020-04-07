@@ -20,12 +20,7 @@ const Login = props => {
       encodeURIComponent(username) +
       "&password=" +
       encodeURIComponent(password);
-    if (username && password) {
       fetchAccount(credentials);
-    } else {
-      setIsLoggedIn(false)
-      console.log(isLoggedin)
-    }
   };
 
 
@@ -41,10 +36,12 @@ const Login = props => {
 
     if (response.url.includes("error")) {
       console.log("Wrong username/password");
+      setIsLoggedIn(false)
       
     } else {
       console.log("Successfully logged in");
       fetchUser();
+      setIsLoggedIn(true)
       props.history.push("/");
     }
   };
