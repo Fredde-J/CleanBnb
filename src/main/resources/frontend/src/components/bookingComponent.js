@@ -1,29 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { ResidenceContext } from "../contexts/ResidenceContext";
-import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Col,
-  Row,
-  Button,
-  CardImg
-} from "reactstrap";
-import {
-  divStyle1,
-  imgStyle,
-  residence,
-  topPStyle
-} from "../css/bookingComponentStyle";
+import { Form, FormGroup, Label, Input, Col, Row, Button } from "reactstrap";
+import { divStyle1, imgStyle, topPStyle } from "../css/bookingComponentStyle";
+import { UserContext } from "../contexts/UserContext";
 
-const BookingComponent = props => {
+const BookingComponent = (props) => {
   const { chosenResidence } = useContext(ResidenceContext);
+  const { user } = useContext(UserContext);
+  console.log(user);
 
-  if(!chosenResidence){
-    console.log("not here")
+  if (!chosenResidence) {
+    console.log("not here");
   }
-  console.log(chosenResidence)
+  console.log(chosenResidence);
+
+  const goToBookingConfirmation =()=>{
+   props.history.push(
+     `/account/${chosenResidence.residenceId}/bookingConfirmation`
+   );
+  }
 
   return (
     <Row>
@@ -31,7 +26,7 @@ const BookingComponent = props => {
         <div style={divStyle1} className="card bg-warning my-3">
           <div className="card-body">
             <p style={topPStyle} className="col-12 text-center">
-              Bekräfta bokning
+              Dina Uppgifter
             </p>
             <img
               style={imgStyle}
@@ -44,17 +39,51 @@ const BookingComponent = props => {
                 <Col xs="12" md="6">
                   <FormGroup>
                     <Label for="name">Förnamn</Label>
-                    <Input type="text" name="name" id="firstName" />
+                    {user ? (
+                      <Input
+                        type="text"
+                        name="name"
+                        id="firstName"
+                        value={user.firstName}
+                      />
+                    ) : (
+                      <Input type="text" name="name" id="firstName" />
+                    )}
                   </FormGroup>
                 </Col>
                 <Col xs="12" md="6">
                   <FormGroup>
                     <Label for="lastName">Efternamn:</Label>
-                    <Input type="lastname" name="lastname" id="lastName" />
+                    {user ? (
+                      <Input
+                        type="lastname"
+                        name="lastname"
+                        id="lastName"
+                        value={user.lastName}
+                      />
+                    ) : (
+                      <Input type="lastname" name="lastname" id="lastName" />
+                    )}
                   </FormGroup>
                 </Col>
               </Row>
               <Row form>
+                <Col xs="12" md="6">
+                  <FormGroup>
+                    <Label for="email">Email:</Label>
+
+                    {user ? (
+                      <Input
+                        type="email"
+                        name="email"
+                        id="emailAdress"
+                        value={user.username}
+                      />
+                    ) : (
+                      <Input type="email" name="email" id="emailAdress" />
+                    )}
+                  </FormGroup>
+                </Col>
                 <Col xs="12" md="6">
                   <FormGroup>
                     <Label for="phone">Telefon:</Label>
@@ -63,13 +92,8 @@ const BookingComponent = props => {
                       name="number"
                       id="phoneNumber"
                       display="inline-block"
+                      
                     />
-                  </FormGroup>
-                </Col>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    <Label for="email">Email:</Label>
-                    <Input type="email" name="email" id="emailAdress" />
                   </FormGroup>
                 </Col>
               </Row>
@@ -78,6 +102,7 @@ const BookingComponent = props => {
                 color="secondary"
                 block
                 className="col-12 col-md-8 offset-md-2"
+                onClick={goToBookingConfirmation}
               >
                 Fortsätt
               </Button>

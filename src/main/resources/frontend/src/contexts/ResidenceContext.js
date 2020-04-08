@@ -29,6 +29,8 @@ export default function ResidenceContextProvider(props) {
     },
   });
 
+  
+
   const fetchResidences = async () => {
     if (localStorage.getItem("residences")) {
       setResidences(JSON.parse(localStorage.getItem("residences")));
@@ -103,6 +105,8 @@ export default function ResidenceContextProvider(props) {
   useEffect(() => {
     fetchResidences();
   }, []);
+
+    
 
   // useEffect(() => {
   //   console.log(filter);

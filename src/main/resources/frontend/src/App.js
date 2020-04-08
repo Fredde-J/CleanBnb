@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import CompanyInfoPage from "./pages/CompanyInfoPage";
 import BookingComponent from "./components/BookingComponent";
 import Bookings from "./components/BookingCard"
+import BookingConfirmation from "./pages/BookingConfirmation"
 
 import "./css/style.css";
 
@@ -57,6 +58,7 @@ function App() {
                     component={BookingComponent}
                   />
                   <Route exact path="/account/bookings" component={Bookings} />
+                  <Route exact path="/account/:chosenresidenceId/bookingConfirmation" component={BookingConfirmation} />
                 </Switch>
               </main>
               <Footer />
