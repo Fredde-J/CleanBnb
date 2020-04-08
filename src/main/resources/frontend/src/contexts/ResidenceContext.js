@@ -10,6 +10,7 @@ export const ResidenceContext = createContext();
 
 export default function ResidenceContextProvider(props) {
   const [residences, setResidences] = useState([]);
+  const [availabilities, setAvailabilities] = useState([]);
   const [filter, setFilter] = useState({
     price: null,
     checkInDate: null,
@@ -39,6 +40,26 @@ export default function ResidenceContextProvider(props) {
       setResidences(res);
       console.log("Fetched residences from database");
     }
+  };
+
+  const fetchAvailibilities = async () => {
+    let res = await fetch("/rest/availability");
+    res = await res.json();
+    localStorage.setItem("availabilities", JSON.stringify(res));
+
+    setAvailabilities(res);
+    console.log("Fetched availabilities from database");
+  };
+
+  const updateResidences = () => {
+    residences.forEach((r) => {
+      let availability = availabilities.filter((a) => {
+        return r.residenceId === a.residence.residenceId;
+      });
+      r.availability = availability[0];
+    });
+
+    console.log(residences);
   };
 
   const filterResidences = () => {
@@ -99,7 +120,12 @@ export default function ResidenceContextProvider(props) {
 
   useEffect(() => {
     fetchResidences();
+    fetchAvailibilities();
   }, []);
+
+  useEffect(() => {
+    // updateResidences();
+  }, [availabilities]);
 
   // useEffect(() => {
   //   console.log(filter);

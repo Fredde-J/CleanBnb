@@ -4,12 +4,12 @@ import {
   divStyle1,
   imgStyle,
   topPStyle,
-  bottomPStyle
+  bottomPStyle,
 } from "../css/ResidenceCardStyle";
 import { withRouter } from "react-router-dom";
 
 const ResidenceCard = ({ residence, history }) => {
-  const goToResidencePage = id => {
+  const goToResidencePage = (id) => {
     history.push(`/residences/${id}`);
   };
 
@@ -37,7 +37,6 @@ const ResidenceCard = ({ residence, history }) => {
             {residence.beds} {residence.beds > 1 ? "st sängar" : "st säng"}
           </p>
           <p style={bottomPStyle} className="col-6 text-right">
-            (datum)
           </p>
         </div>
       </div>

@@ -30,26 +30,30 @@ function App() {
         <Header />
         <UserContextProvider>
           <ResidenceContextProvider>
-            <main className="container">
-              <Switch>
-                <Route
-                  exact
-                  path="/residences/:residenceId"
-                  component={ResidentPage}
-                />
-                <Route exact path="/" component={StartPage} />
-                <Route exact path="/search" component={SearchPage} />
-                <Route exact path="/info" component={InfoPage} />
-                <Route exact path="/companyinfo" component={CompanyInfoPage} />
-                <Route exact path="/register_user" component={RegisterUser} />
-                <Route exact path="/preform-login" component={Login} />
-                <Route
-                  exact
-                  path="/booking-component"
-                  component={bookingComponent}
-                />
-              </Switch>
-            </main>
+              <main className="container">
+                <Switch>
+                  <Route
+                    exact
+                    path="/residences/:residenceId"
+                    component={ResidentPage}
+                  />
+                  <Route exact path="/" component={StartPage} />
+                  <Route exact path="/search" component={SearchPage} />
+                  <Route exact path="/info" component={InfoPage} />
+                  <Route
+                    exact
+                    path="/companyinfo"
+                    component={CompanyInfoPage}
+                  />
+                  <Route exact path="/register_user" component={RegisterUser} />
+                  <Route exact path="/preform-login" component={Login} />
+                  <Route
+                    exact
+                    path="/booking-component"
+                    component={bookingComponent}
+                  />
+                </Switch>
+              </main>
           </ResidenceContextProvider>
         </UserContextProvider>
         <Footer />
