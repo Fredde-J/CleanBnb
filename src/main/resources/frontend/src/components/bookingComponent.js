@@ -1,24 +1,66 @@
-import React, { useContext } from "react";
+import React, { useContext,useState,useEffect } from "react";
 import { ResidenceContext } from "../contexts/ResidenceContext";
 import { Form, FormGroup, Label, Input, Col, Row, Button } from "reactstrap";
 import { divStyle1, imgStyle, topPStyle } from "../css/bookingComponentStyle";
 import { UserContext } from "../contexts/UserContext";
+import {BookingContext} from "../contexts/BookingContext";
 
 const BookingComponent = (props) => {
   const { chosenResidence } = useContext(ResidenceContext);
   const { user } = useContext(UserContext);
-  console.log(user);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [residenceId, setResidenceId] = useState("");
+  const [userId, setUserId] = useState("");
+  const {setBooking} = useContext(BookingContext)
+  
+  const bookingInfo = {
+    startDate,
+    endDate,
+    residenceId,
+    userId,
+  };
+
+ 
 
   if (!chosenResidence) {
     console.log("not here");
   }
   console.log(chosenResidence);
 
-  const goToBookingConfirmation =()=>{
-   props.history.push(
-     `/account/${chosenResidence.residenceId}/bookingConfirmation`
-   );
+  const goToBookingConfirmation =async(e)=>{
+    e.preventDefault();
+    
+     setStartDate("2020-05-05")
+     setEndDate("2020-05-10")
+     setResidenceId(chosenResidence.residenceId)
+     setUserId(user.userId)
+    fetchBookings(bookingInfo);
+  
   }
+   useEffect(() => {
+     console.log(bookingInfo);
+   }, [bookingInfo]);
+
+ 
+
+  const fetchBookings = async bookingInfo =>{
+    let response = await fetch("/rest/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bookingInfo),
+    });
+      try {
+            response = await response.json();
+            setBooking(response);
+           // props.history.push(
+           //   `/account/${chosenResidence.residenceId}/bookingConfirmation`
+            //);
+          } catch {
+        console.log("Fel inmatning av uppgifter");
+      }
+  }
+  
 
   return (
     <Row>

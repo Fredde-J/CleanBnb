@@ -22,7 +22,7 @@ public class Booking {
     private  User userId;
 
 
-    public  Booking() {}
+    public  Booking () {}
 
     public Booking(String startDate, String endDate, Residence residenceId, User userId) {
         this.startDate = startDate;

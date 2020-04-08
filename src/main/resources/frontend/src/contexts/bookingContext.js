@@ -7,19 +7,20 @@ const BookingContextProvider = props => {
   const [booking, setBooking] = useState(BookingContext)
 
   const fetchBookings = async () => {
-        let res = await fetch("/rest/bookings");
+        let res = await fetch("/rest/getAllBookings");
         try {
           res = await res.json();
           setBooking(res);
           console.log(res);
         } catch {
-          // console.log('Not logged in');
+           console.log('Not logged in');
         }
   }
 
   const values = {
     booking,
-    setBooking
+    setBooking,
+
   }
   return (
     <BookingContext.Provider value={values}>

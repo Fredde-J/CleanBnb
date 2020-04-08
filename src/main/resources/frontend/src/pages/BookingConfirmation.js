@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {  useContext } from "react";
 import { Row, Col } from "reactstrap";
-import { UserContext } from "../contexts/UserContext";
 import { ResidenceContext } from "../contexts/ResidenceContext";
 import {
   imgStyle,
   divStyle2,
   pTagStyle1,
-  pTagStyle2,
-  pTagStyle3,
   pTagStyle4,
-  buttonStyle,
+  
 } from "../css/ResidenceCardStyle";
 const BookingConfirmation = (props) => {
   const { chosenResidence } = useContext(ResidenceContext);
