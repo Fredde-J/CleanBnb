@@ -8,12 +8,11 @@ import {BookingContext} from "../contexts/BookingContext";
 const BookingComponent = (props) => {
   const { chosenResidence } = useContext(ResidenceContext);
   const { user } = useContext(UserContext);
+  const { setBooking } = useContext(BookingContext);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [residenceId, setResidenceId] = useState("");
   const [userId, setUserId] = useState("");
-  const {setBooking} = useContext(BookingContext)
-  
   const bookingInfo = {
     startDate,
     endDate,

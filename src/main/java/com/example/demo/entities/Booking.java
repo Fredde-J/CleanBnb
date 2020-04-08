@@ -10,26 +10,29 @@ public class Booking {
     @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingId;
-    @DateTimeFormat(pattern = "YYYY-MM-DD")
     private  String startDate;
-    @DateTimeFormat(pattern = "YYYY-MM-DD")
     private String endDate;
+
+    @Transient
+    public int residenceId;
+
+    @Transient
+    public int userId;
+
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private  Residence residenceId;
+    //@JoinColumn
+    private  Residence residence;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private  User userId;
+   // @JoinColumn
+    private  User user;
 
 
-    public  Booking () {}
 
-    public Booking(String startDate, String endDate, Residence residenceId, User userId) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.residenceId = residenceId;
-        this.userId = userId;
-    }
+
+
+
+    public Booking() {}
 
     public int getBookingId() {
         return bookingId;
@@ -55,19 +58,21 @@ public class Booking {
         this.endDate = endDate;
     }
 
-    public Residence getResidenceId() {
-        return residenceId;
+    public Residence getResidence() {
+        return residence;
     }
 
-    public void setResidenceId(Residence residenceId) {
-        this.residenceId = residenceId;
+    public void setResidence(Residence residence) {
+        this.residence = residence;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
+
+
