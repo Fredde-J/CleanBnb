@@ -15,45 +15,17 @@ import CheckIn from "../components/filterComponents/CheckIn";
 import CheckOut from "../components/filterComponents/CheckOut";
 import CheckBoxes from "../components/filterComponents/CheckBoxes";
 import { UserContext } from "../contexts/UserContextProvider";
-//import { AmenityContext   } from "../contexts/AmenityContextProvider"
 
 import "react-calendar/dist/Calendar.css";
 import { headStyle, semiHeadStyle } from "../css/addResidenceFormStyle.js";
+import {
+  getNewAddressId,
+  getNewAmenityId,
+  getResidenceToCreate,
+} from "../components/createEntities";
 
 const LeaseResidence = () => {
   const { user } = useContext(UserContext);
-  //const {amenity, resetAmenity} = useContext(AmenityContext);
-
-  // const [rooms, setRooms] = useState(null);
-  // const [size, setSize] = useState(null);
-  // const [beds, setBeds] = useState(null);
-  // const [price, setPrice] = useState(null);
-
-  // const [newResidence, setNewResidence] = useState({
-  //   images: "imageslägenhet1.jpg",
-  //   rooms: 0,
-  //   size: 0,
-  //   beds: 0,
-  //   user: 0,
-  //   price: 0,
-  //   address: {
-  //     city: "",
-  //     country: "",
-  //     streetName: "",
-  //     streetNumber: "",
-  //     zipCode: "",
-  //   },
-  //   amenity: {
-  //     badkar: false,
-  //     balkong: false,
-  //     diskmaskin: false,
-  //     frys: false,
-  //     kyl: false,
-  //     tv: false,
-  //     tvättmaskin: false,
-  //     wifi: false,
-  //   },
-  // });
 
   const [amenity, setAmenity] = useState({
     badkar: false,
@@ -70,22 +42,21 @@ const LeaseResidence = () => {
     images: "imageslägenhet1.jpg",
     rooms: 0,
     size: 0,
-    address: 0,
+    addressId: 0,
     beds: 0,
-    amenity: 0,
-    user: 0,
+    amenityId: 0,
+    userId: 0,
     price: 0,
   });
 
   const [addressToCreate, setAddressToCreate] = useState({
-    id: null,
     city: "",
     country: "",
     streetName: "",
     streetNumber: "",
     zipCode: "",
   });
-  
+
   const updateAddress = (update) => {
     setAddressToCreate({
       ...addressToCreate,
@@ -105,61 +76,24 @@ const LeaseResidence = () => {
     });
   };
 
-  // useEffect(()=>{
-  //   console.log(newResidence)
-  // },[newResidence])
-
-  const newAddress = async (address) => {
-    let res = await fetch("/rest/addresses", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(address),
-    });
-    res = await res.json();
-    //updateResidence({address: res.addressId})
-    
-    //setAddressToCreate(res)
-    residence.address = res.addressId;
-    residence.user = user.userId;
-  };
-
-  const newAmenity = async (amenity) => {
-    let res = await fetch("/rest/amenities", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(amenity),
-    });
-    res = await res.json();
-    //updateResidence({ amenity: res.amenityId });
-    //console.log('residence i newAmenity', residence)
-    residence.amenity = res.amenityId
-    
-  };
-
-  const residenceToCreate = async (residence) => {
-    let res = await fetch("/rest/residences", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(residence),
-    });
-    res = await res.json();
-    //console.log(' residence res', res)
-  };
-
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    console.log('residence först', residence)
-    newAddress(addressToCreate).then(()=>{
-      console.log('residence innan amenity ', residence)
-      newAmenity(amenity).then(()=>{
-        setTimeout(residenceToCreate(residence),3000)
-        console.log('residence innan skapa residence', residence)
-        //residenceToCreate(residence);
-      })
-    })
-    // console.log(amenity);
-    // console.log("Residence", residence);
+    let addressId = await getNewAddressId(addressToCreate);
+    residence.addressId = addressId;
+    residence.userId = user.userId;
+
+    console.log("Efter addressId", residence);
+
+    let amenityId = await getNewAmenityId(amenity);
+    residence.amenityId = amenityId;
+
+    console.log("efter amenityId", residence);
+
+    let residenceFromDb = await getResidenceToCreate(residence);
+    console.log(residenceFromDb);
+
+    console.log("Residence efter allt", residence);
   };
 
   return (
@@ -177,7 +111,7 @@ const LeaseResidence = () => {
               </CardHeader>
 
               <Row form className="">
-                <Col xs={12} md={4} className="mb-3">
+                <Col xs={12} md={4} l={3} className="mb-3">
                   <Label for="street">Gata</Label>
                   <Input
                     type="text"
@@ -269,7 +203,7 @@ const LeaseResidence = () => {
                   <Input
                     value={residence.beds}
                     type="number"
-                    onChange={(e) => updateResidence({ beds: e.target.value })}
+                    onChange={(e) => updateResidence({ beds: +e.target.value })}
                     id="beds"
                     required
                   />
@@ -279,7 +213,9 @@ const LeaseResidence = () => {
                   <Input
                     value={residence.rooms}
                     type="number"
-                    onChange={(e) => updateResidence({ rooms: e.target.value })}
+                    onChange={(e) =>
+                      updateResidence({ rooms: +e.target.value })
+                    }
                     id="rooms"
                     required
                   />
@@ -289,7 +225,7 @@ const LeaseResidence = () => {
                   <Input
                     value={residence.size}
                     type="number"
-                    onChange={(e) => updateResidence({ size: e.target.value })}
+                    onChange={(e) => updateResidence({ size: +e.target.value })}
                     id="rooms"
                     required
                   />
@@ -304,7 +240,7 @@ const LeaseResidence = () => {
                 <Input
                   value={residence.price}
                   type="number"
-                  onChange={(e) => updateResidence({ price: e.target.value })}
+                  onChange={(e) => updateResidence({ price: +e.target.value })}
                   id="price"
                   required
                 />

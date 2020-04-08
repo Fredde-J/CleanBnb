@@ -12,7 +12,7 @@ import UserContextProvider from "./contexts/UserContextProvider"
 import Login from "./components/Login"
 import Footer from './components/Footer'
 import LeaseResidence from './pages/LeaseResidence'
-import AmenityContextProvider from "./contexts/AmenityContextProvider"
+
 
 import "./css/style.css";
 
@@ -23,7 +23,6 @@ function App() {
         <Header />
         <UserContextProvider>
           <ResidenceContextProvider>
-            <AmenityContextProvider>
             <main className="container">
               <Switch>
                 <Route
@@ -40,7 +39,6 @@ function App() {
                 <Route exact path="/preform-login" component={Login}/>
               </Switch>
             </main>
-            </AmenityContextProvider>
           </ResidenceContextProvider>
         </UserContextProvider>
         <Footer />
