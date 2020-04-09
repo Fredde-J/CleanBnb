@@ -15,7 +15,6 @@ import BookingComponent from "./components/BookingComponent";
 import CompanyInfoPage from "./pages/CompanyInfoPage";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
-import RegisterUser from "./pages/RegisterUser.js";
 import ResidentPage from "./pages/Residence.js";
 import LeaseResidence from './pages/LeaseResidence'
 
@@ -30,13 +29,11 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <UserContextProvider>
-        <ResidenceContextProvider>
-          <BookingContextProvider>
-            <BrowserRouter>
-              <Header />
-
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <UserContextProvider>
+          <ResidenceContextProvider>
               <main className="container">
                 <Switch>
                   <Route
@@ -47,11 +44,7 @@ function App() {
                   <Route exact path="/" component={StartPage} />
                   <Route exact path="/search" component={SearchPage} />
                   <Route exact path="/info" component={InfoPage} />
-                  <Route
-                    exact
-                    path="/leaseResidence"
-                    component={LeaseResidence}
-                  />
+                  <Route exact path="/leaseResidence" component={LeaseResidence} />
                   <Route
                     exact
                     path="/companyinfo"
@@ -61,23 +54,22 @@ function App() {
                   <Route exact path="/preform-login" component={Login} />
                   <Route
                     exact
-                    path="/residences/:residenceId/booking"
-                    component={BookingComponent}
+                    path="/booking-component"
+                    component={bookingComponent}
                   />
+                </Switch>
+              </main>
+          </ResidenceContextProvider>
+        </UserContextProvider>
+        <Footer />
+      </div>
+    </BrowserRouter>
                   <Route exact path="/account/bookings" component={Bookings} />
                   <Route
                     exact
                     path="/account/:chosenresidenceId/bookingConfirmation"
                     component={BookingConfirmation}
                   />
-                </Switch>
-              </main>
-              <Footer />
-            </BrowserRouter>
-          </BookingContextProvider>
-        </ResidenceContextProvider>
-      </UserContextProvider>
-    </div>
   );
 }
 

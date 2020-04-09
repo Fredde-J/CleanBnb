@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { ResidenceContext } from "../../contexts/ResidenceContext";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-const CheckIn = () => {
+const CheckIn = ({ onAvailabilityUpdate }) => {
   const [checkInDate, setCheckInDate] = useState(null);
   const [dateString, setDateString] = useState(null);
   const [nestedModalIn, setNestedModalIn] = useState(false);
+  const { updateFilter } = useContext(ResidenceContext);
 
   const toggleNestedIn = () => {
     setNestedModalIn(!nestedModalIn);
   };
 
-  const logCheckInDate = e => {
+  const logCheckInDate = (e) => {
     setCheckInDate(e);
   };
 
@@ -21,6 +23,15 @@ const CheckIn = () => {
       setDateString(checkInDate.toLocaleDateString());
     }
   }, [checkInDate]);
+
+  useEffect(() => {
+    if (dateString) {
+      updateFilter({ checkInDate: dateString });
+      if (onAvailabilityUpdate) {
+        onAvailabilityUpdate({ startDate: dateString });
+      }
+    }
+  }, [dateString]);
 
   return (
     <div className="col-6">

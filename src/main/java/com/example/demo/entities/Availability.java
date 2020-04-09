@@ -11,9 +11,20 @@ import java.util.Date;
 @Table(name = "availability")
 public class Availability {
 
+    @Transient
+    public int residenceId;
+
+    public int getPeriodId() {
+        return periodId;
+    }
+
+    public void setPeriodId(int periodId) {
+        this.periodId = periodId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int period_id;
+    private int periodId;
 
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     private String startDate;
@@ -28,13 +39,16 @@ public class Availability {
     //@JoinColumn
     private Residence residence;
 
-    public int getPeriod_id() {
-        return period_id;
+    public Availability() {}
+
+    public int getResidenceId() {
+        return residenceId;
     }
 
-    public void setPeriod_id(int period_id) {
-        this.period_id = period_id;
+    public void setResidenceId(int residenceId) {
+        this.residenceId = residenceId;
     }
+
 
     public String getStartDate() {
         return startDate;

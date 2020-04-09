@@ -22,7 +22,7 @@ export const getNewAmenityId = async (amenity) => {
    return res.amenityId;
 };
 
-export const getResidenceToCreate = async (residence) => {
+export const getNewResidenceId = async (residence) => {
   let res = await fetch("/rest/residences", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -30,5 +30,16 @@ export const getResidenceToCreate = async (residence) => {
   });
   res = await res.json();
 
-  return res;
+  return res.residenceId;
+};
+
+export const getNewAvailabilityId = async (availability) => {
+  let res = await fetch("/rest/availability", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(availability),
+  });
+  res = await res.json();
+
+  return res.periodId;
 };

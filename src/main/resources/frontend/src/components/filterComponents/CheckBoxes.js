@@ -3,10 +3,8 @@ import { Row } from "reactstrap";
 import { ResidenceContext } from "../../contexts/ResidenceContext";
 import { inputSize } from "../../css/checkBoxStyle";
 
-
-
-const CheckBoxes = ({onAmenityUpdate}) => {
-    const [amenity, setAmenity] = useState(null);
+const CheckBoxes = ({ onAmenityUpdate }) => {
+  const [amenity, setAmenity] = useState(null);
   const { updateFilter } = useContext(ResidenceContext);
   const amenities = [
     "balkong",
@@ -16,22 +14,26 @@ const CheckBoxes = ({onAmenityUpdate}) => {
     "kyl",
     "tv",
     "tvättmaskin",
-    "wifi"
+    "wifi",
   ];
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     if (e.target.checked) {
       setAmenity({
         ...amenity,
-        [e.target.value]: true
+        [e.target.value]: true,
       });
-      onAmenityUpdate({[e.target.value]: true})
+      if (onAmenityUpdate) {
+        onAmenityUpdate({ [e.target.value]: true });
+      }
     } else {
       setAmenity({
         ...amenity,
-        [e.target.value]: false
+        [e.target.value]: false,
       });
-      onAmenityUpdate({[e.target.value]: false})
+      if (onAmenityUpdate) {
+        onAmenityUpdate({ [e.target.value]: false });
+      }
     }
   };
   useEffect(() => {

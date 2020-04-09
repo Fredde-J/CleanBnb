@@ -1,14 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Collapse, Navbar, NavbarBrand, NavbarToggler, Nav, NavItem } from "reactstrap";
 import { UserContext } from "../contexts/UserContext";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavItem,
-} from "reactstrap";
-import{imgStyle, pStyle} from "../css/headerstyle"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,12 +14,16 @@ const Header = () => {
     console.log("Log out");
   };
 
+  const brandStyle = {
+    width: "150px" 
+  }
+
   return (
     <>
       <Navbar color="warning" light expand="md">
-        <Link to="/" className="center header-navbarTitle mr-3">
-          <img style={imgStyle} src="/images/logo.png" alt="dirty logo" />
-        </Link>
+        <NavbarBrand style={brandStyle} href="/" className="mr-auto">
+          <img style={{ width: "100%" }} src="/images/logo.png" alt="" />
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>

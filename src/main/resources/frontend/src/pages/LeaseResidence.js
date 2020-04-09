@@ -21,12 +21,18 @@ import { headStyle, semiHeadStyle } from "../css/addResidenceFormStyle.js";
 import {
   getNewAddressId,
   getNewAmenityId,
-  getResidenceToCreate,
+  getNewResidenceId,
+  getNewAvailabilityId
 } from "../components/createEntities";
 
 const LeaseResidence = () => {
   const { user } = useContext(UserContext);
 
+  const [availabilty, setAvailabilty] = useState({
+    endDate: "",
+    startDate: "",
+    residenceId: 0
+  })
   const [amenity, setAmenity] = useState({
     badkar: false,
     balkong: false,
@@ -37,7 +43,6 @@ const LeaseResidence = () => {
     tvättmaskin: false,
     wifi: false,
   });
-
   const [residence, setResidence] = useState({
     images: "imageslägenhet1.jpg",
     rooms: 0,
@@ -48,7 +53,6 @@ const LeaseResidence = () => {
     userId: 0,
     price: 0,
   });
-
   const [addressToCreate, setAddressToCreate] = useState({
     city: "",
     country: "",
@@ -63,6 +67,12 @@ const LeaseResidence = () => {
       ...update,
     });
   };
+  const updateAvailability = (update) => {
+      setAvailabilty({
+        ...availabilty,
+        ...update,
+      });
+    };
   const updateAmenity = (update) => {
     setAmenity({
       ...amenity,
@@ -82,20 +92,19 @@ const LeaseResidence = () => {
     let addressId = await getNewAddressId(addressToCreate);
     residence.addressId = addressId;
     residence.userId = user.userId;
-
-    console.log("Efter addressId", residence);
+    console.log("Residence object after getNewaddressId", residence);
 
     let amenityId = await getNewAmenityId(amenity);
     residence.amenityId = amenityId;
+    console.log("Residence object after getNewAmenityId", residence);
 
-    console.log("efter amenityId", residence);
+    let residenceId = await getNewResidenceId(residence);
+    availabilty.residenceId = residenceId;
+    console.log("ResidenceId after getNewResidenceId",residenceId);
 
-    let residenceFromDb = await getResidenceToCreate(residence);
-    console.log(residenceFromDb);
-
-    console.log("Residence efter allt", residence);
+    let availabiltyFromDb = await getNewAvailabilityId(availabilty)
+    console.log("availabilityId after getNewAvailability", availabiltyFromDb);
   };
-
   return (
     <div className="row">
       <div className="col ">
@@ -189,8 +198,8 @@ const LeaseResidence = () => {
               <Row form className="">
                 <Label className="col-6 text-left mb-2">Startdatum</Label>
                 <Label className="col-6 text-left mb-2">Slutdatum</Label>
-                <CheckIn></CheckIn>
-                <CheckOut></CheckOut>
+                <CheckIn onAvailabilityUpdate={updateAvailability}></CheckIn>
+                <CheckOut onAvailabilityUpdate={updateAvailability}></CheckOut>
               </Row>
 
               <CardHeader style={semiHeadStyle} className="mb-4 mt-4">

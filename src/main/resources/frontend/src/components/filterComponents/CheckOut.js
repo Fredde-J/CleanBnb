@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { ResidenceContext } from "../../contexts/ResidenceContext";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-const CheckOut = () => {
+const CheckOut = ({ onAvailabilityUpdate }) => {
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [dateString, setDateString] = useState(null);
   const [nestedModalOut, setNestedModalOut] = useState(false);
+  const { updateFilter } = useContext(ResidenceContext);
 
   const toggleNestedOut = () => {
     setNestedModalOut(!nestedModalOut);
   };
 
-  const logCheckOutDate = e => {
+  const logCheckOutDate = (e) => {
     setCheckOutDate(e);
   };
 
@@ -21,6 +23,16 @@ const CheckOut = () => {
       setDateString(checkOutDate.toLocaleDateString());
     }
   }, [checkOutDate]);
+
+  useEffect(() => {
+    if (dateString) {
+      updateFilter({ checkOutDate: dateString });
+
+      if (onAvailabilityUpdate) {
+        onAvailabilityUpdate({ endDate: dateString });
+      }
+    }
+  }, [dateString]);
 
   return (
     <div className="col-6">
