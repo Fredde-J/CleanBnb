@@ -22,17 +22,17 @@ import {
   getNewAddressId,
   getNewAmenityId,
   getNewResidenceId,
-  getNewAvailabilityId
+  getNewAvailabilityId,
 } from "../components/createEntities";
 
-const LeaseResidence = () => {
+const LeaseResidence = (props) => {
   const { user } = useContext(UserContext);
 
   const [availabilty, setAvailabilty] = useState({
     endDate: "",
     startDate: "",
-    residenceId: 0
-  })
+    residenceId: 0,
+  });
   const [amenity, setAmenity] = useState({
     badkar: false,
     balkong: false,
@@ -68,11 +68,11 @@ const LeaseResidence = () => {
     });
   };
   const updateAvailability = (update) => {
-      setAvailabilty({
-        ...availabilty,
-        ...update,
-      });
-    };
+    setAvailabilty({
+      ...availabilty,
+      ...update,
+    });
+  };
   const updateAmenity = (update) => {
     setAmenity({
       ...amenity,
@@ -89,21 +89,25 @@ const LeaseResidence = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    let addressId = await getNewAddressId(addressToCreate);
-    residence.addressId = addressId;
-    residence.userId = user.userId;
-    console.log("Residence object after getNewaddressId", residence);
+    if (!user) {
+      props.history.push("/preform-login");
+    } else {
+      let addressId = await getNewAddressId(addressToCreate);
+      residence.addressId = addressId;
+      residence.userId = user.userId;
+      console.log("Residence object after getNewaddressId", residence);
 
-    let amenityId = await getNewAmenityId(amenity);
-    residence.amenityId = amenityId;
-    console.log("Residence object after getNewAmenityId", residence);
+      let amenityId = await getNewAmenityId(amenity);
+      residence.amenityId = amenityId;
+      console.log("Residence object after getNewAmenityId", residence);
 
-    let residenceId = await getNewResidenceId(residence);
-    availabilty.residenceId = residenceId;
-    console.log("ResidenceId after getNewResidenceId",residenceId);
+      let residenceId = await getNewResidenceId(residence);
+      availabilty.residenceId = residenceId;
+      console.log("ResidenceId after getNewResidenceId", residenceId);
 
-    let availabiltyFromDb = await getNewAvailabilityId(availabilty)
-    console.log("availabilityId after getNewAvailability", availabiltyFromDb);
+      let availabiltyFromDb = await getNewAvailabilityId(availabilty);
+      console.log("availabilityId after getNewAvailability", availabiltyFromDb);
+    }
   };
   return (
     <div className="row">
