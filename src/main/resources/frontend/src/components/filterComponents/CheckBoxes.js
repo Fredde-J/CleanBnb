@@ -3,10 +3,9 @@ import { Row } from "reactstrap";
 import { ResidenceContext } from "../../contexts/ResidenceContext";
 import { inputSize } from "../../css/checkBoxStyle";
 
-const CheckBoxes = () => {
+const CheckBoxes = ({onAmenityUpdate}) => {
   const [amenity, setAmenity] = useState(null);
   const { updateFilter } = useContext(ResidenceContext);
-
   const amenities = [
     "balkong",
     "badkar",
@@ -24,21 +23,24 @@ const CheckBoxes = () => {
         ...amenity,
         [e.target.value]: true
       });
+      onAmenityUpdate({[e.target.value]: true})
     } else {
       setAmenity({
         ...amenity,
         [e.target.value]: false
       });
+      onAmenityUpdate({[e.target.value]: false})
     }
   };
 
   useEffect(() => {
     if (amenity) {
       updateFilter({ amenity });
+      
     }
     // eslint-disable-next-line
   }, [amenity]);
-
+  
   return (
     <Row className="p-3">
       {amenities.map((a, i) => (

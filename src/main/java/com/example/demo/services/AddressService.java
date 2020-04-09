@@ -18,4 +18,8 @@ public class AddressService {
 
     public Address getAddressById(int id) {return addressRepo.findById(id);}
 
+    public Address createAddress (Address address){
+        return addressRepo.save(address);
+    }
+
 }
