@@ -1,25 +1,29 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const BookingContext = createContext();
 
 const BookingContextProvider = props => {
   
-  const [booking, setBooking] = useState(BookingContext)
+  const [bookings, setBookings] = useState([])
 
   const fetchBookings = async () => {
-        let res = await fetch("/rest/getAllBookings");
+        let res = await fetch("/rest/bookings");
         try {
           res = await res.json();
-          setBooking(res);
+          setBookings(res);
           console.log(res);
         } catch {
            console.log('Not logged in');
         }
   }
 
+  useEffect(() => {
+    fetchBookings()
+  },[])
+
   const values = {
-    booking,
-    setBooking,
+    bookings,
+    setBookings,
 
   }
   return (
