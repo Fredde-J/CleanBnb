@@ -4,7 +4,7 @@ import { ResidenceContext } from "../../contexts/ResidenceContext";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-const CheckIn = ({onAvailabilityUpdate}) => {
+const CheckIn = ({ onAvailabilityUpdate }) => {
   const [checkInDate, setCheckInDate] = useState(null);
   const [dateString, setDateString] = useState(null);
   const [nestedModalIn, setNestedModalIn] = useState(false);
@@ -27,7 +27,9 @@ const CheckIn = ({onAvailabilityUpdate}) => {
   useEffect(() => {
     if (dateString) {
       updateFilter({ checkInDate: dateString });
-      onAvailabilityUpdate({startDate: dateString})
+      if (onAvailabilityUpdate) {
+        onAvailabilityUpdate({ startDate: dateString });
+      }
     }
   }, [dateString]);
 
