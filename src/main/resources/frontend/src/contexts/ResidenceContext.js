@@ -4,6 +4,7 @@ import {
   filterPrices,
   filterBeds,
   filterCities,
+  filterDate,
 } from "../components/FilterUtilities";
 
 export const ResidenceContext = createContext();
@@ -60,6 +61,10 @@ export default function ResidenceContextProvider(props) {
     filteredRes = filter.price
       ? filterPrices(filter.price, filteredRes)
       : filteredRes;
+    filteredRes =
+      filter.checkInDate || filter.checkOutDate
+        ? filterDate(filter.checkInDate, filter.checkOutDate, filteredRes)
+        : filteredRes;
     filteredRes = filter.beds
       ? filterBeds(filter.beds, filteredRes)
       : filteredRes;
@@ -114,10 +119,6 @@ export default function ResidenceContextProvider(props) {
   useEffect(() => {
     fetchAvailibilities();
   }, []);
-
-  useEffect(() => {
-    console.log(filter);
-  }, [filter]);
 
   return (
     <ResidenceContext.Provider value={values}>
