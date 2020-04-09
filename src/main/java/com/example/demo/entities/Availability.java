@@ -20,9 +20,12 @@ public class Availability {
 
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     private String endDate;
-    
+
+    @Transient
+    public int residenceId;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    //@JoinColumn
     private Residence residence;
 
     public int getPeriod_id() {
