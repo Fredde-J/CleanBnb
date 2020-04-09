@@ -4,12 +4,12 @@ import {
   divStyle1,
   imgStyle,
   topPStyle,
-  bottomPStyle
+  bottomPStyle,
 } from "../css/ResidenceCardStyle";
 import { withRouter } from "react-router-dom";
 
-const ResidenceCard = ({ residence, history }) => {
-  const goToResidencePage = id => {
+const ResidenceCard = ({ listing, history }) => {
+  const goToResidencePage = (id) => {
     history.push(`/residences/${id}`);
   };
 
@@ -18,26 +18,26 @@ const ResidenceCard = ({ residence, history }) => {
       <div
         style={divStyle1}
         className="card my-3 p-3"
-        onClick={() => goToResidencePage(residence.residenceId)}
+        onClick={() => goToResidencePage(listing.residence.residenceId)}
       >
         <img
           style={imgStyle}
-          src={residence.images}
+          src={listing.residence.images}
           alt=""
           className="card-img-top"
         />
         <div className="card-body row">
           <p style={topPStyle} className="col-6 text-left">
-            {residence.address ? residence.address.city : "Address"}
+            {listing.residence.address ? listing.residence.address.city : "Address"}
           </p>
           <p style={topPStyle} className="col-6 text-right">
-            {residence.price}kr / Natt
+            {listing.residence.price}kr / Natt
           </p>
-          <p style={bottomPStyle} className="col-6">
-            {residence.beds} {residence.beds > 1 ? "st sängar" : "st säng"}
+          <p style={bottomPStyle} className="col-4">
+            {listing.residence.beds} {listing.residence.beds > 1 ? "st sängar" : "st säng"}
           </p>
-          <p style={bottomPStyle} className="col-6 text-right">
-            (datum)
+          <p style={bottomPStyle} className="col-8 text-right">
+            {listing.startDate} - {listing.endDate}
           </p>
         </div>
       </div>

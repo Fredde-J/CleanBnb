@@ -5,7 +5,7 @@ import { Col } from "reactstrap";
 const Beds = () => {
   const [bedsArray, setBedsArray] = useState([]);
   const [beds, setBeds] = useState(null);
-  const { residences, updateFilter } = useContext(ResidenceContext);
+  const { availabilities, updateFilter } = useContext(ResidenceContext);
 
   const bedsStyle = {
     backgroundColor: "#ffc107",
@@ -20,8 +20,8 @@ const Beds = () => {
 
   useEffect(() => {
     let tempArray = [];
-    residences.forEach(residence => {
-      tempArray.push(residence.beds);
+    availabilities.forEach((listing) => {
+      tempArray.push(listing.residence.beds);
     });
     tempArray.sort();
     tempArray = [...new Set(tempArray)];

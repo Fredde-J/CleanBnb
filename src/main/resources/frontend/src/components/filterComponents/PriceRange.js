@@ -6,7 +6,7 @@ const PriceRange = () => {
   const [price, setPrice] = useState(0);
   const [min, setMin] = useState(null);
   const [max, setMax] = useState(null);
-  const { residences, updateFilter } = useContext(ResidenceContext);
+  const { availabilities, updateFilter } = useContext(ResidenceContext);
 
   const onChangeHandler = e => {
     // resetResidences();
@@ -15,8 +15,8 @@ const PriceRange = () => {
 
   useEffect(() => {
     let priceArray = [];
-    residences.forEach(residence => {
-      priceArray.push(residence.price);
+    availabilities.forEach((listing) => {
+      priceArray.push(listing.residence.price);
     });
     let minValue = Math.min(...priceArray);
     let maxValue = Math.max(...priceArray);
