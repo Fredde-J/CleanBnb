@@ -32,8 +32,6 @@ public class Availability {
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     private String endDate;
 
-    @Transient
-    public int residenceId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     //@JoinColumn
