@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { UserContext } from "../contexts/UserContextProvider";
+import React, {  useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 import Login from "../components/Login"
 
 import {
@@ -14,7 +14,7 @@ const StartPage = props => {
 
   const { history } = props;
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const goToSearch = () => {
     history.push("/search");
