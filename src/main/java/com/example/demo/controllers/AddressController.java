@@ -4,6 +4,8 @@ import com.example.demo.entities.Address;
 import com.example.demo.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,4 +18,9 @@ public class AddressController {
 
     @GetMapping("/rest/addresses")
     public List<Address> getAllAddresses() { return addressService.getAllAddresses();}
+
+    @PostMapping("/rest/addresses")
+    public Address createAddress(@RequestBody Address address){
+        return addressService.createAddress(address);
+    }
 }

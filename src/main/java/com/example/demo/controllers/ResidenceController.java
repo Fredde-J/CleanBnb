@@ -3,9 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.entities.Residence;
 import com.example.demo.services.ResidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +21,11 @@ public class ResidenceController {
     @GetMapping("/rest/residences/{id}")
     public Residence getResidence(@PathVariable int id) {
         return residenceService.getResidence(id);
+    }
+
+    @PostMapping("/rest/residences")
+    public Residence createResidence(@RequestBody Residence residence){
+        return residenceService.createResidence(residence);
     }
 
 }

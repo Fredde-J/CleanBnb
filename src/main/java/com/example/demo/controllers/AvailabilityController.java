@@ -4,9 +4,7 @@ import com.example.demo.entities.Availability;
 import com.example.demo.repositories.AvailabilityRepo;
 import com.example.demo.services.AvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +19,9 @@ public class AvailabilityController {
 
     @GetMapping("/rest/availability/{id}")
     public Availability getOneAvailablePeriod(@PathVariable int id){ return availabilityService.getOneAvailablePeriod(id);}
+
+    @PostMapping("/rest/availability")
+    public Availability createAvailability(@RequestBody Availability availability) {
+        return availabilityService.createAvailability(availability);
+    }
 }
