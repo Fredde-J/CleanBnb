@@ -14,6 +14,8 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import CompanyInfoPage from "./pages/CompanyInfoPage";
 import bookingComponent from "./components/bookingComponent";
+import LeaseResidence from './pages/LeaseResidence'
+
 
 import "./css/style.css";
 
@@ -40,6 +42,7 @@ function App() {
                   <Route exact path="/" component={StartPage} />
                   <Route exact path="/search" component={SearchPage} />
                   <Route exact path="/info" component={InfoPage} />
+                  <Route exact path="/leaseResidence" component={LeaseResidence} />
                   <Route
                     exact
                     path="/companyinfo"
