@@ -10,7 +10,7 @@ import StartPage from "./pages/StartPage";
 import SearchPage from "./pages/SearchPage";
 import InfoPage from "./pages/InfoPage";
 import BookingConfirmation from "./pages/BookingConfirmation"
-import Bookings from "./components/BookingCard"
+import Bookings from "./pages/Bookings"
 import BookingComponent from "./components/BookingComponent";
 import CompanyInfoPage from "./pages/CompanyInfoPage";
 import Footer from "./components/Footer";

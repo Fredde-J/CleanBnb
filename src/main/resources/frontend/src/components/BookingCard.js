@@ -11,7 +11,7 @@ const BookingCard = ()=>{
   
 
     return (
-      <Col xs="12" md="6">
+      <Col xs="12">
         <div
           style={divStyle1}
           className="card my-3 p-3"
