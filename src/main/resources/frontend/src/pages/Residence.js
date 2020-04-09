@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Col } from "reactstrap";
-
+import { UserContext } from "../contexts/UserContext";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 import {
   imgStyle,
   divStyle2,
@@ -13,6 +14,20 @@ import {
 
 const Residence = props => {
   const [listing, setListing] = useState(null);
+  const { history } = props;
+
+  const { setChosenResidence } = useContext(ResidenceContext);
+
+  const goToLogin = () => {
+    history.push("/");
+  };
+
+  const goToBookingComponent = async () => {
+    await setChosenResidence(listing.residence);
+    history.push(`/residences/${listing.residence.residenceId}/booking`);
+  };
+
+  const { user } = useContext(UserContext);
 
   const fetchOneResidence = async id => {
     let res = await fetch(`/rest/availability/${id}`);
@@ -88,12 +103,24 @@ const Residence = props => {
                     </p>
                   </Col>
                 </Row>
-                <button
-                  style={buttonStyle}
-                  className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
-                >
-                  Boka
-                </button>
+                {user ? (
+                  <button
+                    style={buttonStyle}
+                    className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
+                    onClick={goToBookingComponent}
+                  >
+                    Boka
+                  </button>
+                ) : (
+                  <button
+                    style={buttonStyle}
+                    className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
+                    onClick={goToLogin}
+                    residence={listing.residence}
+                  >
+                    Logga in
+                  </button>
+                )}
               </div>
             </div>
           </Col>

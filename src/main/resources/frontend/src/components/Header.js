@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, Nav, NavItem } from "reactstrap";
+import { UserContext } from "../contexts/UserContext";
+import {pStyle} from "../css/headerstyle"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+  const { user, setUser } = useContext(UserContext);
+  const logout = () => {
+    fetch("/logout");
+    setUser(null);
+    console.log("Log out");
+  };
 
   const brandStyle = {
     width: "150px" 
@@ -25,6 +33,29 @@ const Header = () => {
                 Leta Bostad
               </Link>
             </NavItem>
+
+            <NavItem>
+              {!user ? (
+                <p></p>
+              ) : (
+                <Link to="/" className="nav-link">
+                  Mina Sidor
+                </Link>
+              )}
+            </NavItem>
+
+            <NavItem>
+              {!user ? (
+                <Link to="/" className="nav-link">
+                  Logga in
+                </Link>
+              ) : (
+                <p onClick={logout} className="nav-link" style={pStyle}>
+                  Logga ut
+                </p>
+              )}
+            </NavItem>
+
             {/* <NavItem>
               <Link to="/#">Våra Avtal</Link>
             </NavItem>
@@ -38,8 +69,14 @@ const Header = () => {
               <Link to="/#">Mina Sidor (!)</Link>
             </NavItem> */}
           </Nav>
-          <p></p>
         </Collapse>
+        {!user ? (
+          <p></p>
+        ) : (
+          <h5>
+            {user.firstName} {user.lastName}
+          </h5>
+        )}
       </Navbar>
     </>
   );

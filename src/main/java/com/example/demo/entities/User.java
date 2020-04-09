@@ -17,8 +17,11 @@ public class User {
     private String username;
     private String password;
 
+    @Transient
+    public int addressId;
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    //@JoinColumn
     private Address address;
 
     public User() {}
