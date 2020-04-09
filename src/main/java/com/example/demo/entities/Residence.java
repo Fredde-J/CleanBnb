@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -12,19 +14,29 @@ public class Residence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int residenceId;
 
-    private Integer size;
-    private Integer rooms;
-    private Integer beds;
+    private int size;
+    private int rooms;
+    private int beds;
     private String images;
-    private Integer price;
+    private int price;
+
+    @Transient
+    public int amenityId;
+    @Transient
+    public int addressId;
+    @Transient
+    public int userId;
+
+
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    //@JoinColumn
     private Amenity amenity;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    //@JoinColumn
     private Address address;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    //@JoinColumn
     private User user;
 
     public Residence() {}

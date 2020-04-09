@@ -7,6 +7,7 @@ const CheckBoxes = () => {
   const [amenity, setAmenity] = useState(null);
   const { updateFilter } = useContext(ResidenceContext);
 
+const CheckBoxes = ({onAmenityUpdate}) => {
   const amenities = [
     "balkong",
     "badkar",
@@ -24,14 +25,15 @@ const CheckBoxes = () => {
         ...amenity,
         [e.target.value]: true
       });
+      onAmenityUpdate({[e.target.value]: true})
     } else {
       setAmenity({
         ...amenity,
         [e.target.value]: false
       });
+      onAmenityUpdate({[e.target.value]: false})
     }
   };
-
   useEffect(() => {
     if (amenity) {
       updateFilter({ amenity });

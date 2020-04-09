@@ -9,14 +9,16 @@ import Header from "./components/Header";
 import StartPage from "./pages/StartPage";
 import SearchPage from "./pages/SearchPage";
 import InfoPage from "./pages/InfoPage";
-import ResidentPage from "./pages/Residence.js";
-import RegisterUser from "./pages/RegisterUser.js";
-import Login from "./components/Login";
-import Footer from "./components/Footer";
-import CompanyInfoPage from "./pages/CompanyInfoPage";
-import BookingComponent from "./components/BookingComponent";
-import Bookings from "./components/BookingCard"
 import BookingConfirmation from "./pages/BookingConfirmation"
+import Bookings from "./components/BookingCard"
+import BookingComponent from "./components/BookingComponent";
+import CompanyInfoPage from "./pages/CompanyInfoPage";
+import Footer from "./components/Footer";
+import Login from "./components/Login";
+import RegisterUser from "./pages/RegisterUser.js";
+import ResidentPage from "./pages/Residence.js";
+import LeaseResidence from './pages/LeaseResidence'
+
 
 import "./css/style.css";
 
@@ -28,6 +30,7 @@ function App() {
   }, []);
 
   return (
+                <Route exact path="/leaseResidence" component={LeaseResidence} />
     <div className="App">
       <UserContextProvider>
         <ResidenceContextProvider>
