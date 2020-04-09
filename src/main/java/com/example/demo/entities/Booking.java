@@ -21,16 +21,16 @@ public class Booking {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn
     private  Residence residence;
     @OneToOne(cascade = CascadeType.ALL)
-   // @JoinColumn
     private  User user;
 
-
-
-
-
+    public Booking(String startDate, String endDate, int residenceId, int userId) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.residenceId = residenceId;
+        this.userId = userId;
+    }
 
     public Booking() {}
 

@@ -3,11 +3,11 @@ import { Row } from "reactstrap";
 import { ResidenceContext } from "../../contexts/ResidenceContext";
 import { inputSize } from "../../css/checkBoxStyle";
 
-const CheckBoxes = () => {
-  const [amenity, setAmenity] = useState(null);
-  const { updateFilter } = useContext(ResidenceContext);
+
 
 const CheckBoxes = ({onAmenityUpdate}) => {
+    const [amenity, setAmenity] = useState(null);
+  const { updateFilter } = useContext(ResidenceContext);
   const amenities = [
     "balkong",
     "badkar",

@@ -30,7 +30,6 @@ function App() {
   }, []);
 
   return (
-                <Route exact path="/leaseResidence" component={LeaseResidence} />
     <div className="App">
       <UserContextProvider>
         <ResidenceContextProvider>
@@ -50,6 +49,11 @@ function App() {
                   <Route exact path="/info" component={InfoPage} />
                   <Route
                     exact
+                    path="/leaseResidence"
+                    component={LeaseResidence}
+                  />
+                  <Route
+                    exact
                     path="/companyinfo"
                     component={CompanyInfoPage}
                   />
@@ -61,7 +65,11 @@ function App() {
                     component={BookingComponent}
                   />
                   <Route exact path="/account/bookings" component={Bookings} />
-                  <Route exact path="/account/:chosenresidenceId/bookingConfirmation" component={BookingConfirmation} />
+                  <Route
+                    exact
+                    path="/account/:chosenresidenceId/bookingConfirmation"
+                    component={BookingConfirmation}
+                  />
                 </Switch>
               </main>
               <Footer />

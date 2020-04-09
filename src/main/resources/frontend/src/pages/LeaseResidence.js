@@ -14,7 +14,7 @@ import {
 import CheckIn from "../components/filterComponents/CheckIn";
 import CheckOut from "../components/filterComponents/CheckOut";
 import CheckBoxes from "../components/filterComponents/CheckBoxes";
-import { UserContext } from "../contexts/UserContextProvider";
+import { UserContext } from "../contexts/UserContext";
 
 import "react-calendar/dist/Calendar.css";
 import { headStyle, semiHeadStyle } from "../css/addResidenceFormStyle.js";
