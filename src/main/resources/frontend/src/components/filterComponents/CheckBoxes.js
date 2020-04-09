@@ -35,7 +35,7 @@ const CheckBoxes = ({onAmenityUpdate}) => {
 
   useEffect(() => {
     if (amenity) {
-      //updateFilter({ amenity });
+      updateFilter({ amenity });
       
     }
     // eslint-disable-next-line

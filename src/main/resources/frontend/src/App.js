@@ -42,6 +42,7 @@ function App() {
                   <Route exact path="/" component={StartPage} />
                   <Route exact path="/search" component={SearchPage} />
                   <Route exact path="/info" component={InfoPage} />
+                  <Route exact path="/leaseResidence" component={LeaseResidence} />
                   <Route
                     exact
                     path="/companyinfo"
@@ -56,7 +57,6 @@ function App() {
                   />
                 </Switch>
               </main>
-                <Route exact path="/leaseResidence" component={LeaseResidence} />
           </ResidenceContextProvider>
         </UserContextProvider>
         <Footer />
