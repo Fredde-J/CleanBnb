@@ -5,35 +5,36 @@ import { ResidenceContext } from "../../contexts/ResidenceContext";
 const Citys = () => {
   const [citiesArray, setCitiesArray] = useState([]);
   const [city, setCity] = useState(null);
-  const { residences, updateFilter } = useContext(ResidenceContext);
+  const { availabilities, updateFilter } = useContext(ResidenceContext);
 
   const cityStyle = {
     backgroundColor: "#ffc107",
     border: "none",
     borderRadius: "0.25rem",
-    height: "38px"
+    height: "38px",
   };
 
-  const updateCity = e => {
+  const updateCity = (e) => {
     setCity(e.target.value);
   };
 
   useEffect(() => {
     let tempArray = [];
-    residences.forEach(residence => {
-      tempArray.push(residence.address ? residence.address.city : "Address");
+    availabilities.forEach((listing) => {
+      tempArray.push(listing.residence.address ? listing.residence.address.city : "Address");
     });
     tempArray.sort();
     tempArray = [...new Set(tempArray)];
     setCitiesArray(tempArray);
-  }, [residences]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    useEffect(() => {
-      if (city) {
-        updateFilter({ city });
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [city]);
+  useEffect(() => {
+    if (city) {
+      updateFilter({ city });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city]);
 
   return (
     <Col className="mx-auto mt-3">

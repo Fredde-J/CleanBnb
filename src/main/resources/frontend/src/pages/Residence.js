@@ -12,13 +12,13 @@ import {
 } from "../css/ResidenceCardStyle";
 
 const Residence = props => {
-  const [residence, setResidence] = useState(null);
+  const [listing, setListing] = useState(null);
 
   const fetchOneResidence = async id => {
-    let res = await fetch(`/rest/residences/${id}`);
+    let res = await fetch(`/rest/availability/${id}`);
     res = await res.json();
     // console.log(res);
-    setResidence(res);
+    setListing(res);
   };
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const Residence = props => {
 
   let amenityArray = [];
 
-  if (residence) {
-    Object.entries(residence.amenity).forEach((array, i) => {
+  if (listing) {
+    Object.entries(listing.residence.amenity).forEach((array, i) => {
       if (i !== 0) {
         if (array[1]) {
           amenityArray.push(
@@ -41,33 +41,33 @@ const Residence = props => {
 
   return (
     <>
-      {residence ? (
+      {listing ? (
         <Row>
           <Col xs="12" md={{ size: 8, offset: 2 }}>
             <div style={divStyle2} className="card my-3 p-3 bg-warning">
               <img
                 style={imgStyle}
                 className="card-img-top"
-                src={residence.images}
+                src={listing.residence.images}
                 alt=""
               ></img>
               <div className="card-body row">
                 <p style={pTagStyle1} className="col-6">
-                  {residence.address.city}
+                  {listing.residence.address.city}
                 </p>
                 <p style={pTagStyle1} className="text-right col-6">
-                  {residence.price} / natt
+                  {listing.residence.price} / natt
                 </p>
-                <p style={pTagStyle4} className="col-7">
-                  {residence.address.streetName}{" "}
-                  {residence.address.streetNumber}
+                <p style={pTagStyle4} className="col-6">
+                  {listing.residence.address.streetName}{" "}
+                  {listing.residence.address.streetNumber}
                 </p>
-                <p style={pTagStyle4} className="text-right col-5">
-                  (Datum)
+                <p style={pTagStyle4} className="text-right col-6">
+                  {listing.startDate} - {listing.endDate}
                 </p>
                 <p style={pTagStyle4} className="col-12">
-                  {residence.beds}{" "}
-                  {residence.beds > 1 ? "st sängar" : "st säng"}
+                  {listing.residence.beds}{" "}
+                  {listing.residence.beds > 1 ? "st sängar" : "st säng"}
                 </p>
                 <p style={pTagStyle2} className="col-12 my-4">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
