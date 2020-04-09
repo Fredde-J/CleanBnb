@@ -120,10 +120,6 @@ export default function ResidenceContextProvider(props) {
     fetchAvailibilities();
   }, []);
 
-  useEffect(() => {
-    console.log(filter);
-  }, [filter]);
-
   return (
     <ResidenceContext.Provider value={values}>
       {props.children}
