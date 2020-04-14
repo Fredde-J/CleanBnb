@@ -23,7 +23,7 @@ const Residence = props => {
   };
 
   const goToBookingComponent = async () => {
-    await setChosenResidence(listing.residence);
+    await setChosenResidence(listing);
     history.push(`/residences/${listing.residence.residenceId}/booking`);
   };
 
