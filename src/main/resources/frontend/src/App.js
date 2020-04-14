@@ -56,7 +56,11 @@ function App() {
                     component={CompanyInfoPage}
                   />
                   <Route exact path="/register_user" component={RegisterUser} />
-                  <Route exact path="/preform-login" component={Login} />
+                  <Route
+                    exact
+                    path="/residences/:chosenresidenceId/preform-login"
+                    component={Login}
+                  />
                   <Route
                     exact
                     path="/residences/:chosenresidenceId/booking"

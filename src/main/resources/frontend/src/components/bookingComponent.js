@@ -1,18 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ResidenceContext } from "../contexts/ResidenceContext";
-import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Col,
-  Row,
-  Button,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-} from "reactstrap";
+import { Form, FormGroup, Label, Input, Col, Row, Button } from "reactstrap";
 import { divStyle1, imgStyle, topPStyle } from "../css/bookingComponentStyle";
 import { UserContext } from "../contexts/UserContext";
 import Calendar from "react-calendar";
@@ -20,7 +8,7 @@ import Calendar from "react-calendar";
 const BookingComponent = (props) => {
   const { chosenResidence } = useContext(ResidenceContext);
   const [checkInDate, setCheckInDate] = useState(null);
-    const [dateString, setDateString] = useState(null);
+  const [dateString, setDateString] = useState(null);
   const { user } = useContext(UserContext);
   const [bookingInfo, setBookingInfo] = useState({
     startDate: null,
@@ -37,7 +25,6 @@ const BookingComponent = (props) => {
       residenceId: chosenResidence.residence.residenceId,
       userId: user.userId,
     });
-    
   };
   useEffect(() => {
     if (bookingInfo.endDate) {
@@ -62,23 +49,22 @@ const BookingComponent = (props) => {
     }
   };
 
-    const logCheckInDate = (e) => {
-      setCheckInDate(e);
-    };
+  const logCheckInDate = (e) => {
+    setCheckInDate(e);
+  };
 
-      useEffect(() => {
-        if (checkInDate) {
-          setDateString(checkInDate.toLocaleDateString());
-        }
-      }, [checkInDate]);
+  useEffect(() => {
+    if (checkInDate) {
+      setDateString(checkInDate.toLocaleDateString());
+    }
+  }, [checkInDate]);
 
-        useEffect(() => {
-          if (dateString) {
-            console.log(dateString);
-          }
-          // eslint-disable-next-line
-        }, [dateString]);
-
+  useEffect(() => {
+    if (dateString) {
+      console.log(dateString);
+    }
+    // eslint-disable-next-line
+  }, [dateString]);
 
   return (
     <Row>

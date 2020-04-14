@@ -56,8 +56,8 @@ const StartPage = (props) => {
             style={buttonStyle}
             size="lg"
             color="warning"
-              className="col-12 py-3"
-              onClick={goToLease}
+            className="col-12 py-3"
+            onClick={goToLease}
           >
             Hyr ut en Bostad
           </Button>

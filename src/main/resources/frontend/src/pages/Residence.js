@@ -14,16 +14,14 @@ import {
 
 const Residence = (props) => {
   const [listing, setListing] = useState(null);
+  const { chosenResidence, setChosenResidence } = useContext(ResidenceContext);
   const { history } = props;
 
-  const { setChosenResidence } = useContext(ResidenceContext);
-
-  const goToBookingComponent = async () => {
-    await setChosenResidence(listing);
-    history.push(`/residences/${listing.residence.residenceId}/booking`);
+  const goToBookingComponent = () => {
+    setChosenResidence(listing);
   };
   const goToLogInPage = () => {
-    history.push("/preform-login");
+    history.push(`/residences/${listing.residence.residenceId}/preform-login`);
   };
 
   const { user } = useContext(UserContext);
@@ -31,13 +29,18 @@ const Residence = (props) => {
   const fetchOneResidence = async (id) => {
     let res = await fetch(`/rest/availability/${id}`);
     res = await res.json();
-    // console.log(res);
     setListing(res);
   };
 
   useEffect(() => {
     fetchOneResidence(props.match.params.residenceId);
   }, [props.match.params.residenceId]);
+
+  useEffect(() => {
+    if (listing && chosenResidence) {
+      history.push(`/residences/${listing.residence.residenceId}/booking`);
+    }
+  }, [chosenResidence]);
 
   let amenityArray = [];
 
