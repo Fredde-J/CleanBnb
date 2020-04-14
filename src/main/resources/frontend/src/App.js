@@ -60,7 +60,7 @@ function App() {
                   <Route exact path="/preform-login" component={Login} />
                   <Route
                     exact
-                    path="/booking-component"
+                    path="/residences/:chosenresidenceId/booking"
                     component={BookingComponent}
                   />
                   <Route exact path="/account/bookings" component={Bookings} />
