@@ -27,6 +27,28 @@ import {
 
 const LeaseResidence = (props) => {
   const { user } = useContext(UserContext);
+  let image = [];
+
+  const filesChange = async (fileList) => {
+    const formData = new FormData();
+
+    if (!fileList.length) return;
+
+    image = []
+
+    Array.from(Array(fileList.length).keys()).map((x) => {
+      formData.append("files", fileList[x], fileList[x].name);
+    });
+
+    let response = await fetch("/api/upload-files", {
+      method: "POST",
+      body: formData,
+    }).catch(console.warn);
+
+    response = await response.json();
+    console.log(response);
+    image = response;
+  };
 
   const [availabilty, setAvailabilty] = useState({
     endDate: "",
@@ -44,7 +66,7 @@ const LeaseResidence = (props) => {
     wifi: false,
   });
   const [residence, setResidence] = useState({
-    images: "imageslägenhet1.jpg",
+    images: null,
     rooms: 0,
     size: 0,
     addressId: 0,
@@ -96,6 +118,8 @@ const LeaseResidence = (props) => {
       residence.addressId = addressId;
       residence.userId = user.userId;
       console.log("Residence object after getNewaddressId", residence);
+
+      residence.images = image[0];
 
       let amenityId = await getNewAmenityId(amenity);
       residence.amenityId = amenityId;
@@ -264,7 +288,18 @@ const LeaseResidence = (props) => {
               </CardHeader>
 
               <CheckBoxes onAmenityUpdate={updateAmenity}></CheckBoxes>
-
+              <Col className="mb-4 mt-4">
+                <Label for="files">File to upload:</Label>
+                <Input
+                  type="file"
+                  name="file"
+                  id="files"
+                  accept=".png,.jpg,.jpeg,.gif,.bmp,.jfif"
+                  multiple
+                  required
+                  onChange={(e) => filesChange(e.target.files)}
+                />
+              </Col>
               <Button className="col-12" color="warning">
                 Lista bostad!
               </Button>
@@ -275,5 +310,4 @@ const LeaseResidence = (props) => {
     </div>
   );
 };
-
 export default LeaseResidence;

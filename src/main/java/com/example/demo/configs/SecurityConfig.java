@@ -22,6 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.GET, "/").authenticated()
+            .antMatchers(HttpMethod.GET, "/uploads/**").permitAll()
+            .antMatchers(HttpMethod.GET,  "/rest/**").permitAll()
             .antMatchers("/auth/**").permitAll()
             .and()
             .formLogin()
@@ -35,4 +37,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .userDetailsService(myUserDetailsService)
             .passwordEncoder(myUserDetailsService.getEncoder());
   }
+
 }
