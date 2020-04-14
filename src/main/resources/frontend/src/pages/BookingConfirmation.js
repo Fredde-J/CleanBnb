@@ -19,21 +19,21 @@ const BookingConfirmation = (props) => {
       <Row>
         <Col xs="12" md={{ size: 8, offset: 2 }}>
           <div style={divStyle2} className="card my-3 p-3 bg-warning">
-              <h2>Bokningsbekräftelse</h2>
+            <h2>Bokningsbekräftelse</h2>
             <img
               style={imgStyle}
               className="card-img-top"
-              src={chosenResidence.images}
+              src={chosenResidence.residence.images}
               alt=""
             ></img>
             <div className="card-body row">
               <p style={pTagStyle1} className="col-6">
-                {chosenResidence.address.streetName},{" "}
-                {chosenResidence.address.streetNumber},
-                {chosenResidence.address.city},
+                {chosenResidence.residence.address.streetName},{" "}
+                {chosenResidence.residence.address.streetNumber},
+                {chosenResidence.residence.address.city},
               </p>
               <p style={pTagStyle1} className="text-right col-6">
-                {chosenResidence.price} / natt
+                {chosenResidence.residence.price} / natt
               </p>
               <p style={pTagStyle4} className="text-right col-5">
                 (Datum)

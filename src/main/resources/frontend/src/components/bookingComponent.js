@@ -1,34 +1,50 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ResidenceContext } from "../contexts/ResidenceContext";
-import { Form, FormGroup, Label, Input, Col, Row, Button } from "reactstrap";
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Col,
+  Row,
+  Button,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+} from "reactstrap";
 import { divStyle1, imgStyle, topPStyle } from "../css/bookingComponentStyle";
 import { UserContext } from "../contexts/UserContext";
+import Calendar from "react-calendar";
 
 const BookingComponent = (props) => {
   const { chosenResidence } = useContext(ResidenceContext);
+  const [checkInDate, setCheckInDate] = useState(null);
+    const [dateString, setDateString] = useState(null);
   const { user } = useContext(UserContext);
   const [bookingInfo, setBookingInfo] = useState({
     startDate: null,
     endDate: null,
     residenceId: null,
-    userId: null
+    userId: null,
   });
 
-  const createBooking = () => {
+  const createBooking = (e) => {
+    e.preventDefault();
     setBookingInfo({
-      startDate: "2020-05-01",
+      startDate: dateString,
       endDate: "2020-05-010",
-      residenceId: chosenResidence.residenceId,
+      residenceId: chosenResidence.residence.residenceId,
       userId: user.userId,
     });
-
+    
   };
   useEffect(() => {
-                    if (bookingInfo.endDate) {
-                      fetchBookings(bookingInfo);
-                    }
-                    // eslint-disable-next-line
-                  }, [bookingInfo]);
+    if (bookingInfo.endDate) {
+      fetchBookings(bookingInfo);
+    }
+    // eslint-disable-next-line
+  }, [bookingInfo]);
 
   const fetchBookings = async (bookingInfo) => {
     let response = await fetch("/rest/bookings", {
@@ -38,15 +54,31 @@ const BookingComponent = (props) => {
     });
     try {
       response = await response.json();
-      console.log(response);
-      
       props.history.push(
-        `/account/${chosenResidence.residenceId}/bookingConfirmation`
+        `/residences/${chosenResidence.residence.residenceId}/bookingConfirmation`
       );
     } catch {
       console.log("Fel inmatning av uppgifter");
     }
   };
+
+    const logCheckInDate = (e) => {
+      setCheckInDate(e);
+    };
+
+      useEffect(() => {
+        if (checkInDate) {
+          setDateString(checkInDate.toLocaleDateString());
+        }
+      }, [checkInDate]);
+
+        useEffect(() => {
+          if (dateString) {
+            console.log(dateString);
+          }
+          // eslint-disable-next-line
+        }, [dateString]);
+
 
   return (
     <Row>
@@ -62,7 +94,13 @@ const BookingComponent = (props) => {
               alt=""
               className="card-img-top"
             />
-            <Form className="my-3">
+            <p></p>
+            <p>Välj datum för in checking {chosenResidence.startDate}</p>
+            <Calendar onClickDay={logCheckInDate} value={checkInDate} />
+            <p>Välj datum för ut checkning {chosenResidence.endDate}</p>
+            <Calendar />
+
+            <Form className="my-3" onSubmit={createBooking}>
               <Row form>
                 <Col xs="12" md="6">
                   <FormGroup>
@@ -126,10 +164,10 @@ const BookingComponent = (props) => {
               </Row>
 
               <Button
+                type="submit"
                 color="secondary"
                 block
                 className="col-12 col-md-8 offset-md-2"
-                onClick={createBooking}
               >
                 Fortsätt
               </Button>

@@ -59,13 +59,13 @@ function App() {
                   <Route exact path="/preform-login" component={Login} />
                   <Route
                     exact
-                    path="/booking-component"
+                    path="/residences/:chosenresidenceId/booking"
                     component={BookingComponent}
                   />
                   <Route exact path="/account/bookings" component={Bookings} />
                   <Route
                     exact
-                    path="/account/:chosenresidenceId/bookingConfirmation"
+                    path="/residences/:chosenresidenceId/bookingConfirmation"
                     component={BookingConfirmation}
                   />
                 </Switch>
