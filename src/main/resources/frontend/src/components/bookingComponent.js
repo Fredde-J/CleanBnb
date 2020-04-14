@@ -20,7 +20,9 @@ import Calendar from "react-calendar";
 const BookingComponent = (props) => {
   const { chosenResidence } = useContext(ResidenceContext);
   const [checkInDate, setCheckInDate] = useState(null);
-    const [dateString, setDateString] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [startDateString, setStartDateString] = useState(null);
+  const [endDateString, setEndDateString] = useState(null);
   const { user } = useContext(UserContext);
   const [bookingInfo, setBookingInfo] = useState({
     startDate: null,
@@ -29,14 +31,36 @@ const BookingComponent = (props) => {
     userId: null,
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
+  
+  
+
   const createBooking = (e) => {
     e.preventDefault();
-    setBookingInfo({
-      startDate: dateString,
-      endDate: "2020-05-010",
-      residenceId: chosenResidence.residence.residenceId,
-      userId: user.userId,
-    });
+
+    if(startDateString<chosenResidence.startDate){
+      console.log("Error 1")
+      setErrorMessage("Obs !Vänligen välj en start datum inom det tillgänliga perioden");
+      
+    }else if (endDateString > chosenResidence.endDate){
+        console.log("error 2")
+        setErrorMessage(
+          " Obs! Vänligen välj en slut datum inom det tillgänliga perioden"
+        );
+      }
+        else if (endDateString <= startDateString) {
+          console.log("Error 3");
+          setErrorMessage("Obs! slut datumet är mindre än start datumet")
+        }
+    else{
+      setBookingInfo({
+        startDate: startDateString,
+        endDate: endDateString,
+        residenceId: chosenResidence.residence.residenceId,
+        userId: user.userId,
+      });
+    }
     
   };
   useEffect(() => {
@@ -62,23 +86,43 @@ const BookingComponent = (props) => {
     }
   };
 
-    const logCheckInDate = (e) => {
-      setCheckInDate(e);
-    };
 
+  const logCheckInDate = (e) => {
+    setCheckInDate(e);
+  };
+
+  const logCheckOutDate = (e) =>{
+    setCheckOutDate(e);
+  }
+
+  useEffect(() => {
+    if (checkInDate) {
+      setStartDateString(checkInDate.toLocaleDateString());
+    }
+  }, [checkInDate]);
+
+    useEffect(() => {
+      if (checkOutDate) {
+        setEndDateString(checkOutDate.toLocaleDateString());
+      }
+    }, [checkOutDate]);
+
+  useEffect(() => {
+    if (startDateString) {
+      console.log(startDateString);
+    }
+    // eslint-disable-next-line
+  }, [startDateString]);
+    useEffect(() => {
+      if (endDateString) {
+        console.log(endDateString);
+      }
+      // eslint-disable-next-line
+    }, [endDateString]);
       useEffect(() => {
-        if (checkInDate) {
-          setDateString(checkInDate.toLocaleDateString());
-        }
-      }, [checkInDate]);
-
-        useEffect(() => {
-          if (dateString) {
-            console.log(dateString);
-          }
-          // eslint-disable-next-line
-        }, [dateString]);
-
+        console.log(errorMessage)
+        // eslint-disable-next-line
+      }, [errorMessage]);
 
   return (
     <Row>
@@ -96,9 +140,12 @@ const BookingComponent = (props) => {
             />
             <p></p>
             <p>Välj datum för in checking {chosenResidence.startDate}</p>
-            <Calendar onClickDay={logCheckInDate} value={checkInDate} />
+            <Calendar
+              onClickDay={logCheckInDate}
+              value={checkInDate}
+            />
             <p>Välj datum för ut checkning {chosenResidence.endDate}</p>
-            <Calendar />
+            <Calendar onClickDay={logCheckOutDate} value={checkOutDate} />
 
             <Form className="my-3" onSubmit={createBooking}>
               <Row form>
@@ -171,6 +218,7 @@ const BookingComponent = (props) => {
               >
                 Fortsätt
               </Button>
+                    <p>{errorMessage}</p>
             </Form>
           </div>
         </div>
