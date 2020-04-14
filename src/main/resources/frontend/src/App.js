@@ -77,12 +77,6 @@ function App() {
         <Footer />
       </div>
     </BrowserRouter>
-                  <Route exact path="/account/bookings" component={Bookings} />
-                  <Route
-                    exact
-                    path="/account/:chosenresidenceId/bookingConfirmation"
-                    component={BookingConfirmation}
-                  />
   );
 }
 

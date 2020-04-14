@@ -116,7 +116,7 @@ const Residence = props => {
                     style={buttonStyle}
                     className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
                     onClick={goToLogin}
-                    residence={residence}
+                    residence={listing.residence}
                   >
                     Logga in
                   </button>
