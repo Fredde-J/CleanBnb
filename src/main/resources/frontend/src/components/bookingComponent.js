@@ -14,7 +14,8 @@ const BookingComponent = (props) => {
     userId: null
   });
 
-  const createBooking = () => {
+  const createBooking = (e) => {
+    e.preventDefault()
     setBookingInfo({
       startDate: "2020-05-01",
       endDate: "2020-05-010",
@@ -24,11 +25,11 @@ const BookingComponent = (props) => {
 
   };
   useEffect(() => {
-                    if (bookingInfo.endDate) {
-                      fetchBookings(bookingInfo);
-                    }
-                    // eslint-disable-next-line
-                  }, [bookingInfo]);
+    if(bookingInfo.endDate){
+      fetchBookings(bookingInfo)
+    }
+    // eslint-disable-next-line
+  }, [bookingInfo]);
 
   const fetchBookings = async (bookingInfo) => {
     let response = await fetch("/rest/bookings", {
