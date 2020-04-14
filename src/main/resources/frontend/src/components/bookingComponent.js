@@ -24,10 +24,11 @@ const BookingComponent = (props) => {
 
   };
   useEffect(() => {
-    if(bookingInfo.endDate){
-      fetchBookings(bookingInfo)
-    }
-  }, [bookingInfo]);
+                    if (bookingInfo.endDate) {
+                      fetchBookings(bookingInfo);
+                    }
+                    // eslint-disable-next-line
+                  }, [bookingInfo]);
 
   const fetchBookings = async (bookingInfo) => {
     let response = await fetch("/rest/bookings", {
@@ -59,7 +60,7 @@ const BookingComponent = (props) => {
               alt=""
               className="card-img-top"
             />
-            <Form className="my-3">
+            <Form className="my-3" onSubmit={createBooking}>
               <Row form>
                 <Col xs="12" md="6">
                   <FormGroup>
@@ -123,10 +124,10 @@ const BookingComponent = (props) => {
               </Row>
 
               <Button
+                type="submit"
                 color="secondary"
                 block
                 className="col-12 col-md-8 offset-md-2"
-                onClick={createBooking}
               >
                 Fortsätt
               </Button>
