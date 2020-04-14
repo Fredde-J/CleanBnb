@@ -27,14 +27,14 @@ import {
 
 const LeaseResidence = (props) => {
   const { user } = useContext(UserContext);
-  let image = [];
+  let imageToUpload = [];
 
   const filesChange = async (fileList) => {
     const formData = new FormData();
 
     if (!fileList.length) return;
 
-    image = []
+    imageToUpload = []
 
     Array.from(Array(fileList.length).keys()).map((x) => {
       formData.append("files", fileList[x], fileList[x].name);
@@ -47,7 +47,7 @@ const LeaseResidence = (props) => {
 
     response = await response.json();
     console.log(response);
-    image = response;
+    imageToUpload = response;
   };
 
   const [availabilty, setAvailabilty] = useState({
@@ -119,7 +119,7 @@ const LeaseResidence = (props) => {
       residence.userId = user.userId;
       console.log("Residence object after getNewaddressId", residence);
 
-      residence.images = image[0];
+      residence.images = imageToUpload[0];
 
       let amenityId = await getNewAmenityId(amenity);
       residence.amenityId = amenityId;
@@ -288,8 +288,9 @@ const LeaseResidence = (props) => {
               </CardHeader>
 
               <CheckBoxes onAmenityUpdate={updateAmenity}></CheckBoxes>
+
               <Col className="mb-4 mt-4">
-                <Label for="files">File to upload:</Label>
+                <Label for="files">Ladda upp bild på bostad:</Label>
                 <Input
                   type="file"
                   name="file"
