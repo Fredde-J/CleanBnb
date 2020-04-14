@@ -3,22 +3,21 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import ResidenceContextProvider from "./contexts/ResidenceContext";
 import UserContextProvider from "./contexts/UserContext";
-import BookingContextProvider from "./contexts/BookingContext"
+import BookingContextProvider from "./contexts/BookingContext";
 
 import Header from "./components/Header";
 import StartPage from "./pages/StartPage";
 import SearchPage from "./pages/SearchPage";
 import InfoPage from "./pages/InfoPage";
-import BookingConfirmation from "./pages/BookingConfirmation"
-import Bookings from "./pages/Bookings"
+import BookingConfirmation from "./pages/BookingConfirmation";
+import Bookings from "./pages/Bookings";
 import BookingComponent from "./components/BookingComponent";
 import CompanyInfoPage from "./pages/CompanyInfoPage";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
-import ResidentPage from "./pages/Residence.js";
-import LeaseResidence from './pages/LeaseResidence'
-import RegisterUser from "./pages/RegisterUser"
-
+import ResidentPage from "./pages/Residence";
+import LeaseResidence from "./pages/LeaseResidence";
+import RegisterUser from "./pages/RegisterUser";
 
 import "./css/style.css";
 

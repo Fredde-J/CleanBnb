@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -9,9 +9,9 @@ import {
   NavItem,
 } from "reactstrap";
 import { UserContext } from "../contexts/UserContext";
-import { linkStyle } from "../css/headerstyle";
+import { spanStyle } from "../css/headerstyle";
 
-const Header = () => {
+const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -20,6 +20,9 @@ const Header = () => {
     fetch("/logout");
     setUser(null);
     console.log("Log out");
+  };
+  const goToMyPages = () => {
+    props.history.push("/");
   };
 
   const brandStyle = {
@@ -42,11 +45,11 @@ const Header = () => {
             </NavItem>
 
             {user && (
-            <NavItem>
+              <NavItem>
                 <Link to="/" className="nav-link">
                   Mina Sidor
                 </Link>
-            </NavItem>
+              </NavItem>
             )}
 
             <NavItem>
@@ -55,13 +58,13 @@ const Header = () => {
                   Logga in
                 </Link>
               ) : (
-                <Link onClick={logout} className="nav-link">
+                <Link onClick={logout} to="" className="nav-link">
                   Logga ut
                 </Link>
               )}
             </NavItem>
           </Nav>
-          <span className="navbar-text">
+          <span style={spanStyle} className="navbar-text" onClick={goToMyPages}>
             {!user ? "" : `${user.firstName} ${user.lastName}`}
           </span>
         </Collapse>
@@ -70,4 +73,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withRouter(Header);
