@@ -23,8 +23,8 @@ const Residence = props => {
   };
 
   const goToBookingComponent = async () => {
-    await setChosenResidence(residence);
-    history.push(`/residences/${residence.residenceId}/booking`);
+    await setChosenResidence(listing.residence);
+    history.push(`/residences/${listing.residence.residenceId}/booking`);
   };
 
   const { user } = useContext(UserContext);

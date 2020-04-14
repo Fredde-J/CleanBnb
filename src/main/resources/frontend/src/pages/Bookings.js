@@ -16,7 +16,7 @@ const Bookings = () => {
             <h2 className="text-center">Kommande bokningar</h2>
             {bookings.map((booking, i) => (
               <BookingCard
-                key={booking.bookingid}
+                key={booking.bookingid + i}
                 booking={booking}
               ></BookingCard>
             ))}
@@ -25,7 +25,7 @@ const Bookings = () => {
             <h2 className="text-center">Tidigare bokningar</h2>
             {bookings.map((booking, i) => (
               <BookingCard
-                key={booking.bookingid}
+                key={booking.bookingid + i}
                 booking={booking}
               ></BookingCard>
             ))}

@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import Login from "./components/Login";
 import ResidentPage from "./pages/Residence.js";
 import LeaseResidence from './pages/LeaseResidence'
+import RegisterUser from "./pages/RegisterUser"
 
 
 import "./css/style.css";
@@ -31,9 +32,10 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
         <UserContextProvider>
-          <ResidenceContextProvider>
+          <BookingContextProvider>
+            <ResidenceContextProvider>
+              <Header />
               <main className="container">
                 <Switch>
                   <Route
@@ -44,7 +46,11 @@ function App() {
                   <Route exact path="/" component={StartPage} />
                   <Route exact path="/search" component={SearchPage} />
                   <Route exact path="/info" component={InfoPage} />
-                  <Route exact path="/leaseResidence" component={LeaseResidence} />
+                  <Route
+                    exact
+                    path="/leaseResidence"
+                    component={LeaseResidence}
+                  />
                   <Route
                     exact
                     path="/companyinfo"
@@ -55,11 +61,18 @@ function App() {
                   <Route
                     exact
                     path="/booking-component"
-                    component={bookingComponent}
+                    component={BookingComponent}
+                  />
+                  <Route exact path="/account/bookings" component={Bookings} />
+                  <Route
+                    exact
+                    path="/account/:chosenresidenceId/bookingConfirmation"
+                    component={BookingConfirmation}
                   />
                 </Switch>
               </main>
-          </ResidenceContextProvider>
+            </ResidenceContextProvider>
+          </BookingContextProvider>
         </UserContextProvider>
         <Footer />
       </div>

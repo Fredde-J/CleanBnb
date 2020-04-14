@@ -25,14 +25,15 @@ const CheckOut = ({ onAvailabilityUpdate }) => {
   }, [checkOutDate]);
 
   useEffect(() => {
-    if (dateString) {
-      updateFilter({ checkOutDate: dateString });
+                    if (dateString) {
+                      updateFilter({ checkOutDate: dateString });
 
-      if (onAvailabilityUpdate) {
-        onAvailabilityUpdate({ endDate: dateString });
-      }
-    }
-  }, [dateString]);
+                      if (onAvailabilityUpdate) {
+                        onAvailabilityUpdate({ endDate: dateString });
+                      }
+                    }
+                    // eslint-disable-next-line
+                  }, [dateString]);
 
   return (
     <div className="col-6">
