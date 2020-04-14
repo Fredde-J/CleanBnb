@@ -1,17 +1,15 @@
-import React, {  useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
-import Login from "../components/Login"
-
+import Login from "../components/Login";
+import { Col, Button } from "reactstrap";
 
 import {
   beginSearch,
-  beginSearchText
-  // buttons,
-  // signin,
-  // createAccount
+  beginSearchText,
+  buttonStyle,
 } from "../css/startPageStyle.js";
 
-const StartPage = props => {
+const StartPage = (props) => {
   const { history } = props;
 
   const { user } = useContext(UserContext);
@@ -22,60 +20,48 @@ const StartPage = props => {
   const goToBookings = () => {
     history.push("/account/bookings");
   };
+  const goToLease = () => {
+    history.push("/leaseResidence");
+  };
 
   return (
     <>
-      <div>
-        <div
-          className="begin-search card row col-12 col-md-6 mx-auto mt-5 mb-5 bg-warning"
-          style={beginSearch}
+      <Col xs="12" md={{ size: 6, offset: 3 }} className="mt-5">
+        <Button
+          style={buttonStyle}
+          size="lg"
+          color="warning"
+          className="col-12 py-3"
           onClick={goToSearch}
         >
-          <div className="begin-search-wrapper p-3">
-            <div
-              className="begin-search-text text-center"
-              style={beginSearchText}
-            >
-              <h3>Börja leta bostäder</h3>
-            </div>
-          </div>
-        </div>
-      </div>
+          Börja Leta Bostäder
+        </Button>
+      </Col>
       {!user ? (
         <div>
           <Login></Login>
         </div>
       ) : (
-        <div>
-          <div
-            className="begin-search card row col-12 col-md-6 mx-auto mt-5 mb-5 bg-warning"
-            style={beginSearch}
-           onClick={goToBookings}
+        <Col xs="12" md={{ size: 6, offset: 3 }} className="my-5">
+          <Button
+            style={buttonStyle}
+            size="lg"
+            color="warning"
+            className="col-12 py-3 mb-5"
+            onClick={goToBookings}
           >
-            <div className="begin-search-wrapper p-3">
-              <div
-                className="begin-search-text text-center"
-                style={beginSearchText}
-              >
-                <h3>Bokningar</h3>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="begin-search card row col-12 col-md-6 mx-auto mt-5 mb-5 bg-warning"
-            style={beginSearch}
+            Mina Bokningar
+          </Button>
+          <Button
+            style={buttonStyle}
+            size="lg"
+            color="warning"
+              className="col-12 py-3"
+              onClick={goToLease}
           >
-            <div className="begin-search-wrapper p-3">
-              <div
-                className="begin-search-text text-center"
-                style={beginSearchText}
-              >
-                <h3>Hyr ut bostad</h3>
-              </div>
-            </div>
-          </div>
-        </div>
+            Hyr ut en Bostad
+          </Button>
+        </Col>
       )}
     </>
   );

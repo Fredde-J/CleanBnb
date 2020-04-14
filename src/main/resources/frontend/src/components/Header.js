@@ -1,8 +1,15 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, Nav, NavItem } from "reactstrap";
+import {
+  Collapse,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  Nav,
+  NavItem,
+} from "reactstrap";
 import { UserContext } from "../contexts/UserContext";
-import {pStyle} from "../css/headerstyle"
+import { linkStyle } from "../css/headerstyle";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,8 +23,8 @@ const Header = () => {
   };
 
   const brandStyle = {
-    width: "150px" 
-  }
+    width: "150px",
+  };
 
   return (
     <>
@@ -34,15 +41,13 @@ const Header = () => {
               </Link>
             </NavItem>
 
+            {user && (
             <NavItem>
-              {!user ? (
-                <p></p>
-              ) : (
                 <Link to="/" className="nav-link">
                   Mina Sidor
                 </Link>
-              )}
             </NavItem>
+            )}
 
             <NavItem>
               {!user ? (
@@ -50,33 +55,16 @@ const Header = () => {
                   Logga in
                 </Link>
               ) : (
-                <p onClick={logout} className="nav-link" style={pStyle}>
+                <Link onClick={logout} className="nav-link">
                   Logga ut
-                </p>
+                </Link>
               )}
             </NavItem>
-
-            {/* <NavItem>
-              <Link to="/#">Våra Avtal</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/#">Logga In</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/#">Om ClearBnb</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/#">Mina Sidor (!)</Link>
-            </NavItem> */}
           </Nav>
+          <span className="navbar-text">
+            {!user ? "" : `${user.firstName} ${user.lastName}`}
+          </span>
         </Collapse>
-        {!user ? (
-          <p></p>
-        ) : (
-          <h5>
-            {user.firstName} {user.lastName}
-          </h5>
-        )}
       </Navbar>
     </>
   );

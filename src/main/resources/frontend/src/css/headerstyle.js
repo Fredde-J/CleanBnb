@@ -1,6 +1,6 @@
 export const imgStyle = {
          width: "50%"
        };
-export const pStyle = {
+export const linkStyle = {
     cursor: "pointer"
 }       
