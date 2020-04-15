@@ -1,48 +1,46 @@
-import React, { useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import {
-  Link,
-  withRouter
-} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { buttons, signin, createAccount } from "../css/startPageStyle.js";
 
-const Login = props => {
+const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { fetchUser } = useContext(UserContext);
-  const [isLoggedin, setIsLoggedIn] = useState(true)
+  const [isLoggedin, setIsLoggedIn] = useState(true);
 
-  const logIn = e => {
+  const logIn = (e) => {
     e.preventDefault();
     const credentials =
       "username=" +
       encodeURIComponent(username) +
       "&password=" +
       encodeURIComponent(password);
-      fetchAccount(credentials);
+    fetchAccount(credentials);
   };
 
-
-  console.log(isLoggedin);
-  const fetchAccount = async credentials => {
+  const fetchAccount = async (credentials) => {
     let response = await fetch("/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: credentials
+      body: credentials,
     });
 
     if (response.url.includes("error")) {
       console.log("Wrong username/password");
-      setIsLoggedIn(false)
-      
+      setIsLoggedIn(false);
     } else {
       console.log("Successfully logged in");
       fetchUser();
-      setIsLoggedIn(true)
-      props.history.push("/");
+      setIsLoggedIn(true);
+      props.match.params
+        ? props.history.push(
+            `/residences/${props.match.params.chosenresidenceId}/booking`
+          )
+        : props.history.push("/");
     }
   };
 
@@ -63,7 +61,7 @@ const Login = props => {
                 className="form-control"
                 id="user"
                 value={username}
-                onChange={e => setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="form-group col-12 col-md-7 mx-auto">
@@ -75,7 +73,7 @@ const Login = props => {
                 className="form-control"
                 id="password"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             {!isLoggedin ? (
