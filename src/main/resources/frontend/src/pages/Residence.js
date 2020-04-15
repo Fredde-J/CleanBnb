@@ -21,6 +21,7 @@ const Residence = (props) => {
     setChosenResidence(listing);
   };
   const goToLogInPage = () => {
+    setChosenResidence(listing);
     history.push(`/residences/${listing.residence.residenceId}/preform-login`);
   };
 

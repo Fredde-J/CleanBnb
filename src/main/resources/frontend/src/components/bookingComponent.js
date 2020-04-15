@@ -17,6 +17,8 @@ const BookingComponent = (props) => {
     userId: null,
   });
 
+  console.log(chosenResidence)
+
   const createBooking = (e) => {
     e.preventDefault();
     setBookingInfo({
