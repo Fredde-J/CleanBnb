@@ -36,7 +36,6 @@ const CheckBoxes = ({ onAmenityUpdate }) => {
       }
     }
   };
-
   useEffect(() => {
     if (amenity) {
       updateFilter({ amenity });
