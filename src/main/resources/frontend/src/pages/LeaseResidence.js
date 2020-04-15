@@ -27,14 +27,14 @@ import {
 
 const LeaseResidence = (props) => {
   const { user } = useContext(UserContext);
-  let imageToUpload = [];
+  let images = [];
 
   const filesChange = async (fileList) => {
     const formData = new FormData();
 
     if (!fileList.length) return;
 
-    imageToUpload = []
+    images = []
 
     Array.from(Array(fileList.length).keys()).map((x) => {
       formData.append("files", fileList[x], fileList[x].name);
@@ -46,8 +46,8 @@ const LeaseResidence = (props) => {
     }).catch(console.warn);
 
     response = await response.json();
-    console.log(response);
-    imageToUpload = response;
+    console.log('response', response)
+    images = response;
   };
 
   const [availabilty, setAvailabilty] = useState({
@@ -119,7 +119,8 @@ const LeaseResidence = (props) => {
       residence.userId = user.userId;
       console.log("Residence object after getNewaddressId", residence);
 
-      residence.images = imageToUpload[0];
+      residence.images = images[0];
+      console.log('images',images, 'residence-images', residence.images)
 
       let amenityId = await getNewAmenityId(amenity);
       residence.amenityId = amenityId;
