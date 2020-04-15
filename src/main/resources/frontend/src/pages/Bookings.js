@@ -9,23 +9,20 @@ const Bookings = () => {
   const { bookings } = useContext(BookingContext);
 
   const checkStartDateOnBooking = (booking) => {
-      console.log((Date.parse(booking.endDate) - new Date()) / 86400000);
-      if((Date.parse(booking.endDate) - new Date()) / 86400000 > 0){
-          return true
-      }
-      else{
-          return false
-      }
-  }
+    if ((Date.parse(booking.endDate) - new Date()) / 86400000 > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-    const checkEndDateOnBooking = (booking) => {
-      console.log((Date.parse(booking.endDate) - new Date()) / 86400000);
-      if ((Date.parse(booking.endDate) - new Date()) / 86400000 < 0) {
-        return true;
-      } else {
-        return false;
-      }
-    };
+  const checkEndDateOnBooking = (booking) => {
+    if ((Date.parse(booking.endDate) - new Date()) / 86400000 < 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <>
