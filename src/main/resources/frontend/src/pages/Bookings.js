@@ -32,7 +32,7 @@ const Bookings = () => {
       {user ? (
         <Row>
           <Col className=" col-12 col-md-6">
-            <h2 className="text-center">Kommande bokningar</h2>
+            <h2 className="text-center">Aktuella bokningar</h2>
             {bookings.map((booking) => (
               <div>
                 {booking.user.userId === user.userId ? (
