@@ -9,12 +9,6 @@ import {
 
 const BookingCard = ({booking})=>{
 
-  console.log(booking)
-  
-  useEffect(() => {
-    console.log(booking)
-  },[booking])
-
     return (
       <Col xs="12">
         <div

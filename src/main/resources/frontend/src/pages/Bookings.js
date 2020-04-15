@@ -8,6 +8,25 @@ const Bookings = () => {
   const { user } = useContext(UserContext);
   const { bookings } = useContext(BookingContext);
 
+  const checkStartDateOnBooking = (booking) => {
+      console.log((Date.parse(booking.endDate) - new Date()) / 86400000);
+      if((Date.parse(booking.endDate) - new Date()) / 86400000 > 0){
+          return true
+      }
+      else{
+          return false
+      }
+  }
+
+    const checkEndDateOnBooking = (booking) => {
+      console.log((Date.parse(booking.endDate) - new Date()) / 86400000);
+      if ((Date.parse(booking.endDate) - new Date()) / 86400000 < 0) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
   return (
     <>
       {user ? (
@@ -16,11 +35,17 @@ const Bookings = () => {
             <h2 className="text-center">Kommande bokningar</h2>
             {bookings.map((booking) => (
               <div>
-                {booking.user.userId === user.userId  ? (
-                    <BookingCard
-                      key={booking.bookingId}
-                      booking={booking}
-                    ></BookingCard>
+                {booking.user.userId === user.userId ? (
+                  <div>
+                    {checkStartDateOnBooking(booking) ? (
+                      <BookingCard
+                        key={booking.bookingId}
+                        booking={booking}
+                      ></BookingCard>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 ) : (
                   ""
                 )}
@@ -30,10 +55,22 @@ const Bookings = () => {
           <Col className="col-12 col-md-6">
             <h2 className="text-center">Tidigare bokningar</h2>
             {bookings.map((booking, i) => (
-              <BookingCard
-                key={booking.bookingid + i}
-                booking={booking}
-              ></BookingCard>
+              <div>
+                {booking.user.userId === user.userId ? (
+                  <div>
+                    {checkEndDateOnBooking(booking) ? (
+                      <BookingCard
+                        key={booking.bookingId}
+                        booking={booking}
+                      ></BookingCard>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             ))}
           </Col>
         </Row>
