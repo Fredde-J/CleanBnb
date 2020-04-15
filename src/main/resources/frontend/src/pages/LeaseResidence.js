@@ -67,7 +67,7 @@ const LeaseResidence = (props) => {
   });
   const [residence, setResidence] = useState({
     images: null,
-    rooms: 0,
+    rooms: "0",
     size: 0,
     addressId: 0,
     beds: 0,
@@ -126,12 +126,16 @@ const LeaseResidence = (props) => {
       residence.amenityId = amenityId;
       console.log("Residence object after getNewAmenityId", residence);
 
+
+
       let residenceId = await getNewResidenceId(residence);
       availabilty.residenceId = residenceId;
       console.log("ResidenceId after getNewResidenceId", residenceId);
 
       let availabiltyFromDb = await getNewAvailabilityId(availabilty);
-      console.log("availabilityId after getNewAvailability", availabiltyFromDb);
+      console.log("availability after getNewAvailability", availabiltyFromDb);
+
+      props.history.push("/leaseConfirmation")
     }
   };
   return (
@@ -250,10 +254,17 @@ const LeaseResidence = (props) => {
                   <Label for="rooms">Antal rum</Label>
                   <Input
                     value={residence.rooms}
-                    type="number"
-                    onChange={(e) =>
-                      updateResidence({ rooms: +e.target.value })
-                    }
+                    type="text"
+                    onChange={
+                      e => {
+                          if(/^[0-9]*$/.test(e.target.value)) {
+                          updateResidence({ rooms: e.target.value})
+                          }
+                      }
+
+                        
+                      }
+                    
                     id="rooms"
                     required
                   />

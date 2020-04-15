@@ -19,7 +19,7 @@ public class AvailabilityService {
 
     public List<Availability> getAllAvailablePeriods(){return (List<Availability>) availabilityRepo.findAll();}
 
-    public Availability getOneAvailablePeriod(int id){return availabilityRepo.findById(id);}
+    public Availability getOneAvailablePeriod(int id){return availabilityRepo.findByResidenceResidenceId(id);}
 
     public Availability createAvailability(Availability availability) {
 

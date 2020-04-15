@@ -27,7 +27,9 @@ const CheckIn = ({onAvailabilityUpdate}) => {
   useEffect(() => {
     if (dateString) {
       updateFilter({ checkInDate: dateString });
-      onAvailabilityUpdate({startDate: dateString})
+      if(onAvailabilityUpdate){
+        onAvailabilityUpdate({startDate: dateString})
+      }
     }
   }, [dateString]);
 

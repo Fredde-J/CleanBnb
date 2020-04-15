@@ -17,11 +17,12 @@ const Residence = props => {
   const fetchOneResidence = async id => {
     let res = await fetch(`/rest/availability/${id}`);
     res = await res.json();
-    // console.log(res);
+    console.log(res);
     setListing(res);
   };
 
   useEffect(() => {
+    console.log(props.match.params.residenceId);
     fetchOneResidence(props.match.params.residenceId);
   }, [props.match.params.residenceId]);
 

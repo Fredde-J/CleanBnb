@@ -32,7 +32,7 @@ public class Availability {
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     private String endDate;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     //@JoinColumn
     private Residence residence;
 

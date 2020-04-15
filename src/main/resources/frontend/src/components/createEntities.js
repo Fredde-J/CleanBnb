@@ -41,5 +41,5 @@ export const getNewAvailabilityId = async (availability) => {
   });
   res = await res.json();
 
-  return res.periodId;
+  return res;
 };

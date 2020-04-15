@@ -45,7 +45,7 @@ public class UploadController {
 
             try {
                 file.transferTo(targetLocation);
-                resultingFilepaths.add(frontendUploadDirectory + filename);
+                resultingFilepaths.add("/static" + frontendUploadDirectory + filename);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

@@ -23,13 +23,17 @@ const CheckBoxes = ({onAmenityUpdate}) => {
         ...amenity,
         [e.target.value]: true
       });
-      onAmenityUpdate({[e.target.value]: true})
+      if(onAmenityUpdate){
+        onAmenityUpdate({[e.target.value]: true})
+      }
     } else {
       setAmenity({
         ...amenity,
         [e.target.value]: false
       });
-      onAmenityUpdate({[e.target.value]: false})
+      if(onAmenityUpdate){
+        onAmenityUpdate({[e.target.value]: false})
+      }
     }
   };
 
