@@ -1,4 +1,4 @@
-import React, {  useContext } from "react";
+import React, { useContext } from "react";
 import { Row, Col } from "reactstrap";
 import { ResidenceContext } from "../contexts/ResidenceContext";
 import {
@@ -6,12 +6,12 @@ import {
   divStyle2,
   pTagStyle1,
   pTagStyle4,
-  
 } from "../css/ResidenceCardStyle";
 const BookingConfirmation = (props) => {
   const { chosenResidence } = useContext(ResidenceContext);
 
   console.log(chosenResidence);
+
   
 
   return (

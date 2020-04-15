@@ -25,7 +25,8 @@ const BookingComponent = (props) => {
   const [endDateString, setEndDateString] = useState(null);
   const { user } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
-  const [price, setPrice] = useState(null)
+  const [price, setPrice] = useState(null);
+  const [bookingInfoCorrect,setBookingInfoCorrect] = useState(false)
   const [bookingInfo, setBookingInfo] = useState({
     startDate: null,
     endDate: null,
@@ -33,37 +34,54 @@ const BookingComponent = (props) => {
     userId: null,
   });
 
-  const createBooking = (e) => {
+  const checkAvailability = (e) => {
     e.preventDefault();
 
-    if (startDateString < chosenResidence.startDate) {
-      console.log("Error 1");
-      setErrorMessage(
-        "Obs !Vänligen välj en start datum inom det tillgänliga perioden"
-      );
-    } else if (endDateString > chosenResidence.endDate) {
-      console.log("error 2");
-      setErrorMessage(
-        " Obs! Vänligen välj en slut datum inom det tillgänliga perioden"
-      );
-    } else if (endDateString <= startDateString) {
-      console.log("Error 3");
-      setErrorMessage("Obs! slut datumet är mindre än start datumet");
-    } else {
-      let days =  (checkOutDate-checkInDate)/ 86400000 ;
-      console.log(days);
-      
-      setPrice(days*chosenResidence.residence.price)
-      console.log(chosenResidence.residence.price*days);
-      
-     /* setBookingInfo({
+     if (startDateString < chosenResidence.startDate) {
+       console.log("Error 1");
+       setErrorMessage(
+         "Obs! Vänligen välj en start datum inom den tillgänliga perioden"
+       );
+       setPrice(null);
+       setBookingInfoCorrect(false)
+     } else if (endDateString > chosenResidence.endDate) {
+       console.log("error 2");
+       setErrorMessage(
+         " Obs! Vänligen välj en slut datum inom den tillgänliga perioden"
+       );
+       setPrice(null);
+       setBookingInfoCorrect(false);
+     } else if (endDateString <= startDateString) {
+       console.log("Error 3");
+       setErrorMessage("Obs! slut datumet är mindre än start datumet");
+       setPrice(null);
+       setBookingInfoCorrect(false);
+     } else {
+       let days = (checkOutDate - checkInDate) / 86400000;
+       console.log(days);
+
+       setPrice(days * chosenResidence.residence.price);
+       console.log(chosenResidence.residence.price * days);
+
+       setErrorMessage(null);
+       setBookingInfoCorrect(true);
+     }
+
+
+  };
+    const createBooking = (e) => {
+      e.preventDefault();
+      setBookingInfo({
         startDate: startDateString,
         endDate: endDateString,
         residenceId: chosenResidence.residence.residenceId,
         userId: user.userId,
-      });*/
-    }
-  };
+      });
+
+      props.history.push(
+        `/residences/${chosenResidence.residence.residenceId}/bookingConfirmation`
+      );
+    };
   useEffect(() => {
     if (bookingInfo.endDate) {
       fetchBookings(bookingInfo);
@@ -79,9 +97,7 @@ const BookingComponent = (props) => {
     });
     try {
       response = await response.json();
-      props.history.push(
-        `/residences/${chosenResidence.residence.residenceId}/bookingConfirmation`
-      );
+     
     } catch {
       console.log("Fel inmatning av uppgifter");
     }
@@ -89,10 +105,12 @@ const BookingComponent = (props) => {
 
   const logCheckInDate = (e) => {
     setCheckInDate(e);
+    setBookingInfoCorrect(false);
   };
 
   const logCheckOutDate = (e) => {
     setCheckOutDate(e);
+    setBookingInfoCorrect(false);
   };
 
   useEffect(() => {
@@ -123,6 +141,13 @@ const BookingComponent = (props) => {
     console.log(errorMessage);
     // eslint-disable-next-line
   }, [errorMessage]);
+  useEffect(() => {
+    console.log(price);
+  }, [price]);
+  useEffect(() =>{
+    console.log(bookingInfoCorrect)
+
+  },[bookingInfoCorrect])
 
   return (
     <Row>
@@ -144,78 +169,37 @@ const BookingComponent = (props) => {
             <p>Välj datum för ut checkning {chosenResidence.endDate}</p>
             <Calendar onClickDay={logCheckOutDate} value={checkOutDate} />
 
-            <Form className="my-3" onSubmit={createBooking}>
+            <Form className="my-3" >
               <Row form>
                 <Col xs="12" md="6">
                   <FormGroup>
-                    <Label for="name">Förnamn</Label>
-                    {user ? (
-                      <Input
-                        type="text"
-                        name="name"
-                        id="firstName"
-                        defaultValue={user.firstName}
-                      />
-                    ) : (
-                      <Input type="text" name="name" id="firstName" />
-                    )}
+                    {!price ? <p></p> : <h1>Pris:{price}kr</h1>}
+                    <Button
+                      onClick={checkAvailability}
+                      color="secondary"
+                      block
+                      className="col-12 col-md-8 offset-md-2"
+                    >
+                      Bekräfta datum
+                    </Button>
                   </FormGroup>
-                </Col>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    <Label for="lastName">Efternamn:</Label>
-                    {user ? (
-                      <Input
-                        type="lastname"
-                        name="lastname"
-                        id="lastName"
-                        defaultValue={user.lastName}
-                      />
+
+                  <FormGroup >
+                    {bookingInfoCorrect ? (
+                      <Button
+                        onClick={createBooking}
+                        color="secondary"
+                        block
+                        className="col-12 col-md-8 offset-md-2"
+                      >
+                        Gå vidare
+                      </Button>
                     ) : (
-                      <Input type="lastname" name="lastname" id="lastName" />
+                      <p>{errorMessage}</p>
                     )}
                   </FormGroup>
                 </Col>
               </Row>
-              <Row form>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    <Label for="email">Email:</Label>
-
-                    {user ? (
-                      <Input
-                        type="email"
-                        name="email"
-                        id="emailAdress"
-                        defaultValue={user.username}
-                      />
-                    ) : (
-                      <Input type="email" name="email" id="emailAdress" />
-                    )}
-                  </FormGroup>
-                </Col>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    <Label for="phone">Telefon:</Label>
-                    <Input
-                      type="number"
-                      name="number"
-                      id="phoneNumber"
-                      display="inline-block"
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-
-              <Button
-                type="submit"
-                color="secondary"
-                block
-                className="col-12 col-md-8 offset-md-2"
-              >
-                Fortsätt
-              </Button>
-              <p>{errorMessage}</p>
             </Form>
           </div>
         </div>
