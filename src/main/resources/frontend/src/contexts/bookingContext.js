@@ -7,7 +7,7 @@ const BookingContextProvider = props => {
   const [bookings, setBookings] = useState([])
 
   const fetchBookings = async () => {
-        let res = await fetch("/rest/bookings");
+        let res = await fetch("/rest/getAllBookings");
         try {
           res = await res.json();
           setBookings(res);

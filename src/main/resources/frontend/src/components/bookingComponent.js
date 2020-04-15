@@ -1,18 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ResidenceContext } from "../contexts/ResidenceContext";
-import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Col,
-  Row,
-  Button,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-} from "reactstrap";
+import { Form, FormGroup, Col, Row, Button } from "reactstrap";
 import { divStyle1, imgStyle, topPStyle } from "../css/bookingComponentStyle";
 import { UserContext } from "../contexts/UserContext";
 import Calendar from "react-calendar";
@@ -25,63 +13,62 @@ const BookingComponent = (props) => {
   const [endDateString, setEndDateString] = useState(null);
   const { user } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
-  const [price, setPrice] = useState(null);
-  const [bookingInfoCorrect,setBookingInfoCorrect] = useState(false)
+  const [datePrice, setDatePrice] = useState(null);
+  const [bookingInfoCorrect, setBookingInfoCorrect] = useState(false);
   const [bookingInfo, setBookingInfo] = useState({
     startDate: null,
     endDate: null,
     residenceId: null,
     userId: null,
+    price: null,
   });
 
   const checkAvailability = (e) => {
     e.preventDefault();
 
-     if (startDateString < chosenResidence.startDate) {
-       console.log("Error 1");
-       setErrorMessage(
-         "Obs! Vänligen välj en start datum inom den tillgänliga perioden"
-       );
-       setPrice(null);
-       setBookingInfoCorrect(false)
-     } else if (endDateString > chosenResidence.endDate) {
-       console.log("error 2");
-       setErrorMessage(
-         " Obs! Vänligen välj en slut datum inom den tillgänliga perioden"
-       );
-       setPrice(null);
-       setBookingInfoCorrect(false);
-     } else if (endDateString <= startDateString) {
-       console.log("Error 3");
-       setErrorMessage("Obs! slut datumet är mindre än start datumet");
-       setPrice(null);
-       setBookingInfoCorrect(false);
-     } else {
-       let days = (checkOutDate - checkInDate) / 86400000;
-       console.log(days);
-
-       setPrice(days * chosenResidence.residence.price);
-       console.log(chosenResidence.residence.price * days);
-
-       setErrorMessage(null);
-       setBookingInfoCorrect(true);
-     }
-
-
-  };
-    const createBooking = (e) => {
-      e.preventDefault();
-      setBookingInfo({
-        startDate: startDateString,
-        endDate: endDateString,
-        residenceId: chosenResidence.residence.residenceId,
-        userId: user.userId,
-      });
-
-      props.history.push(
-        `/residences/${chosenResidence.residence.residenceId}/bookingConfirmation`
+    if (startDateString < chosenResidence.startDate) {
+      console.log("Error 1");
+      setErrorMessage(
+        "Obs! Vänligen välj en start datum inom den tillgänliga perioden"
       );
-    };
+      setDatePrice(null);
+      setBookingInfoCorrect(false);
+    } else if (endDateString > chosenResidence.endDate) {
+      console.log("error 2");
+      setErrorMessage(
+        " Obs! Vänligen välj en slut datum inom den tillgänliga perioden"
+      );
+      setDatePrice(null);
+      setBookingInfoCorrect(false);
+    } else if (endDateString <= startDateString) {
+      console.log("Error 3");
+      setErrorMessage("Obs! slut datumet är mindre än start datumet");
+      setDatePrice(null);
+      setBookingInfoCorrect(false);
+    } else if (!endDateString && !startDateString) {
+      setErrorMessage("Obs! Välj ett datum för att gå vidare");
+      setBookingInfoCorrect(false);
+    } else {
+      let days = (checkOutDate - checkInDate) / 86400000;
+      console.log(days);
+
+      setDatePrice(days * chosenResidence.residence.price);
+      console.log(chosenResidence.residence.price * days);
+
+      setErrorMessage(null);
+      setBookingInfoCorrect(true);
+    }
+  };
+  const createBooking = (e) => {
+    e.preventDefault();
+    setBookingInfo({
+      startDate: startDateString,
+      endDate: endDateString,
+      residenceId: chosenResidence.residence.residenceId,
+      userId: user.userId,
+      price: datePrice,
+    });
+  };
   useEffect(() => {
     if (bookingInfo.endDate) {
       fetchBookings(bookingInfo);
@@ -97,7 +84,9 @@ const BookingComponent = (props) => {
     });
     try {
       response = await response.json();
-     
+      props.history.push(
+        `/residences/${chosenResidence.residence.residenceId}/bookingConfirmation`
+      );
     } catch {
       console.log("Fel inmatning av uppgifter");
     }
@@ -125,29 +114,7 @@ const BookingComponent = (props) => {
     }
   }, [checkOutDate]);
 
-  useEffect(() => {
-    if (startDateString) {
-      console.log(startDateString);
-    }
-    // eslint-disable-next-line
-  }, [startDateString]);
-  useEffect(() => {
-    if (endDateString) {
-      console.log(endDateString);
-    }
-    // eslint-disable-next-line
-  }, [endDateString]);
-  useEffect(() => {
-    console.log(errorMessage);
-    // eslint-disable-next-line
-  }, [errorMessage]);
-  useEffect(() => {
-    console.log(price);
-  }, [price]);
-  useEffect(() =>{
-    console.log(bookingInfoCorrect)
-
-  },[bookingInfoCorrect])
+ 
 
   return (
     <Row>
@@ -155,7 +122,7 @@ const BookingComponent = (props) => {
         <div style={divStyle1} className="card bg-warning my-3">
           <div className="card-body">
             <p style={topPStyle} className="col-12 text-center">
-              Dina Uppgifter
+              Datum
             </p>
             <img
               style={imgStyle}
@@ -163,17 +130,21 @@ const BookingComponent = (props) => {
               alt=""
               className="card-img-top"
             />
-            <p></p>
-            <p>Välj datum för in checking {chosenResidence.startDate}</p>
-            <Calendar onClickDay={logCheckInDate} value={checkInDate} />
-            <p>Välj datum för ut checkning {chosenResidence.endDate}</p>
-            <Calendar onClickDay={logCheckOutDate} value={checkOutDate} />
+            <h6>Boendet är tillängligt från:</h6>
+            <h6>
+              {chosenResidence.startDate} till {chosenResidence.endDate}
+            </h6>
 
-            <Form className="my-3" >
+            <p>Välj datum för inchecking </p>
+            <Calendar onClickDay={logCheckInDate} value={checkInDate} />
+            <br></br>
+            <p>Välj datum för utcheckning </p>
+            <Calendar onClickDay={logCheckOutDate} value={checkOutDate} />
+            <Form className="my-3">
               <Row form>
                 <Col xs="12" md="6">
                   <FormGroup>
-                    {!price ? <p></p> : <h1>Pris:{price}kr</h1>}
+                    {!datePrice ? <p></p> : <h1>Pris:{datePrice}kr</h1>}
                     <Button
                       onClick={checkAvailability}
                       color="secondary"
@@ -184,7 +155,7 @@ const BookingComponent = (props) => {
                     </Button>
                   </FormGroup>
 
-                  <FormGroup >
+                  <FormGroup>
                     {bookingInfoCorrect ? (
                       <Button
                         onClick={createBooking}
