@@ -41,6 +41,7 @@ const Residence = (props) => {
     if (listing && chosenResidence) {
       history.push(`/residences/${listing.residence.residenceId}/booking`);
     }
+    // eslint-disable-next-line
   }, [chosenResidence]);
 
   let amenityArray = [];

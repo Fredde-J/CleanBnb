@@ -4,8 +4,6 @@ import Login from "../components/Login";
 import { Col, Button } from "reactstrap";
 
 import {
-  beginSearch,
-  beginSearchText,
   buttonStyle,
 } from "../css/startPageStyle.js";
 

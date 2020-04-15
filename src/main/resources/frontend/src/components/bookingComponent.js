@@ -17,7 +17,7 @@ const BookingComponent = (props) => {
     userId: null,
   });
 
-  console.log(chosenResidence)
+  console.log(chosenResidence);
 
   const createBooking = (e) => {
     e.preventDefault();
@@ -36,9 +36,12 @@ const BookingComponent = (props) => {
   }, [bookingInfo]);
 
   const fetchBookings = async (bookingInfo) => {
+    // eslint-disable-next-line
     let response = await fetch("/rest/bookings", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(bookingInfo),
     });
     try {
