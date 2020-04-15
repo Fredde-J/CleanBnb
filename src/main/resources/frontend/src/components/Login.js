@@ -36,7 +36,7 @@ const Login = (props) => {
       console.log("Successfully logged in");
       fetchUser();
       setIsLoggedIn(true);
-      props.match.params
+      props.match.params.chosenresidenceId
         ? props.history.push(
             `/residences/${props.match.params.chosenresidenceId}/booking`
           )

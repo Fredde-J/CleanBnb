@@ -12,6 +12,7 @@ public class Booking {
     private int bookingId;
     private  String startDate;
     private String endDate;
+    private int price;
 
     @Transient
     public int residenceId;
@@ -25,14 +26,23 @@ public class Booking {
     @OneToOne(cascade = CascadeType.ALL)
     private  User user;
 
-    public Booking(String startDate, String endDate, int residenceId, int userId) {
+    public Booking(String startDate, String endDate, int residenceId, int userId, int price) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.residenceId = residenceId;
         this.userId = userId;
+        this.price = price;
     }
 
     public Booking() {}
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public int getBookingId() {
         return bookingId;

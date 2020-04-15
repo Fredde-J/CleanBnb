@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Row,
   Col,
@@ -10,6 +10,7 @@ import {
   Button,
 } from "reactstrap";
 import { ResidenceContext } from "../contexts/ResidenceContext";
+import { BookingContext } from "../contexts/BookingContext";
 import {
   cardStyle,
   imgStyle,
@@ -20,12 +21,34 @@ import {
 } from "../css/bookingConfirmationStyle";
 
 const BookingConfirmation = (props) => {
-  const { chosenResidence } = useContext(ResidenceContext);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
+  const { chosenResidence } = useContext(ResidenceContext);
+  const { bookingInfo } = useContext(BookingContext);
 
   const confirmBooking = () => {
     setBookingConfirmed(true);
   };
+
+  const createBooking = async (bookingInfo) => {
+    // eslint-disable-next-line
+    await fetch("/rest/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookingInfo),
+    });
+  };
+
+  useEffect(() => {
+    console.log(bookingInfo);
+  }, [])
+  useEffect(() => {
+    if (bookingConfirmed) {
+      createBooking(bookingInfo);
+    }
+    // eslint-disable-next-line
+  }, [bookingConfirmed]);
 
   console.log(chosenResidence);
 
@@ -57,7 +80,7 @@ const BookingConfirmation = (props) => {
               <Button
                 style={buttonStyle}
                 color="dark"
-                outline="true"
+                outline
                 className="col-12 col-md-6 offset-md-3 mt-4"
               >
                 Startsidan
@@ -68,7 +91,7 @@ const BookingConfirmation = (props) => {
                 <Button
                   style={buttonStyle}
                   color="dark"
-                  outline="true"
+                  outline
                   className="col-12 col-md-5 mt-4"
                 >
                   Tillbaka
@@ -76,7 +99,7 @@ const BookingConfirmation = (props) => {
                 <Button
                   style={buttonStyle}
                   color="dark"
-                  outline="true"
+                  outline
                   className="col-12 col-md-5 offset-md-2 mt-4"
                   onClick={confirmBooking}
                 >
