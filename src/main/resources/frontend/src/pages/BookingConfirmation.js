@@ -41,6 +41,9 @@ const BookingConfirmation = (props) => {
   };
 
   useEffect(() => {
+    console.log(bookingInfo);
+  }, [])
+  useEffect(() => {
     if (bookingConfirmed) {
       createBooking(bookingInfo);
     }

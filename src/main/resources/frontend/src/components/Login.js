@@ -10,8 +10,6 @@ const Login = (props) => {
   const { fetchUser } = useContext(UserContext);
   const [isLoggedin, setIsLoggedIn] = useState(true);
 
-  console.log(props);
-
   const logIn = (e) => {
     e.preventDefault();
     const credentials =

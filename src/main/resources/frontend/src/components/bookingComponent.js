@@ -16,13 +16,10 @@ const BookingComponent = (props) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [datePrice, setDatePrice] = useState(null);
   const [bookingInfoCorrect, setBookingInfoCorrect] = useState(false);
-  
+
   const { chosenResidence } = useContext(ResidenceContext);
   const { user } = useContext(UserContext);
   const { bookingInfo, setBookingInfo } = useContext(BookingContext);
-
-  console.log(props);
-  
 
   const checkAvailability = (e) => {
     e.preventDefault();
@@ -72,16 +69,6 @@ const BookingComponent = (props) => {
     });
   };
 
-  useEffect(() => {
-    if (bookingInfo.endDate) {
-      props.history.push(`/residences/${props.match.params.chosenresidenceId}/bookingConfirmation`)
-      
-    }
-    // eslint-disable-next-line
-  }, [bookingInfo]);
-
-  
-
   const logCheckInDate = (e) => {
     setCheckInDate(e);
     setBookingInfoCorrect(false);
@@ -91,6 +78,19 @@ const BookingComponent = (props) => {
     setCheckOutDate(e);
     setBookingInfoCorrect(false);
   };
+
+  useEffect(() => {
+    console.log("In BookingComponenet. chosenResidence:", chosenResidence);
+    
+  }, [])
+  useEffect(() => {
+    if (bookingInfo.endDate) {
+      props.history.push(
+        `/residences/${props.match.params.chosenresidenceId}/bookingConfirmation`
+      );
+    }
+    // eslint-disable-next-line
+  }, [bookingInfo]);
 
   useEffect(() => {
     if (checkInDate) {
@@ -103,8 +103,6 @@ const BookingComponent = (props) => {
       setEndDateString(checkOutDate.toLocaleDateString());
     }
   }, [checkOutDate]);
-
- 
 
   return (
     <Row>

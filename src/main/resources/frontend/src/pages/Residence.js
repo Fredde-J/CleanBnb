@@ -15,6 +15,7 @@ import {
 const Residence = (props) => {
   const [listing, setListing] = useState(null);
   const { chosenResidence, setChosenResidence } = useContext(ResidenceContext);
+  const { user } = useContext(UserContext);
   const { history } = props;
 
   const goToBookingComponent = () => {
@@ -24,8 +25,6 @@ const Residence = (props) => {
     setChosenResidence(listing);
     history.push(`/residences/${listing.residence.residenceId}/preform-login`);
   };
-
-  const { user } = useContext(UserContext);
 
   const fetchOneResidence = async (id) => {
     let res = await fetch(`/rest/availability/${id}`);
@@ -39,6 +38,7 @@ const Residence = (props) => {
 
   useEffect(() => {
     if (listing && chosenResidence) {
+      console.log("In Residence, chosenResidence: ", chosenResidence)
       history.push(`/residences/${listing.residence.residenceId}/booking`);
     }
     // eslint-disable-next-line
