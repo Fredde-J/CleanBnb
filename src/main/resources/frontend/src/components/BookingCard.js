@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import { Col } from "reactstrap";
 import {
   divStyle1,
@@ -7,8 +7,13 @@ import {
   bottomPStyle
 } from "../css/ResidenceCardStyle";
 
-const BookingCard = ()=>{
+const BookingCard = ({booking})=>{
+
+  console.log(booking)
   
+  useEffect(() => {
+    console.log(booking)
+  },[booking])
 
     return (
       <Col xs="12">
@@ -18,20 +23,20 @@ const BookingCard = ()=>{
         >
           <img
             style={imgStyle}
-            src="/images/lägenhet1.jpg"
+            src={booking.residence.images}
             alt=""
             className="card-img-top"
           />
           <div className="card-body row">
             <p style={topPStyle} className="col-6 text-left">
-              Malmö
+              {booking.residence.address.city}
             </p>
             
             <p style={bottomPStyle} className="col-6">
-              5 sängar
+              {booking.residence.beds} sängar
             </p>
             <p style={bottomPStyle} className="col-6 text-right">
-              2020-04-05 till 2020-04-10
+              {booking.startDate} till {booking.endDate}
             </p>
           </div>
         </div>

@@ -14,11 +14,17 @@ const Bookings = () => {
         <Row>
           <Col className=" col-12 col-md-6">
             <h2 className="text-center">Kommande bokningar</h2>
-            {bookings.map((booking, i) => (
-              <BookingCard
-                key={booking.bookingid + i}
-                booking={booking}
-              ></BookingCard>
+            {bookings.map((booking) => (
+              <div>
+                {booking.user.userId === user.userId  ? (
+                    <BookingCard
+                      key={booking.bookingId}
+                      booking={booking}
+                    ></BookingCard>
+                ) : (
+                  ""
+                )}
+              </div>
             ))}
           </Col>
           <Col className="col-12 col-md-6">
