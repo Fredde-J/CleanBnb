@@ -1,27 +1,28 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ResidenceContext } from "../contexts/ResidenceContext";
 import { Form, FormGroup, Col, Row, Button } from "reactstrap";
-import { divStyle1, imgStyle, topPStyle } from "../css/bookingComponentStyle";
-import { UserContext } from "../contexts/UserContext";
 import Calendar from "react-calendar";
 
+import { ResidenceContext } from "../contexts/ResidenceContext";
+import { UserContext } from "../contexts/UserContext";
+import { BookingContext } from "../contexts/BookingContext";
+
+import { divStyle1, imgStyle, topPStyle } from "../css/bookingComponentStyle";
+
 const BookingComponent = (props) => {
-  const { chosenResidence } = useContext(ResidenceContext);
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [startDateString, setStartDateString] = useState(null);
   const [endDateString, setEndDateString] = useState(null);
-  const { user } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [datePrice, setDatePrice] = useState(null);
   const [bookingInfoCorrect, setBookingInfoCorrect] = useState(false);
-  const [bookingInfo, setBookingInfo] = useState({
-    startDate: null,
-    endDate: null,
-    residenceId: null,
-    userId: null,
-    price: null,
-  });
+  
+  const { chosenResidence } = useContext(ResidenceContext);
+  const { user } = useContext(UserContext);
+  const { bookingInfo, setBookingInfo } = useContext(BookingContext);
+
+  console.log(props);
+  
 
   const checkAvailability = (e) => {
     e.preventDefault();
@@ -59,6 +60,7 @@ const BookingComponent = (props) => {
       setBookingInfoCorrect(true);
     }
   };
+
   const createBooking = (e) => {
     e.preventDefault();
     setBookingInfo({
@@ -69,31 +71,16 @@ const BookingComponent = (props) => {
       price: datePrice,
     });
   };
+
   useEffect(() => {
     if (bookingInfo.endDate) {
-      fetchBookings(bookingInfo);
+      props.history.push(`/residences/${props.match.params.chosenresidenceId}/bookingConfirmation`)
+      
     }
     // eslint-disable-next-line
   }, [bookingInfo]);
 
-  const fetchBookings = async (bookingInfo) => {
-    // eslint-disable-next-line
-    let response = await fetch("/rest/bookings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookingInfo),
-    });
-    try {
-      response = await response.json();
-      props.history.push(
-        `/residences/${chosenResidence.residence.residenceId}/bookingConfirmation`
-      );
-    } catch {
-      console.log("Fel inmatning av uppgifter");
-    }
-  };
+  
 
   const logCheckInDate = (e) => {
     setCheckInDate(e);
