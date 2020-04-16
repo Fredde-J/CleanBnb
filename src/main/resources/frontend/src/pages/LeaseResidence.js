@@ -133,8 +133,9 @@ const LeaseResidence = (props) => {
       availabilty.residenceId = residenceId;
 
       let availabiltyFromDb = await getNewAvailabilityId(availabilty);
+      console.log(availabiltyFromDb)
 
-      props.history.push("/leaseConfirmation")
+      //props.history.push("/leaseConfirmation")
     }
   };
   return (
