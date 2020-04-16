@@ -86,6 +86,7 @@ const BookingComponent = (props) => {
   }, []);
 
   useEffect(() => {
+    console.log("In bookingComponent. bookingInfo from Context: ", bookingInfo);
     if (bookingInfo) {
       localStorage.setItem("bookingInfo", JSON.stringify(bookingInfo));
       props.history.push(

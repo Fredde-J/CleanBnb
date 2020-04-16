@@ -27,10 +27,26 @@ const BookingConfirmation = (props) => {
   const [resolve, setResolve] = useState(null);
   const { bookingInfo, setBookingInfo } = useContext(BookingContext);
   const { chosenResidence, setChosenResidence } = useContext(ResidenceContext);
-  console.log(bookingInfo);
 
   const confirmBooking = () => {
     setBookingConfirmed(true);
+  };
+
+  const backToBooking = () => {
+    localStorage.removeItem("bookingInfo");
+    setBookingInfo(null);
+    console.log("bookingInfo removed.");
+
+    props.history.push(
+      `/residences/${chosenResidence.residence.residenceId}/booking`
+    );
+  };
+
+  const backToStart = () => {
+    localStorage.clear();
+    setChosenResidence(null);
+    setBookingInfo(null);
+    props.history.push("/");
   };
 
   const createBooking = async (bookingInfo) => {
@@ -117,6 +133,7 @@ const BookingConfirmation = (props) => {
                     color="dark"
                     outline
                     className="col-12 col-md-6 offset-md-3 mt-4"
+                    onClick={backToStart}
                   >
                     Startsidan
                   </Button>
@@ -128,6 +145,7 @@ const BookingConfirmation = (props) => {
                       color="dark"
                       outline
                       className="col-12 col-md-5 mt-4"
+                      onClick={backToBooking}
                     >
                       Tillbaka
                     </Button>
