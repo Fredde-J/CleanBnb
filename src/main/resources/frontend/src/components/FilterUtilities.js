@@ -3,6 +3,25 @@
 export const filterPrices = (price, fr) => {
   return fr.filter((l) => l.residence.price <= price);
 };
+
+export const filterDate = (checkInDate, checkOutDate, fr) => {
+  if (checkInDate) {
+    if (checkOutDate) {
+      return fr.filter(
+        (l) => l.startDate <= checkInDate && l.endDate >= checkOutDate
+      );
+    } else {
+      return fr.filter(
+        (l) => l.startDate <= checkInDate && l.endDate > checkInDate
+      );
+    }
+  } else if (checkOutDate) {
+    return fr.filter(
+      (l) => l.startDate < checkOutDate && l.endDate >= checkOutDate
+    );
+  }
+};  
+
 export const filterBeds = (beds, fr) => {
   return fr.filter((l) => l.residence.beds === beds);
 };

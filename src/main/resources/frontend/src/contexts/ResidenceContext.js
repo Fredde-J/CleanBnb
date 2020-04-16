@@ -4,13 +4,14 @@ import {
   filterPrices,
   filterBeds,
   filterCities,
+  filterDate,
 } from "../components/FilterUtilities";
 
 export const ResidenceContext = createContext();
 
 export default function ResidenceContextProvider(props) {
-  // const [residences, setResidences] = useState(null);
   const [availabilities, setAvailabilities] = useState([]);
+  const [chosenResidence, setChosenResidence] = useState(null);
   const [filter, setFilter] = useState({
     price: null,
     checkInDate: null,
@@ -28,19 +29,6 @@ export default function ResidenceContextProvider(props) {
       wifi: false,
     },
   });
-
-  // const fetchResidences = async () => {
-  //   if (localStorage.getItem("residences")) {
-  //     setResidences(JSON.parse(localStorage.getItem("residences")));
-  //     console.log("Fetched residences from Local Store");
-  //   } else {
-  //     let res = await fetch("/rest/residences");
-  //     res = await res.json();
-  //     localStorage.setItem("residences", JSON.stringify(res));
-  //     setResidences(res);
-  //     console.log("Fetched residences from database");
-  //   }
-  // };
 
   const fetchAvailibilities = async () => {
     if (localStorage.getItem("availabilities")) {
@@ -60,6 +48,10 @@ export default function ResidenceContextProvider(props) {
     filteredRes = filter.price
       ? filterPrices(filter.price, filteredRes)
       : filteredRes;
+    filteredRes =
+      filter.checkInDate || filter.checkOutDate
+        ? filterDate(filter.checkInDate, filter.checkOutDate, filteredRes)
+        : filteredRes;
     filteredRes = filter.beds
       ? filterBeds(filter.beds, filteredRes)
       : filteredRes;
@@ -109,15 +101,13 @@ export default function ResidenceContextProvider(props) {
     updateFilter,
     resetResidences,
     resetFilter,
+    setChosenResidence,
+    chosenResidence,
   };
 
   useEffect(() => {
     fetchAvailibilities();
   }, []);
-
-  useEffect(() => {
-    console.log(filter);
-  }, [filter]);
 
   return (
     <ResidenceContext.Provider value={values}>

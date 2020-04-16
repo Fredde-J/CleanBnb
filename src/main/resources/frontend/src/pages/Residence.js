@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Col } from "reactstrap";
-
+import { UserContext } from "../contexts/UserContext";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 import {
   imgStyle,
   divStyle2,
@@ -8,16 +9,26 @@ import {
   pTagStyle2,
   pTagStyle3,
   pTagStyle4,
-  buttonStyle
+  buttonStyle,
 } from "../css/ResidenceCardStyle";
 
-const Residence = props => {
+const Residence = (props) => {
   const [listing, setListing] = useState(null);
+  const { chosenResidence, setChosenResidence } = useContext(ResidenceContext);
+  const { user } = useContext(UserContext);
+  const { history } = props;
 
-  const fetchOneResidence = async id => {
+  const goToBookingComponent = () => {
+    setChosenResidence(listing);
+  };
+  const goToLogInPage = () => {
+    setChosenResidence(listing);
+    history.push(`/residences/${listing.residence.residenceId}/preform-login`);
+  };
+
+  const fetchOneResidence = async (id) => {
     let res = await fetch(`/rest/availability/${id}`);
     res = await res.json();
-    console.log(res);
     setListing(res);
   };
 
@@ -25,6 +36,14 @@ const Residence = props => {
     console.log(props.match.params.residenceId);
     fetchOneResidence(props.match.params.residenceId);
   }, [props.match.params.residenceId]);
+
+  useEffect(() => {
+    if (listing && chosenResidence) {
+      console.log("In Residence, chosenResidence: ", chosenResidence)
+      history.push(`/residences/${listing.residence.residenceId}/booking`);
+    }
+    // eslint-disable-next-line
+  }, [chosenResidence]);
 
   let amenityArray = [];
 
@@ -92,8 +111,9 @@ const Residence = props => {
                 <button
                   style={buttonStyle}
                   className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
+                  onClick={user ? goToBookingComponent : goToLogInPage}
                 >
-                  Boka
+                  {user ? "Boka" : "Logga in för att Boka"}
                 </button>
               </div>
             </div>

@@ -21,6 +21,7 @@ public class User {
     public int addressId;
 
     @OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn
     private Address address;
 
     public User() {}

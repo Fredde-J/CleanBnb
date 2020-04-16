@@ -1,15 +1,33 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, Nav, NavItem } from "reactstrap";
+import React, { useState, useContext } from "react";
+import { Link, withRouter } from "react-router-dom";
+import {
+  Collapse,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  Nav,
+  NavItem,
+} from "reactstrap";
+import { UserContext } from "../contexts/UserContext";
+import { spanStyle } from "../css/headerstyle";
 
-const Header = () => {
+const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+  const { user, setUser } = useContext(UserContext);
+  const logout = () => {
+    fetch("/logout");
+    setUser(null);
+    console.log("Log out");
+  };
+  const goToMyPages = () => {
+    props.history.push("/");
+  };
 
   const brandStyle = {
-    width: "150px" 
-  }
+    width: "150px",
+  };
 
   return (
     <>
@@ -25,24 +43,34 @@ const Header = () => {
                 Leta Bostad
               </Link>
             </NavItem>
-            {/* <NavItem>
-              <Link to="/#">Våra Avtal</Link>
-            </NavItem>
+
+            {user && (
+              <NavItem>
+                <Link to="/" className="nav-link">
+                  Mina Sidor
+                </Link>
+              </NavItem>
+            )}
+
             <NavItem>
-              <Link to="/#">Logga In</Link>
+              {!user ? (
+                <Link to="/" className="nav-link">
+                  Logga in
+                </Link>
+              ) : (
+                <Link onClick={logout} to="" className="nav-link">
+                  Logga ut
+                </Link>
+              )}
             </NavItem>
-            <NavItem>
-              <Link to="/#">Om ClearBnb</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/#">Mina Sidor (!)</Link>
-            </NavItem> */}
           </Nav>
-          <p></p>
+          <span style={spanStyle} className="navbar-text" onClick={goToMyPages}>
+            {!user ? "" : `${user.firstName} ${user.lastName}`}
+          </span>
         </Collapse>
       </Navbar>
     </>
   );
 };
 
-export default Header;
+export default withRouter(Header);

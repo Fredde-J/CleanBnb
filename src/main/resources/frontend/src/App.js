@@ -3,21 +3,22 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import ResidenceContextProvider from "./contexts/ResidenceContext";
 import UserContextProvider from "./contexts/UserContext";
+import BookingContextProvider from "./contexts/BookingContext";
 
 import Header from "./components/Header";
 import StartPage from "./pages/StartPage";
 import SearchPage from "./pages/SearchPage";
 import InfoPage from "./pages/InfoPage";
-import ResidentPage from "./pages/Residence.js";
-import RegisterUser from "./pages/RegisterUser.js";
-import Login from "./components/Login";
-import Footer from "./components/Footer";
+import BookingConfirmation from "./pages/BookingConfirmation";
+import Bookings from "./pages/Bookings";
+import BookingComponent from "./components/BookingComponent";
 import CompanyInfoPage from "./pages/CompanyInfoPage";
-import bookingComponent from "./components/bookingComponent";
-import LeaseResidence from './pages/LeaseResidence'
+import Footer from "./components/Footer";
+import Login from "./components/Login";
+import ResidentPage from "./pages/Residence";
+import LeaseResidence from "./pages/LeaseResidence";
+import RegisterUser from "./pages/RegisterUser";
 import LeaseConfirmationPage from './pages/leaseConfirmPage'
-
-
 
 import "./css/style.css";
 
@@ -31,9 +32,10 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
         <UserContextProvider>
-          <ResidenceContextProvider>
+          <BookingContextProvider>
+            <ResidenceContextProvider>
+              <Header />
               <main className="container">
                 <Switch>
                   <Route
@@ -48,19 +50,35 @@ function App() {
                   <Route exact path="/leaseResidence" component={LeaseResidence} />
                   <Route
                     exact
+                    path="/leaseResidence"
+                    component={LeaseResidence}
+                  />
+                  <Route
+                    exact
                     path="/companyinfo"
                     component={CompanyInfoPage}
                   />
                   <Route exact path="/register_user" component={RegisterUser} />
-                  <Route exact path="/preform-login" component={Login} />
                   <Route
                     exact
-                    path="/booking-component"
-                    component={bookingComponent}
+                    path="/residences/:chosenresidenceId/preform-login"
+                    component={Login}
+                  />
+                  <Route
+                    exact
+                    path="/residences/:chosenresidenceId/booking"
+                    component={BookingComponent}
+                  />
+                  <Route exact path="/account/bookings" component={Bookings} />
+                  <Route
+                    exact
+                    path="/residences/:chosenresidenceId/bookingConfirmation"
+                    component={BookingConfirmation}
                   />
                 </Switch>
               </main>
-          </ResidenceContextProvider>
+            </ResidenceContextProvider>
+          </BookingContextProvider>
         </UserContextProvider>
         <Footer />
       </div>

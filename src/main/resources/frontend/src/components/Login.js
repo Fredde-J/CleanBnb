@@ -1,22 +1,16 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import {
-  Link,
-  withRouter
-} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-import {
-  buttons,
-  signin,
-  createAccount
-} from "../css/startPageStyle.js";
+import { buttons, signin, createAccount } from "../css/startPageStyle.js";
 
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { fetchUser } = useContext(UserContext);
+  const [isLoggedin, setIsLoggedIn] = useState(true);
 
-  const logIn = e => {
+  const logIn = (e) => {
     e.preventDefault();
     const credentials =
       "username=" +
@@ -25,23 +19,28 @@ const Login = (props) => {
       encodeURIComponent(password);
     fetchAccount(credentials);
   };
-  
-  
-  //TODO: fix login, only error even with correct email and password
 
-  const fetchAccount = async credentials => {
+  const fetchAccount = async (credentials) => {
     let response = await fetch("/login", {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: credentials
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: credentials,
     });
 
     if (response.url.includes("error")) {
       console.log("Wrong username/password");
+      setIsLoggedIn(false);
     } else {
       console.log("Successfully logged in");
       fetchUser();
-      props.history.push("/search");
+      setIsLoggedIn(true);
+      props.match.params.chosenresidenceId
+        ? props.history.push(
+            `/residences/${props.match.params.chosenresidenceId}/booking`
+          )
+        : props.history.push("/");
     }
   };
 
@@ -62,7 +61,7 @@ const Login = (props) => {
                 className="form-control"
                 id="user"
                 value={username}
-                onChange={e => setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="form-group col-12 col-md-7 mx-auto">
@@ -74,9 +73,16 @@ const Login = (props) => {
                 className="form-control"
                 id="password"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            {!isLoggedin ? (
+              <h5 className="text-warning bg-dark mt-5 col-12 col-md-7 mx-auto">
+                Fel Email eller Lösenord! Vänligen kontrollera dina uppgifter
+              </h5>
+            ) : (
+              <p></p>
+            )}
           </div>
 
           <div className="row">
@@ -98,12 +104,13 @@ const Login = (props) => {
         <p className="text-center text-white col-12 m-0 font-weight-bold">
           Inte registrerad?
         </p>
-        <Link className="btn btn-warning mt-2 col-8 col-md-3 mx-auto" to="/register_user">
-        <button
-          className="btn"
-          style={buttons} >
-          Skapa Konto
-        </button>
+        <Link
+          className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
+          to="/register_user"
+        >
+          <button className="btn" style={buttons}>
+            Skapa Konto
+          </button>
         </Link>
       </div>
     </>
