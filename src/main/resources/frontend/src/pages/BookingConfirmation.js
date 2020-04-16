@@ -9,7 +9,10 @@ import {
   CardText,
   Button,
 } from "reactstrap";
+
 import { BookingContext } from "../contexts/BookingContext";
+import { ResidenceContext } from "../contexts/ResidenceContext";
+
 import {
   cardStyle,
   imgStyle,
@@ -21,8 +24,9 @@ import {
 
 const BookingConfirmation = (props) => {
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
+  const [resolve, setResolve] = useState(null);
   const { bookingInfo, setBookingInfo } = useContext(BookingContext);
-
+  const { chosenResidence, setChosenResidence } = useContext(ResidenceContext);
   console.log(bookingInfo);
 
   const confirmBooking = () => {
@@ -31,18 +35,22 @@ const BookingConfirmation = (props) => {
 
   const createBooking = async (bookingInfo) => {
     // eslint-disable-next-line
-    await fetch("/rest/bookings", {
+    let res = await fetch("/rest/bookings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(bookingInfo),
     });
+    setResolve(await res.json());
   };
 
   useEffect(() => {
     if (!bookingInfo) {
       setBookingInfo(JSON.parse(localStorage.getItem("bookingInfo")));
+    }
+    if (!chosenResidence) {
+      setChosenResidence(JSON.parse(localStorage.getItem("chosenResidence")));
     }
   }, []);
 
@@ -78,11 +86,31 @@ const BookingConfirmation = (props) => {
                   {bookingInfo.startDate} - {bookingInfo.endDate}
                 </CardText>
                 <CardText style={cardTextTop}>Pris</CardText>
-                <CardText style={cardTextBottom}>{bookingInfo.price} kr</CardText>
-                <CardText style={cardTextTop}>Bokningsid</CardText>
-                <CardText style={cardTextBottom}>zhzhzhzhz</CardText>
-                <CardText style={cardTextTop}>Adress:</CardText>
-                <CardText style={cardTextBottom}>Lertegelv 7B</CardText>
+                <CardText style={cardTextBottom}>
+                  {bookingInfo.price} kr
+                </CardText>
+                <>
+                  {resolve && (
+                    <>
+                      <CardText style={cardTextTop}>Bokningsid</CardText>
+                      <CardText style={cardTextBottom}>
+                        {resolve.bookingId}
+                      </CardText>
+                    </>
+                  )}
+                </>
+                <>
+                  {chosenResidence && (
+                    <>
+                      {" "}
+                      <CardText style={cardTextTop}>Adress:</CardText>
+                      <CardText style={cardTextBottom}>
+                        {chosenResidence.residence.address.streetName}{" "}
+                        {chosenResidence.residence.address.streetNumber}
+                      </CardText>
+                    </>
+                  )}
+                </>
                 {bookingConfirmed ? (
                   <Button
                     style={buttonStyle}
