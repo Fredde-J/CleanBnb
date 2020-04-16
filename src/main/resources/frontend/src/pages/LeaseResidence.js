@@ -68,12 +68,12 @@ const LeaseResidence = (props) => {
   const [residence, setResidence] = useState({
     images: null,
     rooms: "0",
-    size: 0,
+    size: "0",
     addressId: 0,
-    beds: 0,
+    beds: "0",
     amenityId: 0,
     userId: 0,
-    price: 0,
+    price: "0",
   });
   const [addressToCreate, setAddressToCreate] = useState({
     city: "",
@@ -114,26 +114,25 @@ const LeaseResidence = (props) => {
     if (!user) {
       props.history.push("/preform-login");
     } else {
+
+      residence.rooms = parseInt(residence.rooms)
+      residence.beds = parseInt(residence.beds)
+      residence.size = parseInt(residence.size)
+      residence.price = parseInt(residence.price)
+
       let addressId = await getNewAddressId(addressToCreate);
       residence.addressId = addressId;
       residence.userId = user.userId;
-      console.log("Residence object after getNewaddressId", residence);
 
       residence.images = images[0];
-      console.log('images',images, 'residence-images', residence.images)
 
       let amenityId = await getNewAmenityId(amenity);
       residence.amenityId = amenityId;
-      console.log("Residence object after getNewAmenityId", residence);
-
-
 
       let residenceId = await getNewResidenceId(residence);
       availabilty.residenceId = residenceId;
-      console.log("ResidenceId after getNewResidenceId", residenceId);
 
       let availabiltyFromDb = await getNewAvailabilityId(availabilty);
-      console.log("availability after getNewAvailability", availabiltyFromDb);
 
       props.history.push("/leaseConfirmation")
     }
@@ -147,11 +146,9 @@ const LeaseResidence = (props) => {
               <p style={headStyle} className="text-center">
                 Hyr ut bostad
               </p>
-
               <CardHeader style={semiHeadStyle} className="mb-4">
                 Adress
               </CardHeader>
-
               <Row form className="">
                 <Col xs={12} md={4} l={3} className="mb-3">
                   <Label for="street">Gata</Label>
@@ -194,7 +191,6 @@ const LeaseResidence = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
-
               <Row form className="">
                 <Col xs={6} md={6}>
                   <FormGroup className="">
@@ -223,29 +219,29 @@ const LeaseResidence = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
-
               <CardHeader style={semiHeadStyle} className="mb-4">
                 Tillgänglighet
               </CardHeader>
-
               <Row form className="">
                 <Label className="col-6 text-left mb-2">Startdatum</Label>
                 <Label className="col-6 text-left mb-2">Slutdatum</Label>
                 <CheckIn onAvailabilityUpdate={updateAvailability}></CheckIn>
                 <CheckOut onAvailabilityUpdate={updateAvailability}></CheckOut>
               </Row>
-
               <CardHeader style={semiHeadStyle} className="mb-4 mt-4">
                 Utrymme
               </CardHeader>
-
               <Row form>
                 <Col xs={6} md={4} className="mb-3">
                   <Label for="beds">Antal sängar</Label>
                   <Input
                     value={residence.beds}
-                    type="number"
-                    onChange={(e) => updateResidence({ beds: +e.target.value })}
+                    type="text"
+                    onChange={(e) => {
+                      if (/^[0-9]*$/.test(e.target.value)) {
+                        updateResidence({ beds: e.target.value });
+                      }
+                    }}
                     id="beds"
                     required
                   />
@@ -255,32 +251,30 @@ const LeaseResidence = (props) => {
                   <Input
                     value={residence.rooms}
                     type="text"
-                    onChange={
-                      e => {
-                          if(/^[0-9]*$/.test(e.target.value)) {
-                          updateResidence({ rooms: e.target.value})
-                          }
+                    onChange={(e) => {
+                      if (/^[0-9]*$/.test(e.target.value)) {
+                        updateResidence({ rooms: e.target.value });
                       }
-
-                        
-                      }
-                    
+                    }}
                     id="rooms"
                     required
                   />
                 </Col>
                 <Col xs={6} md={4}>
-                  <Label for="rooms">Kvadratmeter</Label>
+                  <Label for="size">Kvadratmeter</Label>
                   <Input
                     value={residence.size}
-                    type="number"
-                    onChange={(e) => updateResidence({ size: +e.target.value })}
-                    id="rooms"
+                    type="text"
+                    onChange={(e) => {
+                      if (/^[0-9]*$/.test(e.target.value)) {
+                        updateResidence({ size: e.target.value });
+                      }
+                    }}
+                    id="size"
                     required
                   />
                 </Col>
               </Row>
-
               <CardHeader style={semiHeadStyle} className="mb-4 mt-4">
                 Pris
               </CardHeader>
@@ -288,19 +282,20 @@ const LeaseResidence = (props) => {
                 <Label for="price">Pris per natt</Label>
                 <Input
                   value={residence.price}
-                  type="number"
-                  onChange={(e) => updateResidence({ price: +e.target.value })}
+                  type="text"
+                  onChange={(e) => {
+                    if (/^[0-9]*$/.test(e.target.value)) {
+                      updateResidence({ price: e.target.value });
+                    }
+                  }}
                   id="price"
                   required
                 />
               </Col>
-
               <CardHeader style={semiHeadStyle} className="mb-4 mt-4">
                 Bekvämligheter
               </CardHeader>
-
               <CheckBoxes onAmenityUpdate={updateAmenity}></CheckBoxes>
-
               <Col className="mb-4 mt-4">
                 <Label for="files">Ladda upp bild på bostad:</Label>
                 <Input
