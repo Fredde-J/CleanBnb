@@ -25,26 +25,25 @@ const BookingComponent = (props) => {
     e.preventDefault();
 
     if (startDateString < chosenResidence.startDate) {
-      console.log("Error 1");
       setErrorMessage(
-        "Obs! Vänligen välj en start datum inom den tillgänliga perioden"
+        "Obs! Vänligen välj ett start datum inom den tillgänliga perioden"
       );
       setDatePrice(null);
       setBookingInfoCorrect(false);
     } else if (endDateString > chosenResidence.endDate) {
-      console.log("error 2");
       setErrorMessage(
-        " Obs! Vänligen välj en slut datum inom den tillgänliga perioden"
+        " Obs! Vänligen välj ett slut datum inom den tillgänliga perioden"
       );
       setDatePrice(null);
       setBookingInfoCorrect(false);
     } else if (endDateString <= startDateString) {
-      console.log("Error 3");
       setErrorMessage("Obs! slut datumet är mindre än start datumet");
       setDatePrice(null);
       setBookingInfoCorrect(false);
-    } else if (!endDateString && !startDateString) {
-      setErrorMessage("Obs! Välj ett datum för att gå vidare");
+    } else if (checkInDate == null || checkOutDate == null) {
+      setErrorMessage(
+        "Obs! Välj ett start datum och ett slut datum för att gå vidare"
+      );
       setBookingInfoCorrect(false);
     } else {
       let days = (checkOutDate - checkInDate) / 86400000;
