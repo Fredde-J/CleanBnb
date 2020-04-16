@@ -1,5 +1,6 @@
-import React from 'react';
-import { Col } from "reactstrap";
+import React, { useContext, useState, useEffect } from "react";
+import { Col,Button } from "reactstrap";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 import {
   divStyle1,
   imgStyle,
@@ -7,7 +8,18 @@ import {
   bottomPStyle,
 } from "../css/ResidenceCardStyle";
 
-const confirmPage = ({leaseObject}) => {
+
+const LeaseConfirmPage = (props) => {
+  const {setAvailabilities} = useContext(ResidenceContext)
+  let leaseObject;
+  leaseObject=JSON.parse(localStorage.getItem("newLeaseObject"))
+
+  const backToStartPage = ()=>{
+    localStorage.clear();
+    setAvailabilities(null)
+    props.history.push("/")
+    
+  }
   return (
     <div>
       <h2>Din listning!</h2>
@@ -40,9 +52,12 @@ const confirmPage = ({leaseObject}) => {
             </p>
           </div>
         </div>
+        <Button onClick={backToStartPage}>
+          Startsida
+        </Button>
       </Col>
     </div>
   );
 }
  
-export default confirmPage;
+export default LeaseConfirmPage;

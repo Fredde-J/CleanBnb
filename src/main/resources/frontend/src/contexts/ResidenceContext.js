@@ -103,6 +103,7 @@ export default function ResidenceContextProvider(props) {
     resetFilter,
     setChosenResidence,
     chosenResidence,
+    fetchAvailibilities,
   };
 
   useEffect(() => {

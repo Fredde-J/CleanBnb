@@ -9,6 +9,7 @@ import { buttonStyle } from "../css/searchPageStyle";
 const SearchPage = () => {
   const { availabilities, resetResidences } = useContext(ResidenceContext);
 
+
   return (
     <Row>
       <FilterModal />

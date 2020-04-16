@@ -135,7 +135,9 @@ const LeaseResidence = (props) => {
       let availabiltyFromDb = await getNewAvailabilityId(availabilty);
       console.log(availabiltyFromDb)
 
-      //props.history.push("/leaseConfirmation")
+      localStorage.setItem("newLeaseObject",JSON.stringify(availabiltyFromDb))
+
+      props.history.push("/leaseConfirmation")
     }
   };
   return (
