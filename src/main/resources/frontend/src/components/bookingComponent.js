@@ -17,7 +17,7 @@ const BookingComponent = (props) => {
   const [datePrice, setDatePrice] = useState(null);
   const [bookingInfoCorrect, setBookingInfoCorrect] = useState(false);
 
-  const { chosenResidence } = useContext(ResidenceContext);
+  const { chosenResidence, setChosenResidence } = useContext(ResidenceContext);
   const { user } = useContext(UserContext);
   const { bookingInfo, setBookingInfo } = useContext(BookingContext);
 
@@ -79,10 +79,15 @@ const BookingComponent = (props) => {
   };
 
   useEffect(() => {
-    console.log("In BookingComponenet. chosenResidence:", chosenResidence);
+    if (!chosenResidence) {
+      setChosenResidence(JSON.parse(localStorage.getItem("chosenResidence")));
+    }
   }, []);
+
   useEffect(() => {
-    if (bookingInfo.endDate) {
+    console.log("In bookingComponent. bookingInfo from Context: ", bookingInfo);
+    if (bookingInfo) {
+      localStorage.setItem("bookingInfo", JSON.stringify(bookingInfo));
       props.history.push(
         `/residences/${props.match.params.chosenresidenceId}/bookingConfirmation`
       );
@@ -103,65 +108,71 @@ const BookingComponent = (props) => {
   }, [checkOutDate]);
 
   return (
-    <Row>
-      <Col xs="12" md={{ size: 8, offset: 2 }}>
-        <div style={divStyle1} className="card bg-warning my-3">
-          <div className="card-body">
-            <p style={topPStyle} className="col-12 text-center">
-              Datum
-            </p>
-            <img
-              style={imgStyle}
-              src={chosenResidence.images}
-              alt=""
-              className="card-img-top"
-            />
-            <h6>Boendet är tillängligt från:</h6>
-            <h6>
-              {chosenResidence.startDate} till {chosenResidence.endDate}
-            </h6>
+    <>
+      {chosenResidence ? (
+        <Row>
+          <Col xs="12" md={{ size: 8, offset: 2 }}>
+            <div style={divStyle1} className="card bg-warning my-3">
+              <div className="card-body">
+                <p style={topPStyle} className="col-12 text-center">
+                  Datum
+                </p>
+                <img
+                  style={imgStyle}
+                  src={chosenResidence.residence.images}
+                  alt=""
+                  className="card-img-top"
+                />
+                <h6>Boendet är tillängligt från:</h6>
+                <h6>
+                  {chosenResidence.startDate} till {chosenResidence.endDate}
+                </h6>
 
-            <p>Välj datum för inchecking </p>
-            <Calendar onClickDay={logCheckInDate} value={checkInDate} />
-            <br></br>
-            <p>Välj datum för utcheckning </p>
-            <Calendar onClickDay={logCheckOutDate} value={checkOutDate} />
-            <Form className="my-3">
-              <Row form>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    {!datePrice ? <p></p> : <h1>Pris:{datePrice}kr</h1>}
-                    <Button
-                      onClick={checkAvailability}
-                      color="secondary"
-                      block
-                      className="col-12 col-md-8 offset-md-2"
-                    >
-                      Bekräfta datum
-                    </Button>
-                  </FormGroup>
+                <p>Välj datum för inchecking </p>
+                <Calendar onClickDay={logCheckInDate} value={checkInDate} />
+                <br></br>
+                <p>Välj datum för utcheckning </p>
+                <Calendar onClickDay={logCheckOutDate} value={checkOutDate} />
+                <Form className="my-3">
+                  <Row form>
+                    <Col xs="12" md="6">
+                      <FormGroup>
+                        {!datePrice ? <p></p> : <h1>Pris:{datePrice}kr</h1>}
+                        <Button
+                          onClick={checkAvailability}
+                          color="secondary"
+                          block
+                          className="col-12 col-md-8 offset-md-2"
+                        >
+                          Bekräfta datum
+                        </Button>
+                      </FormGroup>
 
-                  <FormGroup>
-                    {bookingInfoCorrect ? (
-                      <Button
-                        onClick={createBooking}
-                        color="secondary"
-                        block
-                        className="col-12 col-md-8 offset-md-2"
-                      >
-                        Gå vidare
-                      </Button>
-                    ) : (
-                      <p>{errorMessage}</p>
-                    )}
-                  </FormGroup>
-                </Col>
-              </Row>
-            </Form>
-          </div>
-        </div>
-      </Col>
-    </Row>
+                      <FormGroup>
+                        {bookingInfoCorrect ? (
+                          <Button
+                            onClick={createBooking}
+                            color="secondary"
+                            block
+                            className="col-12 col-md-8 offset-md-2"
+                          >
+                            Gå vidare
+                          </Button>
+                        ) : (
+                          <p>{errorMessage}</p>
+                        )}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                </Form>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      ) : (
+        <h1>Loading</h1>
+      )}
+    </>
   );
 };
 
