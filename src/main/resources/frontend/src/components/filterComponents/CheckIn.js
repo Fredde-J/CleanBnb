@@ -25,14 +25,14 @@ const CheckIn = ({ onAvailabilityUpdate }) => {
   }, [checkInDate]);
 
   useEffect(() => {
-                    if (dateString) {
-                      updateFilter({ checkInDate: dateString });
-                      if (onAvailabilityUpdate) {
-                        onAvailabilityUpdate({ startDate: dateString });
-                      }
-                    }
-                    // eslint-disable-next-line
-                  }, [dateString]);
+    if (dateString) {
+      updateFilter({ checkInDate: dateString });
+      if (onAvailabilityUpdate) {
+        onAvailabilityUpdate({ startDate: dateString });
+      }
+    }
+    // eslint-disable-next-line
+  }, [dateString]);
 
   return (
     <div className="col-6">

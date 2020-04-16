@@ -38,7 +38,7 @@ const Residence = (props) => {
 
   useEffect(() => {
     if (listing && chosenResidence) {
-      console.log("In Residence, chosenResidence: ", chosenResidence)
+      localStorage.setItem("chosenResidence", JSON.stringify(chosenResidence));
       history.push(`/residences/${listing.residence.residenceId}/booking`);
     }
     // eslint-disable-next-line
