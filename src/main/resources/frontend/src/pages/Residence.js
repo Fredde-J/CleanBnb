@@ -33,6 +33,7 @@ const Residence = (props) => {
   };
 
   useEffect(() => {
+    console.log(props.match.params.residenceId);
     fetchOneResidence(props.match.params.residenceId);
   }, [props.match.params.residenceId]);
 

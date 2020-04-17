@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import Login from "../components/Login";
 import { Col, Button } from "reactstrap";
 
-import {
-  buttonStyle,
-} from "../css/startPageStyle.js";
+import { buttonStyle } from "../css/startPageStyle.js";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 
 const StartPage = (props) => {
   const { history } = props;
 
   const { user } = useContext(UserContext);
+  const { availabilities, fetchAvailibilities } = useContext(ResidenceContext);
 
   const goToSearch = () => {
     history.push("/search");
@@ -21,6 +21,12 @@ const StartPage = (props) => {
   const goToLease = () => {
     history.push("/leaseResidence");
   };
+
+  useEffect(() => {
+    if (!availabilities) {
+      fetchAvailibilities();
+    }
+  }, [availabilities]);
 
   return (
     <>

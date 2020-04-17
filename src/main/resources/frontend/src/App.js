@@ -18,6 +18,7 @@ import Login from "./components/Login";
 import ResidentPage from "./pages/Residence";
 import LeaseResidence from "./pages/LeaseResidence";
 import RegisterUser from "./pages/RegisterUser";
+import LeaseConfirmationPage from './pages/leaseConfirmPage'
 
 import "./css/style.css";
 
@@ -45,6 +46,8 @@ function App() {
                   <Route exact path="/" component={StartPage} />
                   <Route exact path="/search" component={SearchPage} />
                   <Route exact path="/info" component={InfoPage} />
+                  <Route exact path="/leaseConfirmation" component={LeaseConfirmationPage} />
+                  <Route exact path="/leaseResidence" component={LeaseResidence} />
                   <Route
                     exact
                     path="/leaseResidence"
