@@ -4,13 +4,7 @@ export const BookingContext = createContext();
 
 const BookingContextProvider = (props) => {
   const [bookings, setBookings] = useState([]);
-  const [bookingInfo, setBookingInfo] = useState({
-    startDate: null,
-    endDate: null,
-    residenceId: null,
-    userId: null,
-    price: null,
-  });
+  const [bookingInfo, setBookingInfo] = useState(null);
 
   const fetchBookings = async () => {
     let res = await fetch("/rest/getAllBookings");

@@ -6,7 +6,7 @@ import { ResidenceContext } from "../contexts/ResidenceContext";
 import { UserContext } from "../contexts/UserContext";
 import { BookingContext } from "../contexts/BookingContext";
 
-import { divStyle1, imgStyle, topPStyle } from "../css/bookingComponentStyle";
+import { cardStyle, imgStyle, pStyle } from "../css/bookingComponentStyle";
 
 const BookingComponent = (props) => {
   const [checkInDate, setCheckInDate] = useState(null);
@@ -17,7 +17,7 @@ const BookingComponent = (props) => {
   const [datePrice, setDatePrice] = useState(null);
   const [bookingInfoCorrect, setBookingInfoCorrect] = useState(false);
 
-  const { chosenResidence } = useContext(ResidenceContext);
+  const { chosenResidence, setChosenResidence } = useContext(ResidenceContext);
   const { user } = useContext(UserContext);
   const { bookingInfo, setBookingInfo } = useContext(BookingContext);
 
@@ -26,23 +26,23 @@ const BookingComponent = (props) => {
 
     if (startDateString < chosenResidence.startDate) {
       setErrorMessage(
-        "Obs! Vänligen välj ett start datum inom den tillgänliga perioden"
+        "Obs! Vänligen välj ett startdatum inom den tillgänliga perioden"
       );
       setDatePrice(null);
       setBookingInfoCorrect(false);
     } else if (endDateString > chosenResidence.endDate) {
       setErrorMessage(
-        " Obs! Vänligen välj ett slut datum inom den tillgänliga perioden"
+        " Obs! Vänligen välj ett slutdatum inom den tillgänliga perioden"
       );
       setDatePrice(null);
       setBookingInfoCorrect(false);
     } else if (endDateString <= startDateString) {
-      setErrorMessage("Obs! slut datumet är mindre än start datumet");
+      setErrorMessage("Obs! Slutdatumet är mindre än startdatumet");
       setDatePrice(null);
       setBookingInfoCorrect(false);
     } else if (checkInDate == null || checkOutDate == null) {
       setErrorMessage(
-        "Obs! Välj ett start datum och ett slut datum för att gå vidare"
+        "Obs! Välj ett startdatum och ett slutdatum för att gå vidare"
       );
       setBookingInfoCorrect(false);
     } else {
@@ -79,10 +79,15 @@ const BookingComponent = (props) => {
   };
 
   useEffect(() => {
-    console.log("In BookingComponenet. chosenResidence:", chosenResidence);
+    if (!chosenResidence) {
+      setChosenResidence(JSON.parse(localStorage.getItem("chosenResidence")));
+    }
   }, []);
+
   useEffect(() => {
-    if (bookingInfo.endDate) {
+    console.log("In bookingComponent. bookingInfo from Context: ", bookingInfo);
+    if (bookingInfo) {
+      localStorage.setItem("bookingInfo", JSON.stringify(bookingInfo));
       props.history.push(
         `/residences/${props.match.params.chosenresidenceId}/bookingConfirmation`
       );
@@ -103,65 +108,68 @@ const BookingComponent = (props) => {
   }, [checkOutDate]);
 
   return (
-    <Row>
-      <Col xs="12" md={{ size: 8, offset: 2 }}>
-        <div style={divStyle1} className="card bg-warning my-3">
-          <div className="card-body">
-            <p style={topPStyle} className="col-12 text-center">
-              Datum
-            </p>
-            <img
-              style={imgStyle}
-              src={chosenResidence.images}
-              alt=""
-              className="card-img-top"
-            />
-            <h6>Boendet är tillängligt från:</h6>
-            <h6>
-              {chosenResidence.startDate} till {chosenResidence.endDate}
-            </h6>
+    <>
+      {chosenResidence ? (
+        <Row>
+          <Col xs="12" md={{ size: 8, offset: 2 }}>
+            <div style={cardStyle} className="card bg-warning p-3 my-3">
+              <img
+                style={imgStyle}
+                src={chosenResidence.residence.images}
+                alt=""
+                className="card-img-top"
+              />
+              <div className="card-body text-center">
+                <p style={pStyle}>Boendet är tillängligt från:</p>
+                <p style={pStyle} className="mb-3">
+                  {chosenResidence.startDate} till {chosenResidence.endDate}
+                </p>
 
-            <p>Välj datum för inchecking </p>
-            <Calendar onClickDay={logCheckInDate} value={checkInDate} />
-            <br></br>
-            <p>Välj datum för utcheckning </p>
-            <Calendar onClickDay={logCheckOutDate} value={checkOutDate} />
-            <Form className="my-3">
-              <Row form>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    {!datePrice ? <p></p> : <h1>Pris:{datePrice}kr</h1>}
-                    <Button
-                      onClick={checkAvailability}
-                      color="secondary"
-                      block
-                      className="col-12 col-md-8 offset-md-2"
-                    >
-                      Bekräfta datum
-                    </Button>
-                  </FormGroup>
+                <p style={pStyle}>Välj datum för inchecking </p>
+                <Calendar className="mx-auto" onClickDay={logCheckInDate} value={checkInDate} />
+                <br></br>
+                <p style={pStyle}>Välj datum för utcheckning </p>
+                <Calendar className="mx-auto" onClickDay={logCheckOutDate} value={checkOutDate} />
+                <Form className="my-3">
+                  <Row form>
+                    <Col xs="12">
+                      <FormGroup>
+                        {!datePrice ? <p></p> : <h1>Pris:{datePrice}kr</h1>}
+                        {!bookingInfoCorrect && <Button
+                          onClick={checkAvailability}
+                          color="secondary"
+                          block
+                          className="col-12 col-md-8 offset-md-2"
+                        >
+                          Bekräfta datum
+                        </Button>}
+                      </FormGroup>
 
-                  <FormGroup>
-                    {bookingInfoCorrect ? (
-                      <Button
-                        onClick={createBooking}
-                        color="secondary"
-                        block
-                        className="col-12 col-md-8 offset-md-2"
-                      >
-                        Gå vidare
-                      </Button>
-                    ) : (
-                      <p>{errorMessage}</p>
-                    )}
-                  </FormGroup>
-                </Col>
-              </Row>
-            </Form>
-          </div>
-        </div>
-      </Col>
-    </Row>
+                      <FormGroup>
+                        {bookingInfoCorrect ? (
+                          <Button
+                            onClick={createBooking}
+                            color="secondary"
+                            block
+                            className="col-12 col-md-8 offset-md-2"
+                          >
+                            Gå vidare
+                          </Button>
+                        ) : (
+                          <p>{errorMessage}</p>
+                        )}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                </Form>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      ) : (
+        <h1>Loading</h1>
+      )}
+    </>
   );
 };
 

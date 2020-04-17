@@ -1,4 +1,4 @@
-export const divStyle1 = {
+export const cardStyle = {
   borderRadius: "15px",
   boxShadow: "10px 10px 10px black",
 };
@@ -59,3 +59,10 @@ export const buttonStyle = {
   fontSize: "1.3em",
   fontWeight: "bold",
 };
+
+export const pStyle = {
+  fontWeight: "bold",
+  fontSize: "1.2em",
+  margin: "0",
+  padding: "0"
+}
