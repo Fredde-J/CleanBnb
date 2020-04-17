@@ -119,7 +119,8 @@ const LeaseResidence = (props) => {
       residence.beds = parseInt(residence.beds)
       residence.size = parseInt(residence.size)
       residence.price = parseInt(residence.price)
-
+      residence.price = residence.price*1.15;
+   
       let addressId = await getNewAddressId(addressToCreate);
       residence.addressId = addressId;
       residence.userId = user.userId;
