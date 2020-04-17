@@ -1,34 +1,32 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect } from "react";
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
 export default function UserContextProvider(props) {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const fetchUser = async () => {
-    let res = await fetch('/auth/whoami')
+    let res = await fetch("/auth/whoami");
     try {
-      res = await res.json()
-      setUser(res)
-      console.log(res);
+      res = await res.json();
+      setUser(res);
+      // console.log(res);
     } catch {
       // console.log('Not logged in');
     }
-  }
+  };
 
   useEffect(() => {
-    fetchUser()
-  }, [])
+    fetchUser();
+  }, []);
 
   const values = {
     user,
     fetchUser,
-    setUser
-  }
+    setUser,
+  };
 
   return (
-    <UserContext.Provider value={values}>
-      {props.children}
-    </UserContext.Provider>
-  )
+    <UserContext.Provider value={values}>{props.children}</UserContext.Provider>
+  );
 }

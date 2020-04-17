@@ -1,10 +1,17 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, Nav, NavItem } from "reactstrap";
+import { Link, withRouter } from "react-router-dom";
+import {
+  Collapse,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  Nav,
+  NavItem,
+} from "reactstrap";
 import { UserContext } from "../contexts/UserContext";
-import {pStyle} from "../css/headerstyle"
+import { spanStyle } from "../css/headerstyle";
 
-const Header = () => {
+const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -14,10 +21,13 @@ const Header = () => {
     setUser(null);
     console.log("Log out");
   };
+  const goToMyPages = () => {
+    props.history.push("/");
+  };
 
   const brandStyle = {
-    width: "150px" 
-  }
+    width: "150px",
+  };
 
   return (
     <>
@@ -34,15 +44,13 @@ const Header = () => {
               </Link>
             </NavItem>
 
-            <NavItem>
-              {!user ? (
-                <p></p>
-              ) : (
+            {user && (
+              <NavItem>
                 <Link to="/" className="nav-link">
                   Mina Sidor
                 </Link>
-              )}
-            </NavItem>
+              </NavItem>
+            )}
 
             <NavItem>
               {!user ? (
@@ -50,36 +58,19 @@ const Header = () => {
                   Logga in
                 </Link>
               ) : (
-                <p onClick={logout} className="nav-link" style={pStyle}>
+                <Link onClick={logout} to="" className="nav-link">
                   Logga ut
-                </p>
+                </Link>
               )}
             </NavItem>
-
-            {/* <NavItem>
-              <Link to="/#">Våra Avtal</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/#">Logga In</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/#">Om ClearBnb</Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/#">Mina Sidor (!)</Link>
-            </NavItem> */}
           </Nav>
+          <span style={spanStyle} className="navbar-text" onClick={goToMyPages}>
+            {!user ? "" : `${user.firstName} ${user.lastName}`}
+          </span>
         </Collapse>
-        {!user ? (
-          <p></p>
-        ) : (
-          <h5>
-            {user.firstName} {user.lastName}
-          </h5>
-        )}
       </Navbar>
     </>
   );
 };
 
-export default Header;
+export default withRouter(Header);

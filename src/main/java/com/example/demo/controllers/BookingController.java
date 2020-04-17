@@ -15,7 +15,7 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping("/rest/bookings")
+    @GetMapping("/rest/getAllBookings")
     public List<Booking> getAllBookings (){return bookingService.getAllBookings();}
     
     @PostMapping("/rest/bookings")

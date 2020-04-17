@@ -9,36 +9,40 @@ import {
   pTagStyle2,
   pTagStyle3,
   pTagStyle4,
-  buttonStyle
+  buttonStyle,
 } from "../css/ResidenceCardStyle";
 
-const Residence = props => {
+const Residence = (props) => {
   const [listing, setListing] = useState(null);
+  const { chosenResidence, setChosenResidence } = useContext(ResidenceContext);
+  const { user } = useContext(UserContext);
   const { history } = props;
 
-  const { setChosenResidence } = useContext(ResidenceContext);
-
-  const goToLogin = () => {
-    history.push("/");
+  const goToBookingComponent = () => {
+    setChosenResidence(listing);
+  };
+  const goToLogInPage = () => {
+    setChosenResidence(listing);
+    history.push(`/residences/${listing.residence.residenceId}/preform-login`);
   };
 
-  const goToBookingComponent = async () => {
-    await setChosenResidence(listing.residence);
-    history.push(`/residences/${listing.residence.residenceId}/booking`);
-  };
-
-  const { user } = useContext(UserContext);
-
-  const fetchOneResidence = async id => {
+  const fetchOneResidence = async (id) => {
     let res = await fetch(`/rest/availability/${id}`);
     res = await res.json();
-    // console.log(res);
     setListing(res);
   };
 
   useEffect(() => {
     fetchOneResidence(props.match.params.residenceId);
   }, [props.match.params.residenceId]);
+
+  useEffect(() => {
+    if (listing && chosenResidence) {
+      localStorage.setItem("chosenResidence", JSON.stringify(chosenResidence));
+      history.push(`/residences/${listing.residence.residenceId}/booking`);
+    }
+    // eslint-disable-next-line
+  }, [chosenResidence]);
 
   let amenityArray = [];
 
@@ -103,24 +107,13 @@ const Residence = props => {
                     </p>
                   </Col>
                 </Row>
-                {user ? (
-                  <button
-                    style={buttonStyle}
-                    className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
-                    onClick={goToBookingComponent}
-                  >
-                    Boka
-                  </button>
-                ) : (
-                  <button
-                    style={buttonStyle}
-                    className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
-                    onClick={goToLogin}
-                    residence={listing.residence}
-                  >
-                    Logga in
-                  </button>
-                )}
+                <button
+                  style={buttonStyle}
+                  className="col-12 col-md-6 offset-md-3 mt-4 btn btn-warning"
+                  onClick={user ? goToBookingComponent : goToLogInPage}
+                >
+                  {user ? "Boka" : "Logga in för att Boka"}
+                </button>
               </div>
             </div>
           </Col>
