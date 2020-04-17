@@ -1,78 +1,73 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import Login from "../components/Login";
+import { Col, Button } from "reactstrap";
 
-import {
-  beginSearch,
-  beginSearchText,
-  buttons,
-  signin,
-  createAccount
-} from "../css/startPageStyle.js";
+import { buttonStyle } from "../css/startPageStyle.js";
+import { ResidenceContext } from "../contexts/ResidenceContext";
 
-const StartPage = props => {
+const StartPage = (props) => {
+  const { history } = props;
+
+  const { user } = useContext(UserContext);
+  const { availabilities, fetchAvailibilities } = useContext(ResidenceContext);
+
   const goToSearch = () => {
-    props.history.push("/search");
+    history.push("/search");
   };
+  const goToBookings = () => {
+    history.push("/account/bookings");
+  };
+  const goToLease = () => {
+    history.push("/leaseResidence");
+  };
+
+  useEffect(() => {
+    if (!availabilities) {
+      fetchAvailibilities();
+    }
+    // eslint-disable-next-line
+  }, [availabilities]);
 
   return (
     <>
-      <div
-        className="begin-search card row col-12 col-md-6 mx-auto mt-5 mb-5 bg-warning"
-        style={beginSearch}
-        onClick={goToSearch}
-      >
-        <div className="begin-search-wrapper p-3">
-          <h3 className="begin-search-text text-center" style={beginSearchText}>
-            Börja leta bostad!
-          </h3>
-        </div>
-      </div>
-
-      <div className="signin-form card m-4 bg-transparent" style={signin}>
-        <p className="text-white text-center m-0 font-weight-bold">
-          Har du ett konto?
-        </p>
-        <form className="p-2">
-          <div className="row">
-            <div className="form-group col-12 col-md-7 mx-auto">
-              <label className="text-white font-weight-bold" htmlFor="user">
-                Användarnamn
-              </label>
-              <input type="email" className="form-control" id="user" />
-            </div>
-            <div className="form-group col-12 col-md-7 mx-auto">
-              <label className="text-white font-weight-bold" htmlFor="password">
-                Lösenord
-              </label>
-              <input type="password" className="form-control" id="password" />
-            </div>
-          </div>
-
-          <div className="row">
-            <button
-              type="submit"
-              className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
-              style={buttons}
-            >
-              Logga in
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div
-        className="create-account card m-4 bg-transparent row"
-        style={createAccount}
-      >
-        <p className="text-center text-white col-12 m-0 font-weight-bold">
-          Inte registrerad?
-        </p>
-        <button
-          className="btn btn-warning mt-2 col-8 col-md-3 mx-auto"
-          style={buttons}
+      <Col xs="12" md={{ size: 6, offset: 3 }} className="mt-5">
+        <Button
+          style={buttonStyle}
+          size="lg"
+          color="warning"
+          className="col-12 py-3"
+          onClick={goToSearch}
         >
-          Skapa Konto
-        </button>
-      </div>
+          Börja Leta Bostäder
+        </Button>
+      </Col>
+      {!user ? (
+        <div>
+          <Login></Login>
+        </div>
+      ) : (
+        <Col xs="12" md={{ size: 6, offset: 3 }} className="my-5">
+          <Button
+            style={buttonStyle}
+            size="lg"
+            color="warning"
+            className="col-12 py-3 mb-5"
+            onClick={goToBookings}
+          >
+            Mina Bokningar
+          </Button>
+          <Button
+            style={buttonStyle}
+            size="lg"
+            color="warning"
+            className="col-12 py-3"
+            onClick={goToLease}
+          >
+            Hyr ut en Bostad
+          </Button>
+        </Col>
+      )}
     </>
   );
 };

@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { ResidenceContext } from "../../contexts/ResidenceContext";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-const CheckIn = () => {
-  const [checkInDate, setCheckInDate] = useState(new Date());
+const CheckIn = ({ onAvailabilityUpdate }) => {
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [dateString, setDateString] = useState(null);
   const [nestedModalIn, setNestedModalIn] = useState(false);
+  const { updateFilter } = useContext(ResidenceContext);
 
   const toggleNestedIn = () => {
     setNestedModalIn(!nestedModalIn);
   };
 
-   const logCheckInDate = e => {
-     setCheckInDate(e);
+  const logCheckInDate = (e) => {
+    setCheckInDate(e);
   };
 
   useEffect(() => {
-    console.log("CheckIn: ", checkInDate);
-    
-  }, [checkInDate])
-  
+    if (checkInDate) {
+      setDateString(checkInDate.toLocaleDateString());
+    }
+  }, [checkInDate]);
 
+  useEffect(() => {
+    if (dateString) {
+      updateFilter({ checkInDate: dateString });
+      if (onAvailabilityUpdate) {
+        onAvailabilityUpdate({ startDate: dateString });
+      }
+    }
+    // eslint-disable-next-line
+  }, [dateString]);
 
   return (
     <div className="col-6">
       <Button color="warning" onClick={toggleNestedIn} className="col-12">
-        Incheckning
+        {dateString ? dateString : "Välj Datum.."}
       </Button>
       <Modal isOpen={nestedModalIn} toggle={toggleNestedIn}>
         <ModalHeader>Välj Datum för Incheckning</ModalHeader>

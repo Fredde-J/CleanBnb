@@ -1,40 +1,68 @@
-import React from 'react'
-import {inputSize} from '../../css/checkBoxStyle'
+import React, { useState, useEffect, useContext } from "react";
+import { Row } from "reactstrap";
+import { ResidenceContext } from "../../contexts/ResidenceContext";
+import { inputSize } from "../../css/checkBoxStyle";
 
+const CheckBoxes = ({ onAmenityUpdate }) => {
+  const [amenity, setAmenity] = useState(null);
+  const { updateFilter } = useContext(ResidenceContext);
+  const amenities = [
+    "balkong",
+    "badkar",
+    "diskmaskin",
+    "frys",
+    "kyl",
+    "tv",
+    "tvättmaskin",
+    "wifi",
+  ];
 
-const CheckBoxes = () => {
+  const handleClick = (e) => {
+    if (e.target.checked) {
+      setAmenity({
+        ...amenity,
+        [e.target.value]: true,
+      });
+      if(onAmenityUpdate){
+        onAmenityUpdate({[e.target.value]: true})
+      }
+    } else {
+      setAmenity({
+        ...amenity,
+        [e.target.value]: false,
+      });
+      if(onAmenityUpdate){
+        onAmenityUpdate({[e.target.value]: false})
+      }
+    }
+  };
+  useEffect(() => {
+    if (amenity) {
+      updateFilter({ amenity });
+    }
+    // eslint-disable-next-line
+  }, [amenity]);
+
   return (
+    <Row className="p-3">
+      {amenities.map((a, i) => (
+        <div key={i} className="col-6 my-2">
+          <input
+            style={inputSize}
+            className="checkbox col-3"
+            type="checkbox"
+            id={a}
+            name={a}
+            value={a}
+            onClick={handleClick}
+          />
+          <label className="col-9" htmlFor={a}>
+            {a.charAt(0).toUpperCase() + a.slice(1)}
+          </label>
+        </div>
+      ))}
+    </Row>
+  );
+};
 
-    <div className="row px-3 py-5">
-    <div className="row col-6 col-md-4 my-2  mx-auto">
-      <input style={inputSize}className="col-3"type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/>
-      <label className="col-9 px-2" htmlFor="vehicle1">tvättmaskin</label>
-    </div>
-    <div className="row col-6 col-md-4 my-2 mx-auto">
-      <input style={inputSize} className="col-3"type="checkbox" id="vehicle2" name="vehicle2" value="Car"/>
-      <label className="col-9 px-2" htmlFor="vehicle2">Wifi</label>
-    </div>
-    <div className=" row col-6 col-md-4 my-2 mx-auto">
-      <input style={inputSize} className="col-3"type="checkbox" id="vehicle3" name="vehicle3" value="Boat"/>
-      <label className="col-9 px-2" htmlFor="vehicle3">AC</label>
-    </div>
-
-    <div className="row col-6 col-md-4 my-2 mx-auto">
-      <input style={inputSize}className="col-3"type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/>
-      <label className="col-9 px-2" htmlFor="vehicle1">Balkong</label>
-    </div>
-    <div className="row col-6 col-md-4 my-2 mx-auto">
-      <input style={inputSize} className="col-3"type="checkbox" id="vehicle2" name="vehicle2" value="Car"/>
-      <label className="col-9 px-2" htmlFor="vehicle2">Badkar</label>
-    </div>
-    <div className=" row col-6 col-md-4 my-2 mx-auto">
-      <input style={inputSize} className="col-3"type="checkbox" id="vehicle3" name="vehicle3" value="Boat"/>
-      <label className="col-9 px-2" htmlFor="vehicle3">TV</label>
-    </div>
-
-    </div>
-
-  )
-}
-
-export default CheckBoxes
+export default CheckBoxes;
