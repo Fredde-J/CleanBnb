@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { Col } from "reactstrap";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ import {
   imgStyle,
   topPStyle,
   bottomPStyle,
-} from "../css/ResidenceCardStyle";
+} from "../css/bookingCardStyle";
 
 const BookingCard = ({ booking }) => {
   const [modal, setModal] = useState(false);
@@ -30,34 +30,36 @@ const BookingCard = ({ booking }) => {
 
   return (
     <Col xs="12" onClick={toggle}>
-      <div style={divStyle1} className="card my-3 p-3">
+      <div style={divStyle1} className="card my-3 p-2">
         <img
           style={imgStyle}
           src={booking.residence.images}
           alt=""
           className="card-img-top"
         />
-        <div className="card-body row">
-          <p style={topPStyle} className="col-6 text-left">
+        <div
+          className="card-body"
+        >
+          <p style={topPStyle} className="col-8">
             {booking.residence.address.city}
           </p>
 
-          <p style={bottomPStyle} className="col-6">
+          <p style={bottomPStyle} className="col-4">
             {booking.residence.beds} sängar
           </p>
-          <p style={bottomPStyle} className="col-6 text-right">
+          <p style={bottomPStyle} className="col-12">
             {booking.startDate} till {booking.endDate}
           </p>
         </div>
       </div>
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>
+      <Modal className="bg-warning border-0" isOpen={modal} toggle={toggle}>
+        <ModalHeader className="bg-warning border-0" toggle={toggle}>
           Bokning för: {booking.residence.address.streetName}{" "}
           {booking.residence.address.streetNumber}
           {", "}
           {booking.residence.address.zipCode} {booking.residence.address.city}
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="bg-warning border-0">
           <img
             style={imgStyle}
             src={booking.residence.images}
@@ -81,14 +83,14 @@ const BookingCard = ({ booking }) => {
           <p style={bottomPStyle}>Bekvämligheter</p>
           <p style={bottomPStyle}>{amenityArray.join(", ")}</p>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter className="bg-warning border-0">
           <Link
             to={"/residences/" + booking.residence.residenceId}
             className="nav-link"
           >
-            <Button color="warning">Gå till lägenhetssidan</Button>{" "}
+            <Button color="outline-dark">Gå till lägenhetssidan</Button>{" "}
           </Link>
-          <Button color="warning" onClick={toggle}>
+          <Button color="outline-dark" onClick={toggle}>
             Stäng
           </Button>
         </ModalFooter>

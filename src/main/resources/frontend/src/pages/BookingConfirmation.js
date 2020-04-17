@@ -68,6 +68,7 @@ const BookingConfirmation = (props) => {
     if (!chosenResidence) {
       setChosenResidence(JSON.parse(localStorage.getItem("chosenResidence")));
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

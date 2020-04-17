@@ -32,10 +32,12 @@ const LeaseResidence = (props) => {
   const filesChange = async (fileList) => {
     const formData = new FormData();
 
+    // eslint-disable-next-line
     if (!fileList.length) return;
 
-    images = []
+    images = [];
 
+    // eslint-disable-next-line
     Array.from(Array(fileList.length).keys()).map((x) => {
       formData.append("files", fileList[x], fileList[x].name);
     });
@@ -46,7 +48,7 @@ const LeaseResidence = (props) => {
     }).catch(console.warn);
 
     response = await response.json();
-    console.log('response', response)
+    // console.log("response", response);
     images = response;
   };
 
@@ -114,13 +116,12 @@ const LeaseResidence = (props) => {
     if (!user) {
       props.history.push("/preform-login");
     } else {
+      residence.rooms = parseInt(residence.rooms);
+      residence.beds = parseInt(residence.beds);
+      residence.size = parseInt(residence.size);
+      residence.price = parseInt(residence.price);
+      residence.price = residence.price * 1.15;
 
-      residence.rooms = parseInt(residence.rooms)
-      residence.beds = parseInt(residence.beds)
-      residence.size = parseInt(residence.size)
-      residence.price = parseInt(residence.price)
-      residence.price = residence.price*1.15;
-   
       let addressId = await getNewAddressId(addressToCreate);
       residence.addressId = addressId;
       residence.userId = user.userId;
@@ -134,11 +135,11 @@ const LeaseResidence = (props) => {
       availabilty.residenceId = residenceId;
 
       let availabiltyFromDb = await getNewAvailabilityId(availabilty);
-      console.log(availabiltyFromDb)
+      // console.log(availabiltyFromDb);
 
-      localStorage.setItem("newLeaseObject",JSON.stringify(availabiltyFromDb))
+      localStorage.setItem("newLeaseObject", JSON.stringify(availabiltyFromDb));
 
-      props.history.push("/leaseConfirmation")
+      props.history.push("/leaseConfirmation");
     }
   };
   return (

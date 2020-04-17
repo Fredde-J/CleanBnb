@@ -47,10 +47,10 @@ const BookingComponent = (props) => {
       setBookingInfoCorrect(false);
     } else {
       let days = (checkOutDate - checkInDate) / 86400000;
-      console.log(days);
+      // console.log(days);
 
       setDatePrice(days * chosenResidence.residence.price);
-      console.log(chosenResidence.residence.price * days);
+      // console.log(chosenResidence.residence.price * days);
 
       setErrorMessage(null);
       setBookingInfoCorrect(true);
@@ -82,10 +82,11 @@ const BookingComponent = (props) => {
     if (!chosenResidence) {
       setChosenResidence(JSON.parse(localStorage.getItem("chosenResidence")));
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    console.log("In bookingComponent. bookingInfo from Context: ", bookingInfo);
+    // console.log("In bookingComponent. bookingInfo from Context: ", bookingInfo);
     if (bookingInfo) {
       localStorage.setItem("bookingInfo", JSON.stringify(bookingInfo));
       props.history.push(
@@ -126,23 +127,33 @@ const BookingComponent = (props) => {
                 </p>
 
                 <p style={pStyle}>Välj datum för inchecking </p>
-                <Calendar className="mx-auto" onClickDay={logCheckInDate} value={checkInDate} />
+                <Calendar
+                  className="mx-auto"
+                  onClickDay={logCheckInDate}
+                  value={checkInDate}
+                />
                 <br></br>
                 <p style={pStyle}>Välj datum för utcheckning </p>
-                <Calendar className="mx-auto" onClickDay={logCheckOutDate} value={checkOutDate} />
+                <Calendar
+                  className="mx-auto"
+                  onClickDay={logCheckOutDate}
+                  value={checkOutDate}
+                />
                 <Form className="my-3">
                   <Row form>
                     <Col xs="12">
                       <FormGroup>
                         {!datePrice ? <p></p> : <h1>Pris:{datePrice}kr</h1>}
-                        {!bookingInfoCorrect && <Button
-                          onClick={checkAvailability}
-                          color="secondary"
-                          block
-                          className="col-12 col-md-8 offset-md-2"
-                        >
-                          Bekräfta datum
-                        </Button>}
+                        {!bookingInfoCorrect && (
+                          <Button
+                            onClick={checkAvailability}
+                            color="secondary"
+                            block
+                            className="col-12 col-md-8 offset-md-2"
+                          >
+                            Bekräfta datum
+                          </Button>
+                        )}
                       </FormGroup>
 
                       <FormGroup>

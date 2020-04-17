@@ -21,6 +21,7 @@ import RegisterUser from "./pages/RegisterUser";
 import LeaseConfirmationPage from './pages/leaseConfirmPage'
 
 import "./css/style.css";
+import ScrollUpButton from "./components/ScrollUpButton";
 
 function App() {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
             <ResidenceContextProvider>
               <Header />
               <main className="container">
+                <ScrollUpButton />
                 <Switch>
                   <Route
                     exact

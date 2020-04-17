@@ -26,6 +26,7 @@ const StartPage = (props) => {
     if (!availabilities) {
       fetchAvailibilities();
     }
+    // eslint-disable-next-line
   }, [availabilities]);
 
   return (

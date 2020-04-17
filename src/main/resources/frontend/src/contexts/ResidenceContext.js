@@ -33,13 +33,13 @@ export default function ResidenceContextProvider(props) {
   const fetchAvailibilities = async () => {
     if (localStorage.getItem("availabilities")) {
       setAvailabilities(JSON.parse(localStorage.getItem("availabilities")));
-      console.log("Fetched availabilities from Local Store");
+      // console.log("Fetched availabilities from Local Store");
     } else {
       let res = await fetch("/rest/availability");
       res = await res.json();
       localStorage.setItem("availabilities", JSON.stringify(res));
       setAvailabilities(res);
-      console.log("Fetched availabilities from database");
+      // console.log("Fetched availabilities from database");
     }
   };
 

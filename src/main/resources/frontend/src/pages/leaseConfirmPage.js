@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Col,Button } from "reactstrap";
 import { ResidenceContext } from "../contexts/ResidenceContext";
 import {
@@ -22,8 +22,8 @@ const LeaseConfirmPage = (props) => {
   }
   return (
     <div>
-      <h2>Din listning!</h2>
-      <Col xs="12" md="6">
+      <h2 style={{borderRadius: "15px"}} className="text-center mt-3 bg-warning col-12 col-md-6 offset-md-3 p-2">Din Listning!</h2>
+      <Col xs="12" md={{size: 8, offset:2}}>
         <div
           style={divStyle1}
           className="card my-3 p-3"
@@ -52,7 +52,7 @@ const LeaseConfirmPage = (props) => {
             </p>
           </div>
         </div>
-        <Button onClick={backToStartPage}>
+        <Button style={{fontSize: "1.5em", borderRadius: "15px"}} color="warning" className="col-12 col-md-8 offset-md-2 mb-4 mt-2" onClick={backToStartPage}>
           Startsida
         </Button>
       </Col>

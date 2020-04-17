@@ -26,6 +26,7 @@ const BookingContextProvider = (props) => {
     setBookings,
     bookingInfo,
     setBookingInfo,
+    fetchBookings
   };
   return (
     <BookingContext.Provider value={values}>
